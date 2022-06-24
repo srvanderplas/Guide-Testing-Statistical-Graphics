@@ -1,0 +1,249 @@
+---
+title: Short Paper
+author-list:
+  - name: Alice Anonymous
+    affiliation: Some Institute of Technology
+    email: alice@example.com
+  - name: Bob Security
+    affiliation: Another University
+    email: bob@example.com
+
+abstract: |
+  Duis autem vel eum iriure dolor in hendrerit in vulputate
+  velit esse molestie consequat, vel illum dolore eu feugiat nulla
+  facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
+  praesent luptatum zzril delenit augue duis dolore te feugait nulla
+  facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+  sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+  suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+  vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+  consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et
+  accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
+  delenit augue duis dolore te feugait nulla facilisi.
+
+category: Research
+bib: template.bib
+bibstyle: abbrv-doi.bst
+csl: ieee-transactions-on-visualization-and-computer-graphics.csl
+ieee-keywords: 
+  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visu\-al\-iza\-tion techniques}{Treemaps}
+  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization design and evaluation methods}{}
+firstsection: Introduction
+
+link-citations: false
+
+format: 
+  latex:
+    template-partials: [partials/doc-class.tex, partials/title.tex, partials/before-body.tex, partials/after-body.tex]
+
+pdf-engine: pdflatex
+
+date: last-modified
+---
+
+This template is for papers of VGTC-sponsored conferences which are \emph{\textbf{not}} published in a special issue of TVCG.
+
+
+# Using the Style Template
+
+- If you receive compilation errors along the lines of `\texttt{Package ifpdf Error: Name clash, \textbackslash ifpdf is already defined}` then please add a new line `\texttt{\textbackslash let\textbackslash ifpdf\textbackslash relax}` right after the `\texttt{\textbackslash documentclass[journal]\{vgtc\}}` call. Note that your error is due to packages you use that define `\texttt{\textbackslash ifpdf}` which is obsolete (the result is that `\texttt{\textbackslash ifpdf}` is defined twice); these packages should be changed to use ifpdf package instead.
+- The style uses the hyperref package, thus turns references into internal links. We thus recommend to make use of the `\texttt{\textbackslash autoref\{reference\}}` call (instead of `\texttt{Figure\~{}\textbackslash ref\{reference\}}` or similar) since `\texttt{\textbackslash autoref\{reference\}}` turns the entire reference into an internal link, not just the number. Example: @fig-sample.
+- The style automatically looks for image files with the correct extension (eps for regular \LaTeX; pdf, png, and jpg for pdf\LaTeX), in a set of given subfolders (figures/, pictures/, images/). It is thus sufficient to use `\texttt{\textbackslash includegraphics\{CypressView\}}` (instead of `\texttt{\textbackslash includegraphics\{pictures/CypressView.jpg\}}`).
+- For adding hyperlinks and DOIs to the list of references, you can use `\texttt{\textbackslash bibliographystyle\{abbrv-doi-hyperref-narrow\}}` (instead of `\texttt{\textbackslash bibliographystyle\{abbrv\}}`). It uses the doi and url fields in a bib\TeX\ entry and turns the entire reference into a link, giving priority to the doi. The doi can be entered with or without the `\texttt{http://dx.doi.org/}` url part. See the examples in the bib\TeX\ file and the bibliography at the end of this template.\\[1em]
+\textbf{Note 1:} occasionally (for some \LaTeX\ distributions) this hyper-linked bib\TeX\ style may lead to \textbf{compilation errors} (`\texttt{pdfendlink ended up in different nesting level ...}`) if a reference entry is broken across two pages (due to a bug in hyperref). In this case make sure you have the latest version of the hyperref package (i.\,e., update your \LaTeX\ installation/packages) or, alternatively, revert back to `\texttt{\textbackslash bibliographystyle\{abbrv-doi-narrow\}}` (at the expense of removing hyperlinks from the bibliography) and try `\texttt{\textbackslash bibliographystyle\{abbrv-doi-hyperref-narrow\}}` again after some more editing.\\[1em]
+\textbf{Note 2:} the `\texttt{-narrow}` versions of the bibliography style use the font `PTSansNarrow-TLF` for typesetting the DOIs in a compact way. This font needs to be available on your \LaTeX\ system. It is part of the [`paratype` package](https://www.ctan.org/pkg/paratype), and many distributions (such as MikTeX) have it automatically installed. If you do not have this package yet and want to use a `\texttt{-narrow}` bibliography style then use your \LaTeX\ system's package installer to add it. If this is not possible you can also revert to the respective bibliography styles without the `\texttt{-narrow}` in the file name.\\[1em]
+DVI-based processes to compile the template apparently cannot handle the different font so, by default, the template file uses the \texttt{abbrv-doi} bibliography style but the compiled PDF shows you the effect of the \texttt{abbrv-doi-hyperref-narrow} style.
+
+# Bibliography Instructions
+
+- Sort all bibliographic entries alphabetically but the last name of the first author. This \LaTeX/bib\TeX\ template takes care of this sorting automatically.
+- Merge multiple references into one; e.\,g., use \cite{Max-1995-OMF,Kitware-2003} (not \cite{Kitware-2003}\cite{Max-1995-OMF}). Within each set of multiple references, the references should be sorted in ascending order. This \LaTeX/bib\TeX\ template takes care of both the merging and the sorting automatically.
+- Verify all data obtained from digital libraries, even ACM's DL and IEEE Xplore  etc.\ are sometimes wrong or incomplete.
+- Do not trust bibliographic data from other services such as Mendeley.com, Google Scholar, or similar; these are even more likely to be incorrect or incomplete.
+- Articles in journal---items to include:
+  - author names
+	- title
+	- journal name
+	- year
+	- volume
+	- number
+	- month of publication as variable name (i.\,e., \{jan\} for January, etc.; month ranges using \{jan \#\{/\}\# feb\} or \{jan \#\{-{}-\}\# feb\})
+
+- use journal names in proper style: correct: "IEEE Transactions on Visualization and Computer Graphics", incorrect: "Visualization and Computer Graphics, IEEE Transactions on"
+- Papers in proceedings---items to include:
+  - author names
+	- title
+	- abbreviated proceedings name: e.\,g., "Proc.\textbackslash{} CONF\_ACRONYNM" without the year; example: "Proc.\textbackslash{} CHI", "Proc.\textbackslash{} 3DUI", "Proc.\textbackslash{} Eurographics", "Proc.\textbackslash{} EuroVis"
+	- year
+	- publisher
+	- town with country of publisher (the town can be abbreviated for well-known towns such as New York or Berlin)
+
+- article/paper title convention: refrain from using curly brackets, except for acronyms/proper names/words following dashes/question marks etc.; example:
+	- paper "Marching Cubes: A High Resolution 3D Surface Construction Algorithm"
+	- should be entered as "\{M\}arching \{C\}ubes: A High Resolution \{3D\} Surface Construction Algorithm" or  "\{M\}arching \{C\}ubes: A high resolution \{3D\} surface construction algorithm"
+	- will be typeset as "Marching Cubes: A high resolution 3D surface construction algorithm"
+
+- for all entries
+	- DOI can be entered in the DOI field as plain DOI number or as DOI url; alternative: a url in the URL field
+	- provide full page ranges AA-{}-BB
+
+- when citing references, do not use the reference as a sentence object; e.\,g., wrong: "In \cite{Lorensen-1987-MCA} the authors describe \dots", correct: "Lorensen and Cline \cite{Lorensen-1987-MCA} describe \dots"
+
+
+# Example Section
+
+Lorem\marginpar{\small You can use the margins for comments while editing the submission, but please remove the marginpar comments for submission.} ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam
+voluptua [@Kitware-2003;Max-1995-OMF]. At vero eos et accusam et
+justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+invidunt ut labore et dolore magna aliquyam erat, sed diam
+voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est.
+
+# Exposition
+
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
+molestie consequat, vel illum dolore eu feugiat nulla facilisis at
+vero eros et accumsan et iusto odio dignissim qui blandit praesent
+luptatum zzril delenit augue duis dolore te feugait nulla
+facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+aliquam erat volutpat~\cite{Kindlmann-1999-SAG}.
+
+\begin{equation}
+\sum_{j=1}^{z} j = \frac{z(z+1)}{2}
+\end{equation}
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet.
+
+## Lorem ipsum
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+invidunt ut labore et dolore magna aliquyam erat, sed diam
+voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. 
+
+
+## Mezcal Head
+
+Lorem ipsum dolor sit amet (see @fig-sample), consetetur sadipscing elitr, sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. 
+
+### Duis Autem
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+invidunt ut labore et dolore magna aliquyam erat, sed diam
+voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est. Lorem
+ipsum dolor sit amet.
+
+
+![A visualization of the 1990--2015 data. The image is from @Isenberg-2017-VMC and is in the public domain.](paper-count-w-2015-new){#fig-sample}
+
+
+### Ejector Seat Reservation
+
+Duis autem \cite{Lorensen-1987-MCA}^[The algorithm behind
+Marching Cubes \cite{Lorensen-1987-MCA} had already been
+described by Wyvill et al. \cite{Wyvill-1986-DSS} a year
+earlier.] vel eum iriure dolor in hendrerit
+in vulputate velit esse molestie consequat,^[Footnotes
+appear at the bottom of the column.] vel illum dolore eu
+feugiat nulla facilisis at vero eros et accumsan et iusto odio
+dignissim qui blandit praesent luptatum zzril delenit augue duis
+dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+ut laoreet dolore magna aliquam erat volutpat.
+
+
+#### Confirmed Ejector Seat Reservation
+
+Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+suscipit lobortis nisl ut aliquip ex ea commodo
+consequat [@Nielson-1991-TAD]. Duis autem vel eum iriure dolor in
+hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+eu feugiat nulla facilisis at vero eros et accumsan et iusto odio
+dignissim qui blandit praesent luptatum zzril delenit augue duis
+dolore te feugait nulla facilisi.
+
+#### Rejected Ejector Seat Reservation
+
+Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+
+
+# Conclusion
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+invidunt ut labore et dolore magna aliquyam erat, sed diam
+voluptua. At vero eos et accusam et justo duo dolores et ea
+rebum.
+
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this-
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this 
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).

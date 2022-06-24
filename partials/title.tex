@@ -1,0 +1,41 @@
+$if(title)$
+  \title{$title$}
+$endif$
+$if(subtitle)$
+  \subtitle{$subtitle$}
+$endif$
+  
+\author{%
+$for(author-list)$%
+  $it.name$\thanks{email: $it.email$}\\\scriptsize $it.dept$\\\scriptsize $it.affiliation$%
+  $sep$\and%
+$endfor$%
+}
+
+$if(date)$
+  \date{$date$}
+$endif$
+
+$if(teaserimg)$
+\teaser{
+  \centering
+  \includegraphics[width=\linewidth]{$teaser-img$}
+  \caption{$teaser-caption$}
+  \label{fig:teaser}
+}
+$endif$
+
+$if(abstract)$
+\abstract{$abstract$}
+$endif$
+
+\vgtccategory{$category$}
+
+$if(ieee-keywords)$
+\CCScatlist{
+$for(ieee-keywords)$
+$it$
+$sep$;
+$endfor$
+}
+$endif$

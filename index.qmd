@@ -1,0 +1,44 @@
+---
+title: Testing Statistical Graphics
+author-list:
+  - name: Emily Robinson
+    dept: Statistics Department
+    affiliation: CalPoly
+    email: earobinson@huskers.unl.edu
+  - name: Heike Hofmann
+    dept: Statistics Department
+    affiliation: Iowa State University
+    email: hofmann@iastate.edu
+  - name: Susan Vanderplas
+    dept: Statistics Department
+    affiliation: University of Nebraska, Lincoln
+    email: svanderplas2@unl.edu
+
+abstract: |
+  We outline our process and common pitfalls for developing and testing human perception of statistical graphics. 
+
+category: Research
+bib: refs.bib
+bibstyle: class-info/abbrv-doi.bst
+# csl: ieee-transactions-on-visualization-and-computer-graphics.csl
+ieee-keywords: 
+  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization design and evaluation methods}{}
+  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Empirical studies in visualization}{}
+  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization application domains}{Scientific visualization}
+  - \CCScatTwelve{Applied computing}{Physical sciences and engineering}{Mathematics and statistics}{}
+firstsection: Introduction
+
+link-citations: false
+
+format: 
+  pdf:
+    keep-tex: true
+    template-partials: [partials/doc-class.tex, partials/title.tex, partials/before-body.tex, partials/after-body.tex]
+
+pdf-engine: pdflatex
+
+date: last-modified
+---
+
+
+Goal: Integrate information from the design of \cite{clusters,sineillusion,emily-diss,power}. 
