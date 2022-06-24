@@ -1,3 +1,6 @@
+# How to use Make on Windows:
+# https://stackoverflow.com/questions/2532234/how-to-run-a-makefile-in-windows
+
 .PHONY: default
 
 # Use texfot if available. Produces less output.
