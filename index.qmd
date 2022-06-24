@@ -16,6 +16,7 @@ author-list:
 
 abstract: |
   We outline our process and common pitfalls for developing and testing human perception of statistical graphics. 
+  Goal: Integrate information from the design of \cite{clusters,sineillusion,emily-diss,power}. 
 
 category: Research
 bib: refs.bib
@@ -40,5 +41,40 @@ pdf-engine: pdflatex
 date: last-modified
 ---
 
+Importance of testing statistical graphics
 
-Goal: Integrate information from the design of \cite{clusters,sineillusion,emily-diss,power}. 
+# Testing Methods and Engagement
+
+Lineups
+You Draw It
+Direct Assessment
+
+
+# Developing a Model
+This is the single longest part of the entire testing process
+
+## The Role of Simulation
+
+## Selecting Parameters
+
+
+
+# Pilot Testing and Quality Assurance
+
+Test early, test often, and make sure you look at all of your plots!!!
+If you're generating new data for each participant, be sure to save that data to a database so that you can at least see where/how things went wrong!
+
+# Gathering and Analyzing Additional Information
+
+Calculator observations
+Scratchpad
+Explanation
+Confidence Level
+User Interactions
+Browser fingerprints
+
+# Building the Application
+Shiny is awesome
+
+# Analyzing the Data
+Be prepared for surprises
