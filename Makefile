@@ -13,7 +13,7 @@ QUARTO = quarto render '$<'
 
 default: index.pdf
 
-index.tex: index.qmd
+index.tex: index.qmd refs.bib
 	$(QUARTO)
 
 # INFO: If the file repeatedly fails to compile, use:
