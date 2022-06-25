@@ -108,38 +108,71 @@ Whichever testing method is chosen should be appropriate to the type of question
 
 
 # Developing a Model
-This is the single longest part of the entire testing process
+
+This is the single longest part of the entire testing process, in part because choosing a model that replicates important visual features of the data is an extremely complex process\cite{hullmanDesigningInteractiveExploratory2021,cookFoundationAvailableThinking2021,vanderplasDesigningGraphicsRequires2021}. 
+
+- Importance of starting somewhere
+
 
 ## The Role of Simulation
 
+Visual assessment is key, but narrowing the parameter space down to something that can be statistically determined is useful for providing a sort of magnitude of difficulty assessment numerically.
+
+Feature engineering is a key part of why this works - understanding the visual calculations that are being performed (via introspection) can help with identifying a useful summary statistic. Gini inequality for clustering, R^2 for linear regression, lack-of-fit statistic for difference between exponential curves.
+
 ## Selecting Parameters
 
+One experimenter develops the model and selects the broad range of parameters, the other calibrates those parameters. 
 
-# Gathering and Analyzing Additional Information
+## Visual Assessment is Critical
 
-Calculator observations
-Scratchpad
-Explanation
-Confidence Level
-User Interactions
-Browser fingerprints
+Always look at an exhaustive amount of your models... several times, with fresh eyes. Do think-aloud pilot testing.
 
+Explain the mishap with feature hierarchy - too many plots (because giant factorial experiment) meant that we missed cluster size imbalance. When we corrected that imbalance, though, we ended up with clusters that were oddly shaped. Sometimes, there's just no way to win, and we might have needed to rethink our sampling model. 
+
+
+# Experimental Design Considerations
+
+- Attention span
+- Sensory overload - too many lineups in a row is hard
+- Comparing across participants - importance of random effects for participant skill level
+- Consider asking both demographic questions and questions about mathematical skill level. We would have been wise to ask about country of primary/secondary education in our log study, as logarithms are introduced at different levels in different countries. But we didn't think of that when recruiting participants, so it would have been hard to manipulate that factor. There are always missed opportunities.
+
+- We've had lots of success with complete and incomplete block designs
+
+- Importance of randomizing trial order to combat order effects
 
 # Pilot Testing and Quality Assurance
 
 Test early, test often, and make sure you look at all of your plots!!!
 If you're generating new data for each participant, be sure to save that data to a database so that you can at least see where/how things went wrong!
 
-# Monitoring the Data
+# Data Collection and Monitoring
+
+Prolific, Amazon Turk, testing with interested subgroups.
 
 Use of pilot data to set up analysis documents, github actions and/or shiny dashboard to monitor incoming results.
 
 Not necessarily important for small tests of limited duration, because data from e.g. prolific comes in so quickly. Server load is actually a much greater concern. 
 
-# Building the Application
-Shiny is awesome
 
 # Analyzing the Data
 Be prepared for surprises
+
+Use of linear models to test lineup data - see-value approach is great for single plots, but when we're interested in more concrete effects over many plots, it can be better to aggregate effects and just think of a multinomial model.
+
+Direct estimation can be tricky to analyze because of how messy the data is. Additional supplemental information can be critical to provide context, but graphical analysis of participant responses was more helpful than modeling for our experiment. 
+
+Useful graphical analysis methods: density plots + rug plots (so that you can see rounding effects and common errors), wordclouds, estimation sketches + spaghetti plots
+
+## Analyzing Supplemental Information
+
+Calculator observations
+Scratchpad
+Explanation
+Confidence Level
+User Interactions
+
+# Conclusion
 
 \clearpage
