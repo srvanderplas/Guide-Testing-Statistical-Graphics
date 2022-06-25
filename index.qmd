@@ -46,23 +46,65 @@ date: last-modified
 Charts and data visualizations are primary methods of communicating scientific information to the public in what we typically hope is an easy-to-digest, visually attractive package.
 There are many strategies for creating charts and graphs, from Tufte-esque minimalism\cite{tufte} to charts designed with extra imagery and aesthetic appeal that draw the viewer's attention and persist in memory\cite[Ch 3]{cairoFunctionalArtIntroduction2012}. 
 For a specified type of data, there are also usually many different chart forms to display that data: for instance, if we have a set of categorical data and we wish to show the relative proportions of each category, we could do so using a stacked bar chart or the polar equivalent, a pie chart. 
-There have been several attempts to list out all of the types of charts\cite{ribeccaSearchChartsData}, create a taxonomy of charts\cite{bertin1983semiology}, or even to classify charts using a domain-specific grammar; the grammar of graphics\cite{wilkinsonGrammarGraphics1999}. 
+There have been several attempts to list out all of the types of charts\cite{ribeccaSearchChartsData}, create a taxonomy of charts\cite{bertin1983semiology,desnoyersTaxonomyVisualsScience2011}, and even to classify charts using a domain-specific grammar of graphics\cite{wilkinsonGrammarGraphics1999}. 
 With all of the different design choices available, how are chart creators to know what is the best approach for communicating data to the appropriate audience? 
 
-There are heuristics, rules-of-thumb, and various guidelines\cite{asme-standards-graphics,clevelandShapeParameterTwoVariable1988,allenVisualizingScientificData2016} for creating useful and visually attractive charts, but as scientists, we believe empirical evidence is essential for making correct decisions. 
-The best way to establish the efficacy of various design decisions, then, is to test our charts by having them evaluated by people under controlled conditions and gathering appropriate data\cite{clevelandGraphicalPerceptionGraphical1985}. 
+There are heuristics, rules-of-thumb, and various guidelines \cite{asme-standards-graphics,allenVisualizingScientificData2016,haemerDoubleScalesAre1948,fewInformationDashboardDesign2006,kosslynGraphDesignEye2006} for creating useful and visually attractive charts, but as scientists, we believe empirical evidence is essential for making correct decisions. 
+The best way to establish the efficacy of various design decisions, then, is to test our charts by having them evaluated by people under controlled conditions and gathering appropriate data\cite{clevelandShapeParameterTwoVariable1988,clevelandGraphicalPerceptionGraphical1985}. 
 It can be extremely challenging to design studies which strike the right combination of internal and external validity. 
 Simply asking people to read quantities off of a graph may not generalize beyond the questions asked or the data used in the chart\cite{eellsRelativeMeritsCircles1926,croxtonBarChartsCircle1927,vonhuhnFurtherStudiesGraphic1927,croxtonGraphicComparisonsBars1932}, but designing a study that is sufficiently robust to those issues requires manipulation of so many factors as to be functionally impossible to complete.
-In this paper, we attempt to distill lessons learned from several different sets of experimental graphics experiments, discussing useful testing methods for statistical graphics, the process of designing a graphical experiment, and analysis of the resulting empirical data. It is our hope that by writing this paper, we will save other researchers some hard lessons in what to do (and what not to do), and thereby lower the barriers that exist for conducting research involving empirical tests of statistical graphics. 
-
-
-
+In this paper, we attempt to distill lessons learned from several different sets of experimental graphics experiments\cite{clusters,sineillusion,emily-diss,power}, discussing the use of several different testing methods for statistical graphics\cite{vanderplasTestingStatisticalCharts2020}, the process of designing a graphical experiment, and analysis of the resulting empirical data. 
+It is our hope that by writing this paper, we will prevent other researchers from repeating hard lessons in what to do (and what not to do), lowering the barriers that exist for conducting research involving empirical tests of statistical graphics. 
 
 # Testing Methods and Engagement
+<!-- Lineups, You Draw It, Direct Assessment -->
 
-Lineups
-You Draw It
-Direct Assessment
+We will start with an overview of different testing methods that we have used to empirically assess graphics. 
+While it is certainly possible to use equipment such as eye-tracking devices, and we have conducted such studies, here we will primarily focus on studies which can be conducted over the internet, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results that can be very clear if the experiment is designed correctly. 
+Our toolkit is based around R\cite{R}, and includes ggplot2\cite{ggplot2} and Shiny\cite{shiny} as primary components, as well as  JavaScript (including D3\cite{d3}) to customize the Shiny interface for many of the experiments.
+
+One primary concern when testing graphics is the level of user engagement required. 
+For instance, if we are testing whether someone can detect an effect such as a trend line in noisy data, this is a *perceptual* question best addressed using methods which allow the user to interact with the data on a basic visual level. 
+Sometimes, it may be possible to set up a scenario where the user adjusts the plot directly, as in our experiment testing the strength of the sine illusion experiment\cite{sineillusion}: users adjusted the strength of the illusion correction until the lines appeared to be the same length, providing a direct measure of the magnitude of the sine illusion's effect, as in @fig-sine-illusion. 
+
+![Direct adjustment of a plot in a perceptual task](sine_illusion_screenshot.png){#fig-sine-illusion}
+
+Statistical lineups\cite{bujaStatisticalInferenceExploratory2009,wickhamGraphicalInferenceInfovis2010} are a more generally applicable testing tool for perceptual questions such as "which chart displays this data more clearly"\cite{power}. 
+As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise; if viewers consistently pick the target plot instead of any of the 19 null plots, then the target plot is said to be visually significant\cite{majumderValidationVisualStatistical2013,vanderplasStatisticalSignificanceCalculations2021} and a "see" value (the visual analogue of a p-value for a statistical test) can be calculated\cite{niladriroychowdhurySeeValueApp2020}.
+In another variation of statistical lineup procedure, two models are compared, with target plots from each model embedded in the array of 20 total plots; the remaining null plots are constructed from a mixture model that blends the two competing models. This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data\cite{clusters}.
+Statistical lineups do not require the experimenter to provide any contextual information for the data: all of the necessary information is embedded in the choice of a null statistical model, which is convenient for testing purposes, but does not require engagement at a level that would allow for testing the viewer's understanding of the information shown in the chart. 
+An example of a statistical lineup for testing the perception of exponential growth is shown in @fig-lineup-log.
+
+![A lineup experiment testing whether users can perceive differences in rates of exponential growth on linear and log scales. In addition to asking users to select the plot which is the most different, we also asked for basic reasoning and the user's level of confidence in their answer.](Lineup_log_screenshot.png){#fig-lineup-log}
+
+
+
+To assess the viewer's *understanding* of information shown in a chart, we must ask questions and allow the user to provide feedback. User feedback may be collected on a numerical scale or through the use of written comments, recorded "think-aloud" processes, and other more qualitative interaction methods. 
+We have conducted studies asking users to provide us with a written description of what the chart shows within a wider story-driven scenario (@fig-estimation-describe), and we have also asked for written feedback about why a certain panel of a statistical lineup was chosen; the insights from participant responses to these questions have been rich and insightful (and will be discussed more in the analysis section). 
+While we have not (to date) recorded users talking out loud about what they are seeing, it is entirely feasible that so-called "think aloud" processes could be used within a Shiny application, with audio recordings saved to the server for transcription and analysis\cite{dunbar1995scientists,traftonTurningPicturesNumbers2000,kirschenbaum2003comparative}.
+
+![This question asks users to write out a description of how the population of Ewoks changes over time, without any further cues, to determine whether participants default to multiplicative or additive descriptions.](Estimation_describe_plot_crop.png){#fig-estimation-describe}
+
+Of course, as we have confined ourselves to the discussion of online, asynchronous testing methods, every user interaction with the testing materials (typically hosted on a web page) can also be recorded along with time stamps, mouse positions, and so on. 
+While we have not used this information heavily in our experimental analyses thus far, we do collect some time stamp data in order to assess how long participants spend on each question; it could almost certainly be more informative in the right setting.
+In addition, we have also provided participants with supportive tools, such as "scratch pads" and limited function calculators built into the Shiny application that allow us to gain additional insight into the estimation and visual comparison process when more complex calculations are required to answer the numerical estimation question (@fig-estimation-calc). 
+These supportive tools have provided a wealth of information that, while not easy to analyze and generally messy, provides real insight into how participants were looking at the data, what strategies they tried and discarded for reading the chart, and what visual estimation methods were used. 
+
+![This question asks participants for a numerical estimate, but provides a basic calculator and scratchpad. All user interactions with the calculator and scratchpad are logged, providing insight into the user's thought process.](Estimation_numerical_screenshot_crop.png){#fig-estimation-calc}
+
+In our experience, one of the most difficult components of designing an experiment which asks users to directly estimate information from a chart is that the wording of such questions must be extremely carefully determined, and even when great care is taken with the construction of the question, participant answer accuracy is fundamentally limited by the fact that many participants do not read and interpret the question with the care and precision that it was written.
+Questions that ask participants to e.g. estimate the multiplicative difference in a quantity at two timepoints may be misunderstood as asking for an estimate of the additive difference, and the resulting estimates are then one or more orders of magnitude off of the correct answer.
+This is one area where lineup tests are definitely superior - they do not depend on participants to understand the nuances of language or scenarios built around the chart under investigation.
+
+
+In some cases, we want participants to *engage directly* with an interactive visualization. 
+We may want to record the way in which they interact with the chart to see what types of information they seek out, but we may also want to ask them to interact with the chart in a specific way and record the result. 
+In one recent experiment, we asked participants to forecast an exponential trend, with data presented on either a linear or log scale. 
+Using some JavaScript modified from New York Times interactive graphics "You Draw It" features\cite{katzYouDrawIt2017}, we had users draw trend lines and make forecasts directly on interactive charts, with the predictions and trend lines recorded to our database for later analysis^[See a gif of testing with You Draw It [here](https://i.imgur.com/GM5YSen.gif)].
+With interactive graphics rendered using JavaScript (or other web libraries), the only limit to the types of questions you can ask in testing graphics is in your ability to write code to interact with the visualization library. 
+This type of testing method can be extremely natural for participants, but it also is hard to generalize when discussing testing methods because of the potential range of applications where it might be employed.
+
+Whichever testing method is chosen should be appropriate to the type of question under investigation. Lineups require a great amount of work in developing a null sampling model which replicates the important visual features of the data, but model specification is extremely important when asking users questions about any simulated data set or even when examining user interactions directly. It  is important to carefully calibrate the model parameters to allow for some variability, but not too much. This Goldilocks-style problem is the focus of the next section. 
 
 
 # Developing a Model
