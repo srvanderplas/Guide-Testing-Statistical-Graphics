@@ -35,7 +35,7 @@ link-citations: false
 
 format: 
   latex:
-    template-partials: [partials/doc-class.tex, partials/title.tex, partials/before-body.tex, partials/after-body.tex]
+    template-partials: [../partials/doc-class.tex, ../partials/title.tex, ../partials/before-body.tex, ../partials/after-body.tex]
 
 pdf-engine: pdflatex
 
