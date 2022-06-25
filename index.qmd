@@ -49,6 +49,12 @@ For a specified type of data, there are also usually many different chart forms 
 There have been several attempts to list out all of the types of charts\cite{ribeccaSearchChartsData}, create a taxonomy of charts\cite{bertin1983semiology}, or even to classify charts using a domain-specific grammar; the grammar of graphics\cite{wilkinsonGrammarGraphics1999}. 
 With all of the different design choices available, how are chart creators to know what is the best approach for communicating data to the appropriate audience? 
 
+There are heuristics, rules-of-thumb, and various guidelines\cite{asme-standards-graphics,clevelandShapeParameterTwoVariable1988,allenVisualizingScientificData2016} for creating useful and visually attractive charts, but as scientists, we believe empirical evidence is essential for making correct decisions. 
+The best way to establish the efficacy of various design decisions, then, is to test our charts by having them evaluated by people under controlled conditions and gathering appropriate data\cite{clevelandGraphicalPerceptionGraphical1985}. 
+It can be extremely challenging to design studies which strike the right combination of internal and external validity. 
+Simply asking people to read quantities off of a graph may not generalize beyond the questions asked or the data used in the chart\cite{eellsRelativeMeritsCircles1926,croxtonBarChartsCircle1927,vonhuhnFurtherStudiesGraphic1927,croxtonGraphicComparisonsBars1932}, but designing a study that is sufficiently robust to those issues requires manipulation of so many factors as to be functionally impossible to complete.
+In this paper, we attempt to distill lessons learned from several different sets of experimental graphics experiments, discussing useful testing methods for statistical graphics, the process of designing a graphical experiment, and analysis of the resulting empirical data. It is our hope that by writing this paper, we will save other researchers some hard lessons in what to do (and what not to do), and thereby lower the barriers that exist for conducting research involving empirical tests of statistical graphics. 
+
 
 
 
@@ -93,3 +99,5 @@ Shiny is awesome
 
 # Analyzing the Data
 Be prepared for surprises
+
+\clearpage
