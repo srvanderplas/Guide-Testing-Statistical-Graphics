@@ -31,7 +31,7 @@ firstsection: Introduction
 
 link-citations: false
 
-format: 
+format:  
   pdf:
     keep-tex: true
     template-partials: [partials/doc-class.tex, partials/title.tex, partials/before-body.tex, partials/after-body.tex]
@@ -41,7 +41,16 @@ pdf-engine: pdflatex
 date: last-modified
 ---
 
-Importance of testing statistical graphics
+<!-- Importance of testing statistical graphics -->
+
+Charts and data visualizations are primary methods of communicating scientific information to the public in what we typically hope is an easy-to-digest, visually attractive package.
+There are many strategies for creating charts and graphs, from Tufte-esque minimalism\cite{tufte} to charts designed with extra imagery and aesthetic appeal that draw the viewer's attention and persist in memory\cite[Ch 3]{cairoFunctionalArtIntroduction2012}. 
+For a specified type of data, there are also usually many different chart forms to display that data: for instance, if we have a set of categorical data and we wish to show the relative proportions of each category, we could do so using a stacked bar chart or the polar equivalent, a pie chart. 
+There have been several attempts to list out all of the types of charts\cite{ribeccaSearchChartsData}, create a taxonomy of charts\cite{bertin1983semiology}, or even to classify charts using a domain-specific grammar; the grammar of graphics\cite{wilkinsonGrammarGraphics1999}. 
+With all of the different design choices available, how are chart creators to know what is the best approach for communicating data to the appropriate audience? 
+
+
+
 
 # Testing Methods and Engagement
 
@@ -58,12 +67,6 @@ This is the single longest part of the entire testing process
 ## Selecting Parameters
 
 
-
-# Pilot Testing and Quality Assurance
-
-Test early, test often, and make sure you look at all of your plots!!!
-If you're generating new data for each participant, be sure to save that data to a database so that you can at least see where/how things went wrong!
-
 # Gathering and Analyzing Additional Information
 
 Calculator observations
@@ -72,6 +75,18 @@ Explanation
 Confidence Level
 User Interactions
 Browser fingerprints
+
+
+# Pilot Testing and Quality Assurance
+
+Test early, test often, and make sure you look at all of your plots!!!
+If you're generating new data for each participant, be sure to save that data to a database so that you can at least see where/how things went wrong!
+
+# Monitoring the Data
+
+Use of pilot data to set up analysis documents, github actions and/or shiny dashboard to monitor incoming results.
+
+Not necessarily important for small tests of limited duration, because data from e.g. prolific comes in so quickly. Server load is actually a much greater concern. 
 
 # Building the Application
 Shiny is awesome
