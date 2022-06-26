@@ -236,8 +236,9 @@ We have used such scripts in the past to produce automatically updating dashboar
 This provides an easy way to summarize completion of the experiment so that individuals can receive credit (if using services like MTurk or Prolific), but also allows interested participants to see the data if recruiting participants who are more likely to be interested in the results, as sometimes happens on social media sites. 
 As data collection online can also happen extremely quickly (300 participants in <2h in our most recent Prolific experiment), this can provide an illusion of control over the deluge of data, allowing any issues to be spotted and resolved relatively quickly. 
 If server load is a potential issue, it may also help to release batches of trials over a longer period of time in order to minimize the chance of having to make participants wait for others to complete the task before the server can handle additional connections^[This is the one major drawback to our preferred solution of self-hosting a Shiny server to handle data collection: the free version of Shiny server is limited to about 15 connections at any given time.]. 
-\
+
 # Analyzing the Data
+
 Be prepared for surprises
 
 Use of linear models to test lineup data - see-value approach is great for single plots, but when we're interested in more concrete effects over many plots, it can be better to aggregate effects and just think of a multinomial model.
