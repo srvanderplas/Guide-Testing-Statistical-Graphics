@@ -217,7 +217,6 @@ We mention this only to point out that while every experiment contains a few mis
 In statistical design terms, most of our studies involve some type of balanced incomplete block design, where participants are assigned to a subset of experimental conditions which allow for estimation of the full range of effects specified in the model. The particular structure of these designs depends heavily on the factorial structure of the study, but we typically arrange participants' trials to ensure that participants see the same data set only once (where possible) and see as many different experimental conditions as possible. 
 It is also important to reduce the impact of order effects using either e.g. latin square designs or randomization where possible, but we recognize that this is not always feasible due to the need to maintain participant naivete during some portions of the experiment. 
 
-
 We have conducted visualization experiments using a wide variety of tools: custom web servers running experiments using PHP black magic, Qualtrics surveys for static graphics, and writing full Shiny applications that control every part of the experimental process from instructions to providing completion codes for payment. 
 In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server management, however, this balance is likely different for every group and potentially for every experiment. 
 Likewise, we have recruited participants using Amazon Mechanical Turk, Prolific, Reddit and other social media sites, and email; each recruitment method has trade-offs between cost, convenience, and control over demographic variables. 
@@ -226,18 +225,18 @@ Likewise, we have recruited participants using Amazon Mechanical Turk, Prolific,
 
 # Pilot Testing and Quality Assurance
 
-Test early, test often, and make sure you look at all of your plots!!!
-If you're generating new data for each participant, be sure to save that data to a database so that you can at least see where/how things went wrong!
+Once you have your experiment designed and your charts to test, the next step is an extensive round of pilot testing. 
+The goal with pilot testing is to ensure that the experiment is set up precisely the way you want it, to ensure that your participants know what they are supposed to be doing and that any vague instructions are fixed, to provide time estimates for how long it will take to complete the task, and to provide you with some early data to examine for red flags. 
+Our studies usually go through 2-3 rounds of pilot testing, with at least one of those rounds involving any relatives we can find that are less computer literate and will invariably figure out how to crash the testing application, and another round involving any and all coworkers and friends who may be available for 10-15 minutes during the work day. 
+Pilot study samples do not need to be representative of any particular population, though we would caution against using exclusively visualization researchers or statisticians in your pilot sample because some issues are less likely to show up with knowledgeable participants. 
+In some studies, each participant may see a new set of data, depending on how the study is designed. In these cases, we highly recommend saving all generated data to a database as well, so that it is possible to go back and examine exactly what happened and/or how things went wrong. Hard drive space is historically cheap relative to almost any other cost in an experiment; saving all of the data is a sensible measure. 
 
-# Data Collection and Monitoring
-
-Prolific, Amazon Turk, testing with interested subgroups.
-
-Use of pilot data to set up analysis documents, github actions and/or shiny dashboard to monitor incoming results.
-
-Not necessarily important for small tests of limited duration, because data from e.g. prolific comes in so quickly. Server load is actually a much greater concern. 
-
-
+One highly useful (but not strictly essential) component of an experiment that can be set up during the pilot testing stage is a basic analysis script which summarizes all data collected to date visually. 
+We have used such scripts in the past to produce automatically updating dashboards or web pages, allowing for real time or near-real time monitoring of data collection efforts. 
+This provides an easy way to summarize completion of the experiment so that individuals can receive credit (if using services like MTurk or Prolific), but also allows interested participants to see the data if recruiting participants who are more likely to be interested in the results, as sometimes happens on social media sites. 
+As data collection online can also happen extremely quickly (300 participants in <2h in our most recent Prolific experiment), this can provide an illusion of control over the deluge of data, allowing any issues to be spotted and resolved relatively quickly. 
+If server load is a potential issue, it may also help to release batches of trials over a longer period of time in order to minimize the chance of having to make participants wait for others to complete the task before the server can handle additional connections^[This is the one major drawback to our preferred solution of self-hosting a Shiny server to handle data collection: the free version of Shiny server is limited to about 15 connections at any given time.]. 
+\
 # Analyzing the Data
 Be prepared for surprises
 
