@@ -60,8 +60,8 @@ It is our hope that by writing this paper, we will prevent other researchers fro
 <!-- Lineups, You Draw It, Direct Assessment -->
 
 We will start with an overview of different testing methods that we have used to empirically assess graphics. 
-While it is certainly possible to use equipment such as eye-tracking devices, and we have conducted such studies, here we will primarily focus on studies which can be conducted over the internet, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results that can be very clear if the experiment is designed correctly. 
-Our toolkit is based around R\cite{R}, and includes ggplot2\cite{ggplot2} and Shiny\cite{shiny} as primary components, as well as  JavaScript (including D3\cite{d3}) to customize the Shiny interface for many of the experiments.
+While it is certainly possible to use equipment such as eye-tracking devices, here we will primarily focus on studies which can be conducted over the internet, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results that can be very clear if the experiment is designed correctly. 
+Our toolkit is R-based\cite{R}, and includes ggplot2\cite{ggplot2} and Shiny\cite{shiny} as primary components, as well as  JavaScript (including D3\cite{d3}) to customize the Shiny interface for many of the experiments.
 
 One primary concern when testing graphics is the level of user engagement required. 
 For instance, if we are testing whether someone can detect an effect such as a trend line in noisy data, this is a *perceptual* question best addressed using methods which allow the user to interact with the data on a basic visual level. 
@@ -109,29 +109,90 @@ Whichever testing method is chosen should be appropriate to the type of question
 
 # Developing a Model
 
-This is the single longest part of the entire testing process, in part because choosing a model that replicates important visual features of the data is an extremely complex process\cite{hullmanDesigningInteractiveExploratory2021,cookFoundationAvailableThinking2021,vanderplasDesigningGraphicsRequires2021}. 
+Once you have decided what graphical task you want to explore or test, it is necessary to develop a model which can be used to test the graphical features you want to explore in a precise manner. 
+This is the single longest part of the entire experimental design and execution process, in part because choosing a model that replicates important visual features of the data is an extremely complex process \cite{hullmanDesigningInteractiveExploratory2021,cookFoundationAvailableThinking2021,vanderplasDesigningGraphicsRequires2021}. 
 
-- Importance of starting somewhere
+There are two main options when developing a statistical model for graphical testing: you can either start with a large dataset and sample from that dataset\cite{power}, or you can start from a model and sample data from that model generating process\cite{sineillusion,clusters,emily-diss}.
+This decision is largely determined by the availability of a large dataset containing the requisite features of interest and the qualities being manipulated in the experiment. For instance, Hofmann et al. \cite{power} used samples of different sizes from a pre-existing dataset to manipulate the amount of signal in each comparison; with a small sample, there is less signal and the same amount of noise, making the true plot harder to spot. 
+In many situations, though, a convenient dataset with the right properties is harder to acquire, and it becomes necessary to develop a sampling model to generate data for user evaluation. 
+
+The tools we discuss in the remainder of this section can be applied both to pre-existing data sets and to model-based sampling methods. 
+We will do our best to keep this discussion general, but we will provide details in some situations to ensure that our general descriptions are not hopelessly vague. 
 
 
-## The Role of Simulation
+## Screening Parameters with Simulation
 
-Visual assessment is key, but narrowing the parameter space down to something that can be statistically determined is useful for providing a sort of magnitude of difficulty assessment numerically.
+Visual assessment is key, but narrowing the parameter space down to something that can be statistically determined is useful for providing a sort of numerical magnitude of difficulty assessment. 
+If using model based sampling methods, it is important to iteratively assess the sampling procedure through simulation: Start with a sampling method and define a parameter space that is appropriate for the model, and then simulate many data sets from each possible parameter combinations using a grid search.
+When sampling from a large data set, it is still important to assess the sample size and any potential stratification methods employed in order to ensure that the visual effect is represented.
 
-Feature engineering is a key part of why this works - understanding the visual calculations that are being performed (via introspection) can help with identifying a useful summary statistic. Gini inequality for clustering, R^2 for linear regression, lack-of-fit statistic for difference between exponential curves.
+In both cases, it can help to employ some general feature engineering - what numerical statistic provides an estimation of the basic concept which is being visually evaluated? For instance, we have used
 
-## Selecting Parameters
+- $R^2$ as a measure of the strength of a linear relationship
+- Gini inequality as a measure of the strength of clustering
+- lack-of-fit statistics to assess the amount of curvature in an exponential relationship (shown in @fig-lof-density-curves)
 
-One experimenter develops the model and selects the broad range of parameters, the other calibrates those parameters. 
+Then, a wide range of potential combinations of parameter values or sampling strategies can be explored and summarized graphically; if the numerical statistic cannot differentiate between the null and target under a condition, it is reasonable to expect that a visual inspection of the data may also not show significant results.
+As with any measure, it is important that difficulty levels span a range from easy to hard; we do not learn anything from finding out that everyone can distinguish all of the combinations.
+
+```{r lof-density-curves, echo = F, include = T, message = F, warning = F}
+#| label: fig-lof-density-curves
+#| fig-cap: "Density plot of the lack of fit statistic showing separation of selected difficulty levels: High (obvious curvature), Medium (noticable curvature), and Low (almost linear). Each density plot is the result of 1000 simulations from a model $y_i = \\alpha\\cdot e^{\\beta\\cdot x_i + \\epsilon_i} + \\theta$, where $\\epsilon \\sim N(0, \\sigma^2)$. $\\alpha$ and $\\theta$ were selected after manipulation of $\\beta$ and $\\sigma$ to ensure that all data generated had similar $y$ ranges so as not to provide visual cues about model differences outside of the plot curvature."
+#| out.width: "\\columnwidth"
+#| fig.height: 2.5
+#| fig.width: 5
+
+library(tidyverse)
+lofData <- read.csv(file = "https://raw.githubusercontent.com/earobinson95/EmilyARobinson-UNL-dissertation/main/data/01-lineups/lineup-lof-data.csv")
+lofPlot_curvature <- lofData %>%
+  mutate(Curvature = factor(Curvature, levels = c("Obvious Curvature", "Noticeable Curvature", "Almost Linear"), labels = c("High Curvature", "Medium Curvature", "Low Curvature"))) %>%
+  mutate(Variability = factor(Variability, levels = c("Low"))) %>%
+  ggplot(aes(x = statistic, fill = Curvature, color = Curvature)) +
+  geom_density(alpha = 0.7) +
+  scale_fill_manual("Difficulty", values = c("#004400", "#116611", "#55aa55")) +
+  scale_color_manual("Difficulty", values = c("#004400", "#116611", "#55aa55")) +
+  theme_bw(base_size = 14) +
+  theme(legend.position = "bottom",
+        axis.text    = element_text(size = 10),
+        axis.title   = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        legend.text  = element_text(size = 10),
+        legend.key.size = unit(0.5, "line")
+        ) + 
+  scale_x_continuous("Lack of Fit Statistic") +
+  scale_y_continuous("Density") + 
+  theme(legend.position = c(1, 1), legend.justification = c(1.01, 1.01), legend.box.background = element_rect(fill = "white", color = "black"))
+lofPlot_curvature
+```
+
+## Fine-Tuning Parameter Choices
+
+Once an appropriate set of parameters are identified using the numerical screening method, then it is important to calibrate these parameter selections visually; after all, no numerical statistic is a perfect measure of what we actually see; at best, they are approximations of what we might potentially see. 
+We have found it to be useful to have one experimenter calibrate the model parameters at a gross level, and then have another experimenter narrow in on the parameters which are visually reasonable within the selected range. Then, both examiners visually inspect a large number of plots generated using those parameters to get a sense for how difficult the task at hand is (this strategy is also described by Lu et al. \cite{luModelingJustNoticeable2022}). 
+At some point, all experimenters become so visually saturated with the nuances of the data generating mechanism that it may become necessary to "sanity check" the protocol with family members, friends, and colleagues. 
+These informal surveys provide extremely useful feedback and can help to counteract the visual saturation of being immersed in the design of a visualization experiment for months at a time. 
+
 
 ## Visual Assessment is Critical
 
-Always look at an exhaustive amount of your models... several times, with fresh eyes. Do think-aloud pilot testing.
+We cannot overstate the importance of visual assessment of your model stimuli, preferrably with fresh eyes. We highly recommend performing a series of think-aloud pilot testing before deploying an experiment. In support of this assessment, we offer up a cautionary tale of our own experience: that of \cite{clusters}, where we designed an experiment to test which plot aesthetics promoted discovery of linear trends and/or clusters. 
 
-Explain the mishap with feature hierarchy - too many plots (because giant factorial experiment) meant that we missed cluster size imbalance. When we corrected that imbalance, though, we ended up with clusters that were oddly shaped. Sometimes, there's just no way to win, and we might have needed to rethink our sampling model. 
+The experiment was a full 2x3x3 factorial exploration of three data generating parameters, with 3 replicates at each parameter combination (54 datasets) and 10 aesthetic combinations (for a total of 540 lineups). Each lineup had 20 different sub-panels, so we should have carefully visually inspected some 10800 different panels. 
+As is evident from the fact that we're telling this story as a cautionary tale, we missed a critical problem with our data-generating mechanism: when clusters were assigned to randomly generated data after the fact, we didn't control the cluster size, leading to clusters of one or two points in relatively few sub-panels. 
+This became particularly noticeable when bounding ellipses were added to the plot, as the method used to generate those ellipses required at least 3 points in the cluster. 
+Many sub-plots were generated with only 2 or 4 ellipses (with 3 or 5 total clusters), which escaped our notice during the stimuli proof-reading phase of the experiment, but did not escape the notice of our participants, who only needed to examine about 10 lineups each (around 200 panels). 
+An example of one of the problematic lineups is shown in @fig-lineup-problems: many participants selected panel 16 because of the missing ellipse; not a wrong choice, but certainly not the visual effect we intended to test. 
 
+![A lineup from Vanderplas & Hofmann \cite{clusters}. Panel 10 shows the clustered target data and panel 17 shows the target data with a strong linear relationship; either of these target panels was the expected choice. Unfortunately, panel 16 has only two bounding ellipses shown, which is an unintentional difference that resulted from a faulty method for assigning clusters to null plots; many participants selected this panel instead of one of the target panels.](lineup-missing-ellipse.png){#fig-lineup-problems}
 
-# Experimental Design Considerations
+One reason why it is so difficult to generate sampling models for visual explorations is that our visual systems are very, very good at finding differences and unexpected results. 
+We re-ran the experiment using a different clustering method, and found that instead of cuing in on the number of ellipses, when that variable was removed participants instead cued in on the differences in size and shape of the ellipses formed using k-means clustering after the data generating procedure. 
+That is, participants could still detect the artificial nature of the induced clusters using other features. 
+While it can be difficult to get the data generating method right, it is essential to conducting visual experiments that generalize well beyond the effects shown in a single data set or phenomenon. 
+The time and effort invested in this step at the outset of the experiment pays dividends when it allows for clear generalization of the experimental results to an entire statistical concept rather than a single data set.  
+ 
+
+# Experimental Design Considerations 
 
 - Attention span
 - Sensory overload - too many lineups in a row is hard
