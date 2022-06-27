@@ -38,9 +38,13 @@ format:
 
 pdf-engine: pdflatex
 
+execute: 
+  echo: false
+  out-width: "\\columnwidth"
+
 date: last-modified
 ---
-
+ 
 <!-- Importance of testing statistical graphics -->
 
 Charts and data visualizations are primary methods of communicating scientific information to the public in what we typically hope is an easy-to-digest, visually attractive package.
@@ -239,21 +243,102 @@ If server load is a potential issue, it may also help to release batches of tria
 
 # Analyzing the Data
 
-Be prepared for surprises
+One constant with data analysis of these types of experiments is that no matter how carefully the experiment is planned, designed, and executed, there will be surprises. 
+This is the dual curse and blessing of studying human perception: the visual system never quite works the way that we expect that it will, which provides endless fodder for science and occasionally complicates the data analysis.
 
-Use of linear models to test lineup data - see-value approach is great for single plots, but when we're interested in more concrete effects over many plots, it can be better to aggregate effects and just think of a multinomial model.
+**Generalized Linear Mixed Models** 
+ The see-value approach \cite{niladriroychowdhurySeeValueApp2020,vanderplasStatisticalSignificanceCalculations2021,majumderValidationVisualStatistical2013} is extremely useful for single lineups, but when a series of lineups that are part of a designed experiment are used, generalized linear mixed models are a much simpler way to summarize the overall effect of various manipulated factors\cite{power,clusters,emily-diss}. This approach also works extremely well for psychometric experiments \cite{sineillusion}, as psychometric models can be easily fit into the framework of a generalized linear mixed model. In addition, similar model structures can be used to model accuracy, response time, and confidence, if all three types of information are collected from participants during the experiment.
 
-Direct estimation can be tricky to analyze because of how messy the data is. Additional supplemental information can be critical to provide context, but graphical analysis of participant responses was more helpful than modeling for our experiment. 
+**Numerical Estimation** There are additional considerations that should be expected when asking participants to estimate numerical quantities. Anchoring and rounding cause participant responses to cluster in ways that can bias statistical estimators, requiring methods designed for these types of data\cite{ushakovStatisticalAnalysisRounded2017,tourangeau_rips_rasinski_2000,heitjanIgnorabilityCoarseData1991}. An alternative approach is to analyze the data graphically using e.g. a combination of density and rug geoms for point estimates (as shown in @fig-density-rug), or spaghetti plots for individual response curves, with annotations to show anchor points. The advantage of this approach is that it can accommodate extremely messy data without requiring the extensive data cleaning and elimination of nonsensical responses that might be necessary to fit a statistical model. 
 
-Useful graphical analysis methods: density plots + rug plots (so that you can see rounding effects and common errors), wordclouds, estimation sketches + spaghetti plots
 
-## Analyzing Supplemental Information
+```{r estimation-data, message=FALSE, warning=FALSE, echo = F, cache = F}
+library(tidyverse)
+estimation_model_data <- read_csv("https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/data/03-estimation/estimation-model-data.csv")
+q0_text_summary <- read_csv("https://raw.githubusercontent.com/earobinson95/EmilyARobinson-UNL-dissertation/main/data/03-estimation/q0-text-summary.csv")
+estimation_simulated_data <- read_csv("https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/data/03-estimation/estimation-simulated-data.csv") %>%
+  mutate(x = x - 3000)
+estimation_scenario_text <- read_csv("https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/data/03-estimation/estimation-scenario-text.csv")
+estimation_parameters <- read_csv("https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/data/03-estimation/estimation-parameters.csv")
+estimation_questions <- read_csv("https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/data/03-estimation/estimation-questions.csv")
+population_estimates_data <- read_csv("https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/data/03-estimation/first-level-population-estimates.csv")
 
-Calculator observations
-Scratchpad
-Explanation
-Confidence Level
-User Interactions
+grid_lines_data <- tibble(scale = c(rep("linear", 12), rep("log2", 10)), 
+                          grid_lines = c(seq(0,55000, 5000),
+                                         2^seq(7,16))
+) %>%
+  expand_grid(dataset = c("dataset1", "dataset2"))
+
+
+qe2_data <- estimation_model_data %>% 
+  filter(q_id == "QE2") %>%
+  mutate(response = as.numeric(response))
+```
+
+```{r density-plot, include = F, echo = F}
+densityPlot <- function(data, datasetID, estimate, xlabel = "Estimate", x_limits = c(0,70000), zoom = F, scalesx = T, zoom_limits = c(NA,NA), gridlines = T, rugjitter = 0.25) {
+  
+  estPlot <- data %>%
+    filter(dataset %in% datasetID) %>%
+    ggplot(aes_string(x = estimate, fill = "scale", color = "scale")) +
+    geom_density(alpha = 0.5, color = NA) +
+    geom_rug(aes(y = -Inf), alpha = 0.6, show.legend = F, position = position_jitter(width = rugjitter, height = 0)) +
+    geom_vline(aes(xintercept = true_value, linetype = "a")) +
+    geom_vline(aes(xintercept = closest_pt_value, linetype = "b"))
+  
+  if (gridlines) {
+  estPlot <- estPlot + 
+    geom_vline(data = grid_lines_data %>% filter(dataset == "dataset1", grid_lines >= x_limits[1], grid_lines <= x_limits[2]),
+               aes(xintercept = grid_lines, color = scale, linetype = "c"))
+  }
+  
+  estPlot <- estPlot +
+    theme_bw() +
+    theme(aspect.ratio = 0.5) +
+    scale_color_manual("Scale", values = c("steelblue", "orange3")) +
+    scale_fill_manual("Scale", values = c("steelblue", "orange3")) +
+    scale_linetype_manual("", labels = c("Underlying Model Value", "Closest Point Value", "Grid Line Breaks"), values = c("solid", "dashed", "dotted")) +
+    scale_y_continuous("Density", labels = scales::comma)
+  
+  if (zoom) {
+  estPlot <- estPlot +
+    facet_zoom(xlim = zoom_limits)
+  }
+  
+  if (scalesx) {
+    estPlot <- estPlot +
+    scale_x_continuous(xlabel, limits = x_limits)
+  }
+    
+  return(estPlot)
+  
+}
+```
+
+```{r, qe2-density-plot, message=FALSE, warning=FALSE, echo = F}
+#| label: fig-density-rug
+#| fig-cap: "Density of participant estimates for the year in which the population reaches 4000. Colors are associated to scale - linear (blue) and log (orange) - and vertical lines indicate the true value based on the underlying model equation (black solid) and closest point value based on the simulated data set (black dashed). A jittered rug plot along the $x$-axis shows where participant estimates were made. The plot shows anchoring occured to the closest point as shown by an increase in density around the dashed line. Density peaks occurred at whole values indicating rounding errors."
+#| fig-width: 6
+#| fig-height: 3
+#| out-width: "\\columnwidth"
+
+library(patchwork)
+# DATA SET 1
+qe2_density_1 <- densityPlot(data = qe2_data, datasetID = "dataset1", "response", xlabel = "Estimated Year", x_limits = c(20,35), zoom = F, scalesx = T, gridlines = F, rugjitter = 0.25) +
+  ggtitle("Estimation of X given a Y value for Exponential Data") + 
+  guides(linetype = guide_legend(title = NULL)) + 
+  theme(legend.position = c(1,1), legend.justification = c(1,1), 
+        legend.background = element_rect(fill = "white", color = "black"),
+        legend.box.just = "right")
+
+qe2_density_1 
+```
+
+**Direct Interactions** If participants are making predictions and/or fitting visual statistics, we have had success analyzing these responses by comparing the responses to results from a statistical model to determine how visual statistics differ from the numerical quantities derived mathematically. For instance, we calculate the deviation between participant responses and the linear regression in You-Draw-It experiments, then fitted generalized additive mixed models to summarize the results across different experimental conditions to assess how user-drawn predictions deviated from the statistical estimates. 
+In other direct interactions, it may be useful to compare participant selections or annotations to closest points on the chart to assess anchoring behavior; for discrete selections, methods discussed in numerical estimation may also be useful.
+
+**Qualitative Responses** In many cases, it is helpful to combine participants' qualitative reasoning with their quantitative responses to designed graphical experiments. This approach provides useful context as to what participants use to make their decisions, and can be useful when assessing why unexpected responses occurred. We have used wordclouds to show overall themes in participant responses successfully in \cite{clusters}; when paired with an appropriate linear model it became clear that participants were fixating on unequal cluster size as a visual cue. In cases where participants are provided with additional utilities such as calculators and scratchpads, it can be useful to select responses from individual participants which illustrate the different types of calculations performed (but analyzing this data quantitatively can be difficult). 
+
 
 # Conclusion
 
