@@ -129,7 +129,7 @@ We will do our best to keep this discussion general, but we will provide details
 
 ## Screening Parameters with Simulation
 
-Visual assessment is key, but narrowing the parameter space down to something that can be statistically determined is useful for providing a sort of numerical magnitude of difficulty assessment. 
+Visual assessment is key, but narrowing the parameter space down to something that can be statistically determined is useful for providing a sort of numerical summary estimate of potential visual difficulty. 
 If using model based sampling methods, it is important to iteratively assess the sampling procedure through simulation: Start with a sampling method and define a parameter space that is appropriate for the model, and then simulate many data sets from each possible parameter combinations using a grid search.
 When sampling from a large data set, it is still important to assess the sample size and any potential stratification methods employed in order to ensure that the visual effect is represented.
 
