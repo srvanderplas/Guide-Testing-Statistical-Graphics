@@ -9,6 +9,8 @@ TEXFOT_ARGS=--no-interactive --ignore 'Underfull.*' --ignore 'Package polytable 
 TEXFOT=$(shell which texfot >/dev/null && echo texfot "${TEXFOT_ARGS}" || echo "")
 # TEXFOT=
 
+$bibtex_use=1
+
 QUARTO = quarto render '$<'
 
 default: index.pdf
