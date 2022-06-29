@@ -15,15 +15,14 @@ author-list:
     email: svanderplas2@unl.edu
 
 abstract: |
-  We outline our process and common pitfalls for developing and testing human perception of statistical graphics. 
-  Goal: Integrate information from the design of \cite{clusters,sineillusion,emily-diss,power}. 
+  In this paper, we discuss considerations and methods for experimentally testing visualizations. We discuss levels of user engagement with graphics, common issues when developing a sampling or data generation model, the importance of pilot testing, and data analysis methods. Along the way, we also share hard-learned lessons on what not to do and some of the unique pitfalls of human testing in statistical and visualization research.
 
 category: Research
 bib: refs.bib
 bibstyle: class-info/abbrv-doi.bst
 # csl: ieee-transactions-on-visualization-and-computer-graphics.csl
 ieee-keywords: 
-  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization design and evaluation methods}{}
+  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization design and evaluation methods}{} 
   - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Empirical studies in visualization}{}
   - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization application domains}{Scientific visualization}
   - \CCScatTwelve{Applied computing}{Physical sciences and engineering}{Mathematics and statistics}{}
