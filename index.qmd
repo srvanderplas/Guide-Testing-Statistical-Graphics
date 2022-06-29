@@ -15,8 +15,7 @@ author-list:
     email: svanderplas2@unl.edu
 
 abstract: |
-  We outline our process and common pitfalls for developing and testing human perception of statistical graphics. 
-  Goal: Integrate information from the design of \cite{clusters,sineillusion,emily-diss,power}. 
+   Through experimentation, graphical testing methods allow researchers to conduct studies geared at understanding human ability to conduct tasks related to the perception of statistical charts such as differentiation, prediction, estimation, and extrapolation. In this paper, we outline our process and common pitfalls for developing and testing human perception of statistical graphics by integrating information from the design of \cite{clusters,sineillusion,emily-diss,power}.
 
 category: Research
 bib: refs.bib
