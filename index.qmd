@@ -1,12 +1,12 @@
 ---
-title: Testing Statistical Graphics
+title: A Guide to Designing Experiments to Test Statistical Graphics
 author-list:
   - name: Emily Robinson
     dept: Statistics Department
     affiliation: California Polytechnic State University
     email: erobin17@calpoly.edu
   - name: Heike Hofmann
-    dept: Statistics Department
+    dept: Statistics Department 
     affiliation: Iowa State University
     email: hofmann@iastate.edu
   - name: Susan Vanderplas
@@ -24,9 +24,7 @@ bibstyle: class-info/abbrv-doi.bst
 ieee-keywords: 
   - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization design and evaluation methods}{} 
   - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Empirical studies in visualization}{}
-  - \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization application domains}{Scientific visualization}
-  - \CCScatTwelve{Applied computing}{Physical sciences and engineering}{Mathematics and statistics}{}
-firstsection: Introduction
+firstsection: Introduction 
 
 link-citations: false
 
@@ -81,7 +79,7 @@ Sometimes, it may be possible to set up a scenario where the user adjusts the pl
 Statistical lineups\cite{bujaStatisticalInferenceExploratory2009,wickhamGraphicalInferenceInfovis2010} are a more generally applicable testing tool for perceptual questions such as "which chart displays this data more clearly"\cite{power} while simultaneously assessing the significance of the graphical finding in the chart. 
 As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise; if viewers consistently pick the target plot at a higher rate than the 19 null plots, then the target plot is said to be visually significant\cite{majumderValidationVisualStatistical2013,vanderplasStatisticalSignificanceCalculations2021} and a "see" value (the visual analogue of a $p$-value for a statistical test) can be calculated\cite{niladriroychowdhurySeeValueApp2020}. 
 <!-- Beyond the quantitative assessment of the signal with $p$- and see-values, the human involvement also allows us to collect information on the qualitative nature of *what* a viewer sees.--> 
-In another variation of the statistical lineup procedure, two models are compared, with target plots from each model embedded in the array of 20 total plots; the remaining null plots are constructed from a mixture model that blends the two competing models. This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data and assign a hiearchy of visual attributes\cite{clusters}.
+In another variation of the statistical lineup procedure, two models are compared, with target plots from each model embedded in the array of 20 total plots; the remaining null plots are constructed from a mixture model that blends the two competing models. This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data and assign a hierarchy of visual attributes\cite{clusters}.
 Statistical lineups do not require the experimenter to provide any contextual information for the data: all of the necessary information is embedded in the choice of a null statistical model, which is convenient for testing purposes, but does not require engagement at a level that would allow for testing the viewer's understanding of the information shown in the chart. 
 An example of a statistical lineup for testing the perception of exponential growth is shown in @fig-lineup-log.
 
