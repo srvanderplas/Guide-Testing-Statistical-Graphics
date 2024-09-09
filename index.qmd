@@ -3,16 +3,33 @@ title: A Guide to Designing Experiments to Test Statistical Graphics
 author:
   - name: Emily Robinson
     dept: Statistics Department
-    affiliation: California Polytechnic State University
+    affiliation: 
     email: erobin17@calpoly.edu
+    orcid: 0000-0001-9800-7304
+    affiliations: 
+      - name: Statistics Department, California Polytechnic State University
+        address: Faculty Offices East, Building 25, Room 107D
+        city: San Luis Obispo
+        state: CA
+        postal-code: 93407-0405
   - name: Heike Hofmann
-    dept: Statistics Department 
-    affiliation: Iowa State University
-    email: hofmann@iastate.edu
+    orcid: 0000-0001-6216-5183
+    email: hhofmann4@unl.edu    
+    affiliations: 
+      - name: Statistics Department, University of Nebraska - Lincoln
+        address: 340 Hardin Hall North Wing
+        city: Lincoln
+        state: NE
+        postal-code: 68503
   - name: Susan Vanderplas
-    dept: Statistics Department
-    affiliation: University of Nebraska, Lincoln
     email: svanderplas2@unl.edu
+    orcid: 0000-0002-3803-0972
+    affiliations: 
+      - name: Statistics Department, University of Nebraska - Lincoln
+        address: 340 Hardin Hall North Wing
+        city: Lincoln
+        state: NE
+        postal-code: 68503
 
 abstract: |
   In this paper, we discuss considerations and methods for experimentally testing visualizations. We discuss levels of user engagement with graphics, common issues when developing a sampling or data generation model, the importance of pilot testing, and data analysis methods. Along the way, we also provide recommendations of how to avoid some of the unique pitfalls of human testing in statistical and visualization research.
