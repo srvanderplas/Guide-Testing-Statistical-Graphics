@@ -53,8 +53,9 @@ header-includes:
 
 date: last-modified
 
+
 format:  
-  pdf:
+  wordcount-pdf:
     keep-tex: true
     fontsize: 10pt
 ---
@@ -244,7 +245,7 @@ While it can be difficult to get the data generating method right, it is essenti
 The time and effort invested in this step at the outset of the experiment pays dividends when it allows for clear generalization of the experimental results to an entire statistical concept rather than a single data set.  
  
 
-# Experimental Design Considerations 
+# Experimental Design Considerations {#sec-experimental-design}
 
 It would be difficult to develop a full data generating model without some idea of the experimental design: the basic structure of the parameters which are to be manipulated, how the users will be tested, and so on. 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
@@ -260,7 +261,7 @@ It can be extremely helpful to include "practice" demonstrations of the task to 
 While it is tempting to make these tasks fully representative of the type of judgement which will be required of participants, practice tasks which are too close to the experimental task may bias participants; we have found that it works well to have a relatively easy practice task which utilizes a slightly different type of plot and/or type of data than what will be tested in the experiment. 
 In cases which require interactivity, gif animations of the task being carried out are useful, as are additional visual cues, such as the yellow box used in the `You Draw It' task[^1] to indicate that there were points which were not completed. 
 
-While studies have found some relationship between lineup performance and demographic factors [@majumderHumanFactorsInfluencing2014;@vanderplasSpatialReasoningData2016a], these differences are relatively small when participants are recruited from online testing platforms like Amazon Mechanical Turk or Prolific, or when participants are recruited from a university student population. 
+While studies have found some relationship between lineup performance and demographic factors [@vanderplasSpatialReasoningData2016a], these differences are relatively small when participants are recruited from online testing platforms like Amazon Mechanical Turk or Prolific, or when participants are recruited from a university student population. 
 Studies have also not found a strong relationship between visual task performance and participant recruitment method [@vanderplasFramedReproducingRevisiting2019], perhaps in part because demographics which use social media sites and demographics completing online research tasks for pay overlap heavily. 
 However, when participants are recruited using a statistically representative sample of the wider population, education becomes an extremely useful predictor of ability to effectively read and draw conclusions about a chart [@riceTestingPerceptualAccuracy2024].  
 In almost every situation, though, we find that some participants are very good at evaluating graphics and some participants are not; as a result, it can be extremely helpful to use random effects models with an effect for individual participants. 
@@ -415,5 +416,4 @@ Testing features of visualization graphically using online platforms provides an
 There are nearly endless ways to combine web graphics, user interactions, and data collection to get insight into perception and use of graphics in practical settings. 
 We have been continually surprised at the richness of the data collected in these experiments and the ability to combine qualitative and quantitative assessment to support conclusions that are both nuanced and of practical use when deciding how to design and present data using visualizations. 
 
-
-\clearpage
+# References
