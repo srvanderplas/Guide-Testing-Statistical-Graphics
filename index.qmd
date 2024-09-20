@@ -88,7 +88,7 @@ Finally, we  provide some common analysis strategies in @sec-analysis, including
  
 There are many different testing methods used to empirically assess graphics. 
 While it is certainly possible to use equipment such as eye-tracking devices, this paper focuses primarily focus on studies which can be conducted without testing equipment, and primarily online, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results that can be very clear if the experiment is designed correctly.
-The toolkit used for these experiments is R-based [@R], and includes ggplot2 [@ggplot2] and Shiny [@shiny] as primary components, as well as  JavaScript (including D3[@d3]) to customize the Shiny interface for many of the experiments.
+The toolkit used for these experiments is R-based [@R], and includes ggplot2 [@ggplot2] and Shiny [@shiny] as primary components, as well as  JavaScript (including D3 [@d3]) to customize the Shiny interface for many of the experiments.
 While we prefer this set of tools, most of the observations described in this paper apply to a wide variety of different workflows for graphical experimentation. 
 
 One primary concern when testing graphics is the level of user engagement required. 
@@ -99,7 +99,7 @@ In other situations, it may be possible to have the user directly interact with 
 ![Direct adjustment of a plot in a perceptual task](sine_illusion_screenshot.png){#fig-sine-illusion}
 
 Statistical lineups [@bujaStatisticalInferenceExploratory2009;@wickhamGraphicalInferenceInfovis2010] are another useful testing tool for perceptual questions such as "which chart displays this data more clearly" [@power] while simultaneously assessing the significance of the graphical finding in the chart. 
-As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise; if viewers consistently pick the target plot at a higher rate than the 19 null plots, then the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013;vanderplasStatisticalSignificanceCalculations2021] and a "see" value (the visual analogue of a $p$-value for a statistical test) can be calculated [@niladriroychowdhurySeeValueApp2020]. 
+As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise; if viewers consistently pick the target plot at a higher rate than the 19 null plots, then the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013;@vanderplasStatisticalSignificanceCalculations2021] and a "see" value (the visual analogue of a $p$-value for a statistical test) can be calculated [@niladriroychowdhurySeeValueApp2020]. 
 <!-- Beyond the quantitative assessment of the signal with $p$- and see-values, the human involvement also allows us to collect information on the qualitative nature of *what* a viewer sees.--> 
 In another variation of the statistical lineup procedure, two models are compared, with target plots from each model embedded in the array of 20 total plots; the remaining null plots are constructed from a mixture model that blends the two competing models. 
 This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data and assign a hierarchy of visual attributes [@clusters].
@@ -245,7 +245,7 @@ While it can be difficult to get the data generating method right, it is essenti
 The time and effort invested in this step at the outset of the experiment pays dividends when it allows for clear generalization of the experimental results to an entire statistical concept rather than a single data set.  
  
 
-# Experimental Design Considerations {#sec-experimental-design}
+# Experimental Design Considerations {#sec-exp-design}
 
 It would be difficult to develop a full data generating model without some idea of the experimental design: the basic structure of the parameters which are to be manipulated, how the users will be tested, and so on. 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
@@ -270,7 +270,7 @@ It may be useful to ask a few more demographic questions about STEM education le
 This has allowed us to make the argument to IRB that our research is exempt, as we do not collect enough demographic information to identify participants, however, this has occasionally come at some cost. 
 Our recent study examining the use of log scales and exponential data was conducted using Prolific, which recruits participants from around the world; we required only that participants were fluent in English to participate. 
 It was only after the experiment was completed that we realized that different countries introduce logarithms as a concept at different points during primary and secondary education; it might be that individuals in some countries have much more experience with log scales than those educated in the United States. 
-We mention this only to point out that while every experiment contains a few missed opportunities, it is worth giving careful though to the demographic questions asked of participants and what information may be helpful during the analysis stage.
+We mention this only to point out that while every experiment contains a few missed opportunities, it is worth giving careful thought to the demographic questions asked of participants and what information may be helpful during the analysis stage.
 
 In statistical design terms, most of our studies involve some type of balanced incomplete block design, where participants are assigned to a subset of experimental conditions which allow for estimation of the full range of effects specified in the model. 
 The particular structure of these designs depends heavily on the factorial structure of the study, but we typically arrange participants' trials to ensure that participants see the same data set only once (where possible) and see as many different experimental conditions as possible. 
@@ -308,12 +308,13 @@ If server load is a potential issue, it may also help to release batches of tria
 One constant with data analysis of these types of experiments is that no matter how carefully the experiment is planned, designed, and executed, there will be surprises. 
 This is the dual curse and blessing of studying human perception: the visual system never quite works the way that we expect that it will, which provides endless fodder for science and occasionally complicates the data analysis.
 
-**Generalized Linear Mixed Models** 
+## Generalized Linear Mixed Models
 The see-value approach [@niladriroychowdhurySeeValueApp2020;@vanderplasStatisticalSignificanceCalculations2021;@majumderValidationVisualStatistical2013] is extremely useful for single lineups, but when a series of lineups that are part of a designed experiment are used, generalized linear mixed models are a much simpler way to summarize the overall effect of various manipulated factors [@power;@clusters;@emily-diss]. 
 This approach also works extremely well for psychometric experiments [@sineillusion], as psychometric models can be easily fit into the framework of a generalized linear mixed model [@juOneModelThat2024] that has higher power than the Rasch models which were historically recommended for these experiments. 
 In addition, similar model structures can be used to model accuracy, response time, and confidence, if all three types of information are collected from participants during the experiment.
 
-**Numerical Estimation** There are additional considerations that should be expected when asking participants to estimate numerical quantities. 
+## Numerical Estimation
+There are additional considerations that should be expected when asking participants to estimate numerical quantities. 
 Anchoring and rounding cause participant responses to cluster in ways that can bias statistical estimators, requiring methods designed for these types of data [@ushakovStatisticalAnalysisRounded2017;@tourangeau_rips_rasinski_2000;@heitjanIgnorabilityCoarseData1991]. 
 An alternative approach is to analyze the data graphically using e.g. a combination of density and rug geoms for point estimates (as shown in @fig-density-rug), or spaghetti plots for individual response curves, with annotations to show anchor points. 
 The advantage of this approach is that it can accommodate extremely messy data without requiring the extensive data cleaning and elimination of nonsensical responses that might be necessary to fit a statistical model. 
@@ -401,11 +402,13 @@ qe2_density_1 <- densityPlot(data = qe2_data, datasetID = "dataset1", "response"
 qe2_density_1 
 ```
 
-**Direct Interactions** If participants are making predictions and/or fitting visual statistics, we have had success analyzing these responses by comparing the responses to results from a statistical model to determine how visual statistics differ from the numerical quantities derived mathematically. 
+## Direct Interactions
+If participants are making predictions and/or fitting visual statistics, we have had success analyzing these responses by comparing the responses to results from a statistical model to determine how visual statistics differ from the numerical quantities derived mathematically. 
 For instance, we calculate the deviation between participant responses and the linear regression in `You Draw It' experiments, then fitted generalized additive mixed models to summarize the results across different experimental conditions to assess how user-drawn predictions deviated from the statistical estimates. 
 In other direct interactions, it may be useful to compare participant selections or annotations to closest points on the chart to assess anchoring behavior; for discrete selections, methods discussed in numerical estimation may also be useful.
 
-**Qualitative Responses** In many cases, it is helpful to combine participants' qualitative reasoning with their quantitative responses to designed graphical experiments. 
+## Qualitative Responses
+In many cases, it is helpful to combine participants' qualitative reasoning with their quantitative responses to designed graphical experiments. 
 This approach provides useful context as to what participants use to make their decisions, and can be useful when assessing why unexpected responses occurred. 
 We have used word clouds to show overall themes in participant responses successfully in [@clusters]; when paired with an appropriate linear model it became clear that participants were fixating on unequal cluster size as a visual cue. 
 In cases where participants are provided with additional utilities such as calculators and scratchpads, it can be useful to select responses from individual participants which illustrate the different types of calculations performed (but analyzing this data quantitatively can be difficult). 
