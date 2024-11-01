@@ -64,11 +64,11 @@ format:
 
 # Introduction 
 
-\hh{How do you call the tested audience? viewer: 5  user: 32  mostly in the user engagement section, participant: 50+ times.
-I'm not sure that I love the word 'user', but I can see how it is more active than participant. }
+<!-- \hh{How do you call the tested audience? viewer: 5  user: 32  mostly in the user engagement section, participant: 50+ times. -->
+<!-- I'm not sure that I love the word 'user', but I can see how it is more active than participant. } -->
 
 
-Charts and data visualizations are primary methods of communicating scientific information to the public in what creators hope is an easy-to-digest, visually attractive package.\hh{form? method? or am I overthinking packages?}
+Charts and data visualizations are primary methods of communicating scientific information to the public in what creators hope is an easy-to-digest, visually attractive form.
 There are many strategies for creating charts and graphs, from Tufte-esque minimalism [@tufte] to charts designed with extra imagery and aesthetic appeal that draw the viewer's attention and persist in memory [@cairoFunctionalArtIntroduction2012]. 
 For a specific type of data, there are also usually many different chart forms to display that data: for instance, if we have a set of categorical data and we wish to show the relative proportions of each category, we could do so using a stacked bar chart or the polar equivalent, a pie chart. 
 There have been several attempts to list out all of the types of charts [@ribeccaSearchChartsData], create a taxonomy of charts [@bertin1983semiology;@desnoyersTaxonomyVisualsScience2011], and even to classify charts using a domain-specific grammar of graphics [@wilkinsonGrammarGraphics1999]. 
@@ -91,20 +91,19 @@ Finally, we  provide some common analysis strategies in @sec-analysis, including
 <!-- Lineups, You Draw It, Direct Assessment -->
  
 There are many different testing methods used to empirically assess graphics. 
-While it is certainly possible to use equipment such as eye-tracking devices, this paper focuses primarily focus on studies conducted without testing equipment, and primarily online, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results \hh{for well-designed experiments.}
+While it is certainly possible to use equipment such as eye-tracking devices, this paper focuses primarily focus on studies conducted without additional equipment, and primarily online, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results, for well-designed experiments.
 The toolkit used for these experiments is R-based [@R], and includes ggplot2 [@ggplot2] and Shiny [@shiny] as primary components, as well as  JavaScript (including D3 [@d3]) to customize the Shiny interface for many of the experiments.
-While we prefer this set of tools, most of the observations described \hh{here} apply to a wide variety of different workflows for graphical experimentation. 
+While we prefer this set of tools, most of the observations described here apply to a wide variety of different workflows for graphical experimentation. 
 
 One primary concern when testing graphics is the level of user engagement required. 
 For instance, testing whether someone can detect an effect such as a trend line in noisy data is a *perceptual* question best addressed using methods which allow the user to interact with the data on a basic visual level. 
 Sometimes, it is possible to set up a scenario where the user adjusts the plot directly, as in an experiment testing the strength of the sine illusion experiment [@sineillusion]: users adjusted the strength of the illusion correction until the lines appeared to be the same length, providing a direct measure of the magnitude of the sine illusion's effect, as in @fig-sine-illusion. 
-In other situations, it may be possible to have the user directly interact with the plot, as in @vanderplasEscapingFlatlandGraphics2024, where  \hh{ participants were asked to}
-rotate and interact with a 3D rendered bar chart; the application then records \hh{all relevant} user interactions to provide insight into the visual comparisons the user may have been performing \hh{as a} supplement to the explicitly provided estimates.
+In other situations, it may be possible to have the user directly interact with the plot, as in @vanderplasEscapingFlatlandGraphics2024, where  participants were asked to rotate and interact with a 3D rendered bar chart; the application then records all relevant user interactions to provide insight into the visual comparisons the user may have been performing as a supplement to the explicitly provided estimates.
 
-![Direct adjustment of a plot in a perceptual task](sine_illusion_screenshot.png){#fig-sine-illusion}
+![Direct adjustment of a plot in a perceptual task.](sine_illusion_screenshot.png){#fig-sine-illusion}
 
 Statistical lineups [@bujaStatisticalInferenceExploratory2009;@wickhamGraphicalInferenceInfovis2010] are another useful testing tool for perceptual questions such as "which chart displays this data more clearly" [@power] while simultaneously assessing the significance of the graphical finding in the chart. 
-As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise. If viewers consistently pick the target plot at a higher rate than \hh{any of} the 19 null plots, the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013] and a "see" value (the visual analogue of a $p$-value for a statistical test) can be calculated [@niladriroychowdhurySeeValueApp2020; @vanderplasStatisticalSignificanceCalculations2021]. 
+As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise. If viewers consistently pick the target plot at a higher rate than any of the 19 null plots, the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013] and a "see" value (the visual analogue of a $p$-value for a statistical test) can be calculated [@niladriroychowdhurySeeValueApp2020; @vanderplasStatisticalSignificanceCalculations2021]. 
 <!-- Beyond the quantitative assessment of the signal with $p$- and see-values, the human involvement also allows us to collect information on the qualitative nature of *what* a viewer sees.--> 
 In another variation of the statistical lineup procedure, two models are compared, with target plots from each model embedded in the array of 20 total plots; the remaining null plots are constructed from a mixture model that blends the two competing models. 
 This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data and assign a hierarchy of visual attributes [@clusters].
@@ -129,8 +128,9 @@ Additional replicates do not usually affect accuracy (i.e. there is no immediate
 This sweet spot between replicates and fatigue depends on the cognitive burden in each test and should factor into designing the experiment.
 <!--While we have not used this type of information heavily in our experimental analyses thus far, we do collect some time stamp data in order to assess how long participants spend on each question; it could almost certainly be more informative in the right setting.-->
 In some experiments, we have provided participants with supportive tools, such as "scratch pads" and calculators built into the Shiny application to support the complex calculations required to answer higher-level numerical estimation questions (@fig-estimation-calc). 
-These supportive tools \hh{XXX In order to be supportive, the tools must be easy to use - otherwise they just add an addititional burden and are a source of frustration.} reduce participant cognitive load, but also record a wealth of messy information that provide real insight into how participants were looking at the data, what strategies they tried and discarded for reading the chart, and what visual estimation methods were used. 
-While systematic analysis and modeling of this messy data is difficult, the insights provided can be extremely useful. 
+In order to be supportive, the tools must be easy to use, but assuming this bar is met, the tools can reduce participant cognitive load while  recording a wealth of information.
+This information provides real insight into how participants were looking at the data, what strategies they tried and discarded for reading the chart, and what visual estimation methods were used. 
+While systematic analysis and modeling of this messy data may be difficult, the insights provided can be extremely useful. 
 
 ![This question asks participants for a numerical estimate, but provides a basic calculator and scratchpad. All user interactions with the calculator and scratchpad are logged, providing insight into the user's thought process and estimation strategy.](Estimation_numerical_screenshot_crop.png){#fig-estimation-calc}
 
@@ -175,11 +175,12 @@ The tools we discuss in the remainder of this section can be applied both to pre
 
 ## Screening Parameters with Simulation
 
-\hh{The choice of the tested space is crucial to gain insight from a study without putting too much burden on participants with overlong studies. Choosing an appropriate space for testing parameters is a well-known problem in psychometric testing [@shah]: the space considered should cover the area between 'only some activation' to 'almost full activation' of an appropriate psycho-metric function. }
-\hh{When testing charts, }
-visual assessment is \hh{obviously} key, but \hh{we can make use of statistical indices related to the testing condition to} narrow the parameter space down.  \hh{These indices then serve as quantitative proxies} of the visual difficulty. 
+The choice of the tested space is crucial to gain insight from a study without putting too much burden on participants with overlong studies. Choosing an appropriate space for testing parameters is a well-known problem in psychometric testing [@shah]: the space considered should cover the area between 'only some activation' to 'almost full activation' of an appropriate psychometric function. 
+When testing charts, visual assessment is obviously key, but researchers can make use of statistical indices related to the testing condition to narrow the parameter space.  
+These indices then serve as quantitative proxies of visual difficulty. 
 
-If using model based sampling methods, it is important to iteratively assess the sampling procedure through simulation: Start with a sampling method and define a parameter space that is appropriate for the model, and then simulate many data sets from each possible parameter combinations using a grid search.
+If using model based sampling methods, it is important to iteratively assess the sampling procedure through simulation.
+Start with a sampling method and define a parameter space that is appropriate for the model, and then simulate many data sets from each possible parameter combinations using a grid search.
 When sampling from a large data set, it is still important to assess the sample size and any potential stratification methods employed in order to ensure that the visual effect is represented.
 
 In both cases, it can help to employ some general feature engineering - what numerical statistic provides an estimation of the basic concept which is being visually evaluated? For instance, we have used
