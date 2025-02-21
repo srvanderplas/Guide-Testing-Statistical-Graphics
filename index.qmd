@@ -68,15 +68,18 @@ format:
 <!-- I'm not sure that I love the word 'user', but I can see how it is more active than participant. } -->
 
 
-Charts and data visualizations are primary methods of communicating scientific information to the public in what creators hope is an easy-to-digest, visually attractive form.
+Data visualizations are a critically important tool for communicating scientific information to the public in what creators hope is an easy-to-digest, visually attractive form.
 There are many strategies for creating charts and graphs, from Tufte-esque minimalism [@tufte] to charts designed with extra imagery and aesthetic appeal that draw the viewer's attention and persist in memory [@cairoFunctionalArtIntroduction2012]. 
 For a specific type of data, there are also usually many different chart forms to display that data: for instance, if we have a set of categorical data and we wish to show the relative proportions of each category, we could do so using a stacked bar chart or the polar equivalent, a pie chart. 
 There have been several attempts to list out all of the types of charts [@ribeccaSearchChartsData], create a taxonomy of charts [@bertin1983semiology;@desnoyersTaxonomyVisualsScience2011], and even to classify charts using a domain-specific grammar of graphics [@wilkinsonGrammarGraphics1999]. 
+One extremely useful reference is from Data to Viz (https://www.data-to-viz.com/), which uses a decision tree to show different visualizations compatible with the data; R, python, D3.js, and React code are provided to demonstrate how to create those visualizations. 
 With all of the different design choices available, how are chart creators to know what is the best approach for communicating data to the appropriate audience? 
 
-While there are heuristics, rules-of-thumb, and various guidelines [@asme-standards-graphics;@allenVisualizingScientificData2016;@haemerDoubleScalesAre1948;@fewInformationDashboardDesign2006;@kosslynGraphDesignEye2006] for creating useful and visually attractive charts, the best way to establish the efficacy of various design decisions is to test charts: evaluate them under controlled conditions, and gather appropriate data [@clevelandShapeParameterTwoVariable1988;@clevelandGraphicalPerceptionGraphical1985] to compare different representations of the same data. 
-It is extremely challenging to design studies which strike the right combination of internal and external validity. 
-Simply asking people to read quantities off of a graph may not generalize beyond the questions asked or the data used in the chart [@eellsRelativeMeritsCircles1926;@croxtonBarChartsCircle1927;@vonhuhnFurtherStudiesGraphic1927;@croxtonGraphicComparisonsBars1932], but designing a study that is sufficiently robust to those issues requires manipulation of so many factors as to be functionally close to impossible to control or manipulate in a single experiment.
+While there are heuristics, rules-of-thumb, and guidelines [@asme-standards-graphics;@allenVisualizingScientificData2016;@haemerDoubleScalesAre1948;@fewInformationDashboardDesign2006;@kosslynGraphDesignEye2006] for creating useful and visually attractive data displays, the best way to establish the efficacy of various design decisions is to test the visualization on humans, evaluating different variants under controlled conditions [@clevelandShapeParameterTwoVariable1988;@clevelandGraphicalPerceptionGraphical1985].
+Empirical assessments of visualizations, when carefully designed, allow statisticians to determine which representation of the same data is most effective along one or more dimension(s) of interest: estimation or prediction accuracy, within or between group comparisons, response time, and ability to draw real-world decisions are common goals for charts.
+
+It is extremely challenging to design studies which strike the right balance between experimental control (i.e. internal validity) and generalizability to a wider context (i.e. external validity). 
+Simply asking people to read quantities off of a graph may not generalize beyond the questions asked or the data used in the chart [@eellsRelativeMeritsCircles1926;@croxtonBarChartsCircle1927;@vonhuhnFurtherStudiesGraphic1927;@croxtonGraphicComparisonsBars1932], but designing a study that is sufficiently robust to those issues requires manipulation or control of so many factors that the amount of participants and trials quickly becomes daunting or unaffordable.
 In this paper, we attempt to distill the experience gained from conducting several different types of graphics experiments [@clusters;@sineillusion;@emily-diss;@power;@vanderplasFramedReproducingRevisiting2019;@vanderplasEscapingFlatlandGraphics2024], discussing the use of different testing methods [@vanderplasTestingStatisticalCharts2020], the process of designing a graphical experiment, and analysis of the resulting empirical data. 
 It is our hope that this paper will lower the barriers that exist for conducting empirical graphics research and reduce the probability of costly mistakes. 
 
@@ -90,24 +93,46 @@ Finally, we  provide some common analysis strategies in @sec-analysis, including
 # Testing Methods and User Engagement {#sec-testing-methods}
 <!-- Lineups, You Draw It, Direct Assessment -->
  
-There are many different testing methods used to empirically assess graphics. 
-While it is certainly possible to use equipment such as eye-tracking devices, this paper focuses primarily focus on studies conducted without additional equipment, and primarily online, because these experiments have the lowest overhead, offer relatively fast data collection, and provide useful results, for well-designed experiments.
+There are many different testing methods used to empirically assess statistical graphics. 
+While it is certainly possible to use equipment such as eye-tracking devices, this paper focuses primarily focus on studies conducted online  without additional equipment.
+These experiments have the lowest overhead, offer relatively fast data collection, and provide useful results for well-designed experiments.
 The toolkit used for these experiments is R-based [@R], and includes ggplot2 [@ggplot2] and Shiny [@shiny] as primary components, as well as  JavaScript (including D3 [@d3]) to customize the Shiny interface for many of the experiments.
 While we prefer this set of tools, most of the observations described here apply to a wide variety of different workflows for graphical experimentation. 
 
-One primary concern when testing graphics is the level of user engagement required. 
-For instance, testing whether someone can detect an effect such as a trend line in noisy data is a *perceptual* question best addressed using methods which allow the user to interact with the data on a basic visual level. 
-Sometimes, it is possible to set up a scenario where the user adjusts the plot directly, as in an experiment testing the strength of the sine illusion experiment [@sineillusion]: users adjusted the strength of the illusion correction until the lines appeared to be the same length, providing a direct measure of the magnitude of the sine illusion's effect, as in @fig-sine-illusion. 
-In other situations, it may be possible to have the user directly interact with the plot, as in @vanderplasEscapingFlatlandGraphics2024, where  participants were asked to rotate and interact with a 3D rendered bar chart; the application then records all relevant user interactions to provide insight into the visual comparisons the user may have been performing as a supplement to the explicitly provided estimates.
+It is important to consider the level of user engagement which is necessary to complete a particular visual or graphical task. 
+For instance, testing whether someone can detect an effect such as a linear trend in noisy data is a perceptual question. 
+Perceptual questions are often examined experimentally using methods which allow the user to interact with the data on a basic visual level: users are presented with a visual stimulus and answer yes/no questions to indicate whether the effect is detected. 
+Numerical estimation is another common task when testing graphics: in these experiments, the participant views a chart, estimates the requested numerical quantity, and enters the estimate into the application through a numerical input, slider, or other form element. 
+Sometimes, it is possible to set up a scenario where the user adjusts the plot using a set of controls designed to provide a fixed set of interactive operations. 
+This type of user engagement was used to assess the strength of the sine illusion [@sineillusion]: users adjusted the strength of a transformation designed to correct the illusion until the lines appeared to be the same length, as shown in @fig-sine-illusion, providing a direct measure of the magnitude of the sine illusion's effect. 
+In other situations, it may be preferable to have the user directly interact with the visual stimulus. 
+In @vanderplasEscapingFlatlandGraphics2024, participants were asked to rotate and interact with a 3D rendered bar chart; the application recorded user interactions and corresponding rotation matrices, providing insight into the visual comparisons the user may have been performing. 
+This information was used as a supplement to the explicitly provided estimates, providing some contextual information as well as the ability to identify the level of participant engagement with the questions.
+When experiments are conducted as part of classroom experiential learning, it is sometimes helpful to be able to separate the low-effort participants from those who were fully intellectually engaged in the task. 
+Interactive graphics provide another level of user engagement that can be much more open-ended. 
+With interactive graphics, researchers can ask participants to directly annotate plots, toggle aesthetics, and highlight groups and plot features.
+Careful implementation of the experiment application may allow for each of these interactions to be recorded and analyzed, producing a rich, if messy, set of data that may allow researchers to tease apart visual estimation error from common shortcuts such as rounding used during direct numerical estimation. 
 
-![Direct adjustment of a plot in a perceptual task.](sine_illusion_screenshot.png){#fig-sine-illusion}
+![Direct adjustment of a plot in a perceptual task. In this experiment, designed to assess the strength of the sine illusion, the user adjusts the plot using - and + buttons, which control the strength of a transformation designed to correct the effect of the sine illusion. When the user is satisfied that the lines are of equal length, they select the 'Finished' button to move to the next task. The experiment used a psychophysics experimental design, the method of adjustment, but leveraged the interactive Shiny interface to record the entire sequence of adjustments made by the user for each trial. A demo version of this application can be found at https://shiny.srvanderplas.com/sine-illusion/.  ](sine_illusion_screenshot.png){#fig-sine-illusion}
 
-Statistical lineups [@bujaStatisticalInferenceExploratory2009;@wickhamGraphicalInferenceInfovis2010] are another useful testing tool for perceptual questions such as "which chart displays this data more clearly" [@power] while simultaneously assessing the significance of the graphical finding in the chart. 
-As in the criminal procedure, lineups embed a target plot with signal into an array of 19 other innocent "null" plots that show only noise. If viewers consistently pick the target plot at a higher rate than any of the 19 null plots, the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013] and a "see" value (the visual analogue of a $p$-value for a statistical test) can be calculated [@niladriroychowdhurySeeValueApp2020; @vanderplasStatisticalSignificanceCalculations2021]. 
+Visual inference [@bujaStatisticalInferenceExploratory2009;@wickhamGraphicalInferenceInfovis2010] is another useful testing tool for perceptual questions such as "which chart displays this data more clearly" [@power] while simultaneously assessing the significance of the graphical finding in the chart. 
+Visual inference charts are often called "lineups" in analogy to the criminal procedure where the suspect is placed in a line with several other individuals with similar characteristics. 
+In a graphical lineup procedure, there is a target plot containing the real data, embedded in an array of innocent "null" plots generated through resampling or simulation. 
+If viewers consistently pick the target plot at a higher rate than any of the null plots, the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013] and a "see" value (the visual analogue of a $p$-value [@niladriroychowdhurySeeValueApp2020]) can be calculated using the `vinference` R package or the process described in @vanderplasStatisticalSignificanceCalculations2021. 
+The details of this calculation are beyond the scope of this broader discussion of how to test charts, but more detail on visual inference is provided in <insert citation to visual inference WIRE article under development>. 
 <!-- Beyond the quantitative assessment of the signal with $p$- and see-values, the human involvement also allows us to collect information on the qualitative nature of *what* a viewer sees.--> 
-In another variation of the statistical lineup procedure, two models are compared, with target plots from each model embedded in the array of 20 total plots; the remaining null plots are constructed from a mixture model that blends the two competing models. 
-This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data and assign a hierarchy of visual attributes [@clusters].
-Statistical lineups do not require  the experimenter to provide any contextual information for the data: all of the necessary information is embedded in the choice of a null statistical model, which is convenient for testing purposes, but does not allow for testing the viewer's understanding of the information shown in the chart. 
+
+In another variation of the statistical lineup procedure, data generated from two models are compared, with target plots from each model embedded in the array of $K$ total plots. 
+The $K-2$ null plots are constructed from a mixture model that blends the two competing models [@clusters]. 
+Viewers are asked to select the panel(s) which are most different, and the primary source of information are trials in which viewers selected the target from one model but not the other, indicating that the display method used allowed viewers to differentiate one model's data (but not the other) from the nulls created through a mixture model. 
+This variation allows the experimenter to assess graphical design choices to determine whether they effectively emphasize structural differences in the data [@clusters].
+
+One advantage of the visual inference technique is that the experimenter can ask a very general question, such as "which of these plots is the most different?", rather than a specific question about the displayed data which may require more quantitative sophistication. 
+All of the necessary information to make the decision is embedded in the choice of the model used to generate the null plots. 
+This feature is extremely convenient when conducting the experiment and even allows small children to complete the task. 
+The downside is that as a result, visual  inference experiments do not allow experimenters to assess the viewer's understanding of the information shown in the chart. 
+In most cases, visual inference experiments remove any contextual information from the charts, including axis labels and values, plot titles, and so on, in order to encourage participants to make decisions based solely on the graphical presentation. 
+This lack of context is a double-edged sword: visual inference can involve participants who do not have any mathematical training or instincts (including children), but researchers also cannot use this technique to assess higher levels of engagement with a chart, such as estimation, prediction, or reasoning based on displayed information.  
 <!-- An example of a statistical lineup for testing the perception of exponential growth is shown in @fig-lineup-log. -->
 
 <!-- ![A lineup experiment testing whether users can perceive differences in rates of exponential growth on linear and log scales. In addition to asking users to select the plot which is the most different, we also asked for basic reasoning and the user's level of confidence in their answer.](Lineup_log_screenshot.png){#fig-lineup-log} -->
@@ -115,9 +140,12 @@ Statistical lineups do not require  the experimenter to provide any contextual i
 To assess the viewer's *understanding* of information shown in a chart, we must ask questions and allow the user to provide feedback. 
 User feedback may be collected on a numerical scale or through the use of written comments, recorded "think-aloud" processes, and other more qualitative interaction methods. 
 In some studies, asking users to interpret a chart within a larger scenario can be effective, as in @fig-estimation-describe, while in others it is more helpful to ask users to explain answers. 
-In lineup studies, asking users why a specific panel was chosen can provide rich insight into otherwise confusing numerical results. 
-While we have not (to date) recorded users talking out loud about what they are seeing, think aloud methods could be implemented within a Shiny application, with audio recordings saved to the server for transcription and analysis
-[@dunbar1995scientists;@traftonTurningPicturesNumbers2000;@kirschenbaum2003comparative]; it is even possible that these recordings could be automatically transcribed using text-to-speech functions of large language models.
+In visual inference studies, asking users why a specific panel was chosen has been demonstrated to provide rich insight into otherwise confusing numerical results [@clusters]. 
+
+Think-aloud methods ask the viewer to narrate their internal thought process, either during or after completing a task [@thinkaloud]. 
+These recordings (or transcripts) can provide valuable insights into conscious cognition, and are often used when conducting usability studies. 
+While we have not (to date) recorded users talking out loud about what they are seeing, think aloud methods could easily be implemented within a Shiny application, with audio recordings saved to the server for transcription and analysis
+[@dunbar1995scientists; @traftonTurningPicturesNumbers2000; @kirschenbaum2003comparative]; it is even possible that these recordings could be automatically transcribed using the speech-to-text functions of large language models.
 
 ![This question asks users to write out a description of how the population of Ewoks changes over time, without any further cues, to determine whether participants default to multiplicative or additive language descriptions.](Estimation_describe_plot_crop.png){#fig-estimation-describe}
 
@@ -227,7 +255,7 @@ lofPlot_curvature
 Once an appropriate set of parameters are identified using the numerical screening method,  it is important to calibrate these parameter selections visually. 
 No numerical statistic is a perfect measure of what we actually see: at best, they are approximations of what we might potentially see. 
 We have found it to be useful to have one experimenter calibrate the model parameters at a gross level, and then have another experimenter narrow in on the parameters which are visually reasonable within the selected range. 
-Then, both examiners visually inspect a large number of plots generated using those parameters to get a sense for how difficult the task at hand is (this strategy is also described by Lu et al. [@luModelingJustNoticeable2022]). 
+Then, both examiners visually inspect a large number of plots generated using those parameters to get a sense for how difficult the task at hand is (this strategy is also described by @luModelingJustNoticeable2022). 
 At some point, all experimenters become so visually saturated with the nuances of the data generating mechanism that it may become necessary to "sanity check" the protocol with family members, friends, and colleagues. 
 These informal surveys provide extremely useful feedback and can help to counteract the visual saturation of being immersed in the design of a visualization experiment for months at a time. 
 
@@ -247,8 +275,10 @@ An example of one of the problematic lineups is shown in @fig-lineup-problems: m
 
 ![A lineup from Vanderplas & Hofmann [@clusters]. Panel 10 shows the clustered target data and panel 17 shows the target data with a strong linear relationship; either of these target panels was the expected choice. Unfortunately, panel 16 has only two bounding ellipses shown, which is an unintentional difference that resulted from a faulty method for assigning clusters to null plots; many participants selected this panel instead of one of the target panels.](lineup-missing-ellipse.png){#fig-lineup-problems}
 
-One reason why it is so difficult to generate sampling models for visual explorations is that our visual system is very, very good at finding differences and unexpected results. 
-We re-ran the experiment using a different clustering method, and found that instead of noticing the number of ellipses, when that variable was removed participants instead cued in on the differences in size and shape of the ellipses formed using k-means clustering after the data generating procedure. 
+One reason why it is so difficult to generate sampling models for visual explorations is that our visual system is optimized for identifying differences between groups.
+This ability can interfere with the natural  to use the null sampling models that might be used in equivalent numerical tests when running experiments that use visualizations. 
+We re-ran the experiment using a different clustering method that controlled the number of points in each group. 
+Instead of noticing the number of ellipses, participants instead used the differences in size and shape of the ellipses formed when clustering after the data generating procedure. 
 That is, participants could still detect the artificial nature of the induced clusters using other features. 
 While it can be difficult to get the data generating method right, it is essential to conducting visual experiments that generalize well beyond the effects shown in a single data set or phenomenon. 
 The time and effort invested in this step at the outset of the experiment pays dividends when it allows for clear generalization of the experimental results to an entire statistical concept rather than a single data set.  
@@ -325,7 +355,8 @@ In addition, similar model structures can be used to model accuracy, response ti
 ## Numerical Estimation
 There are additional considerations that should be expected when asking participants to estimate numerical quantities. 
 Anchoring and rounding cause participant responses to cluster in ways that can bias statistical estimators, requiring methods designed for these types of data [@ushakovStatisticalAnalysisRounded2017;@tourangeau_rips_rasinski_2000;@heitjanIgnorabilityCoarseData1991]. 
-An alternative approach is to analyze the data graphically using e.g. a combination of density and rug geoms for point estimates (as shown in @fig-density-rug), or spaghetti plots for individual response curves, with annotations to show anchor points. 
+An alternative approach is to analyze the data graphically, as shown in @fig-density-rug, which uses a density plot with rug annotations for point estimates.
+When individual response curves are generated, a spaghetti plot with annotations to show anchor points may be useful. 
 The advantage of this approach is that it can accommodate extremely messy data without requiring the extensive data cleaning and elimination of nonsensical responses that might be necessary to fit a statistical model. 
 
 
