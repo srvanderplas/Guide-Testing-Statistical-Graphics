@@ -71,7 +71,7 @@ format:
 Data visualizations are a critically important tool for communicating scientific information to the public in what creators hope is an easy-to-digest, visually attractive form.
 There are many strategies for creating charts and graphs, from Tufte-esque minimalism [@tufte] to charts designed with extra imagery and aesthetic appeal that draw the viewer's attention and persist in memory [@cairoFunctionalArtIntroduction2012]. 
 For a specific type of data, there are also usually many different chart forms to display that data: for instance, if we have a set of categorical data and we wish to show the relative proportions of each category, we could do so using a stacked bar chart or the polar equivalent, a pie chart. 
-There have been several attempts to list out all of the types of charts [@ribeccaSearchChartsData], create a taxonomy of charts [@bertin1983semiology;@desnoyersTaxonomyVisualsScience2011], and even to classify charts using a domain-specific grammar of graphics [@wilkinsonGrammarGraphics1999]. 
+There have been several attempts to list out all of the types of charts [@ribeccaSearchChartsData], create a taxonomy of charts [@bertin1983semiology;@desnoyersTaxonomyVisualsScience2011], and even to create charts using a domain-specific grammar of graphics [@wilkinsonGrammarGraphics1999] that is also useful for classification. 
 One extremely useful reference is from Data to Viz (https://www.data-to-viz.com/), which uses a decision tree to show different visualizations compatible with the data; R, python, D3.js, and React code are provided to demonstrate how to create those visualizations. 
 With all of the different design choices available, how are chart creators to know what is the best approach for communicating data to the appropriate audience? 
 
@@ -94,10 +94,11 @@ Finally, we  provide some common analysis strategies in @sec-analysis, including
 <!-- Lineups, You Draw It, Direct Assessment -->
  
 There are many different testing methods used to empirically assess statistical graphics. 
-While it is certainly possible to use equipment such as eye-tracking devices, this paper focuses primarily focus on studies conducted online  without additional equipment.
-These experiments have the lowest overhead, offer relatively fast data collection, and provide useful results for well-designed experiments.
-The toolkit used for these experiments is R-based [@R], and includes ggplot2 [@ggplot2] and Shiny [@shiny] as primary components, as well as  JavaScript (including D3 [@d3]) to customize the Shiny interface for many of the experiments.
-While we prefer this set of tools, most of the observations described here apply to a wide variety of different workflows for graphical experimentation. 
+This paper uses studies conducted online  without additional equipment as primary examples, though many of the same considerations apply to in-person experiments conducted using additional equipment, including 3D printed charts, eye-tracking equipment, and interactive data displays.
+Online experiments have lower overhead, offer relatively fast data collection, and provide useful results for well-designed experiments.
+The toolkit used for these experiments is R-based [@R], and includes ggplot2 [@ggplot2] and Shiny [@shiny] as primary components.
+In many experiments, we customized the Shiny interface with JavaScript and d3 [@d3], enabling interactive graphics, use of svgs, and other useful extensions.
+While we prefer this set of tools, most of the observations described here apply to a wide variety of different workflows for graphical experimentation, including in-person experiments. 
 
 It is important to consider the level of user engagement which is necessary to complete a particular visual or graphical task. 
 For instance, testing whether someone can detect an effect such as a linear trend in noisy data is a perceptual question. 
@@ -115,11 +116,11 @@ Careful implementation of the experiment application may allow for each of these
 
 ![Direct adjustment of a plot in a perceptual task. In this experiment, designed to assess the strength of the sine illusion, the user adjusts the plot using - and + buttons, which control the strength of a transformation designed to correct the effect of the sine illusion. When the user is satisfied that the lines are of equal length, they select the 'Finished' button to move to the next task. The experiment used a psychophysics experimental design, the method of adjustment, but leveraged the interactive Shiny interface to record the entire sequence of adjustments made by the user for each trial. A demo version of this application can be found at https://shiny.srvanderplas.com/sine-illusion/.  ](sine_illusion_screenshot.png){#fig-sine-illusion}
 
-Visual inference [@bujaStatisticalInferenceExploratory2009;@wickhamGraphicalInferenceInfovis2010] is another useful testing tool for perceptual questions such as "which chart displays this data more clearly" [@power] while simultaneously assessing the significance of the graphical finding in the chart. 
+Visual inference [@bujaStatisticalInferenceExploratory2009;@wickhamGraphicalInferenceInfovis2010] is another useful testing tool for perceptual questions such as "which chart displays this data more clearly" [@power] while simultaneously assessing the statistical significance of the graphical finding in a chart. 
 Visual inference charts are often called "lineups" in analogy to the criminal procedure where the suspect is placed in a line with several other individuals with similar characteristics. 
 In a graphical lineup procedure, there is a target plot containing the real data, embedded in an array of innocent "null" plots generated through resampling or simulation. 
-If viewers consistently pick the target plot at a higher rate than any of the null plots, the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013] and a "see" value (the visual analogue of a $p$-value [@niladriroychowdhurySeeValueApp2020]) can be calculated using the `vinference` R package or the process described in @vanderplasStatisticalSignificanceCalculations2021. 
-The details of this calculation are beyond the scope of this broader discussion of how to test charts, but more detail on visual inference is provided in <insert citation to visual inference WIRE article under development>. 
+If viewers consistently pick the target plot at a higher rate than any of the null plots, the target plot is said to be visually significant [@loyDiagnosticToolsHierarchical2013;@majumderValidationVisualStatistical2013] and a "see" value, the visual analogue of a $p$-value [@niladriroychowdhurySeeValueApp2020], can be calculated using the `vinference` R package or the process described in @vanderplasStatisticalSignificanceCalculations2021. 
+The details of this calculation are beyond the scope of this broader discussion of how to test charts, but more detail on visual inference is provided in \<insert citation to visual inference WIRE article under development\>. 
 <!-- Beyond the quantitative assessment of the signal with $p$- and see-values, the human involvement also allows us to collect information on the qualitative nature of *what* a viewer sees.--> 
 
 In another variation of the statistical lineup procedure, data generated from two models are compared, with target plots from each model embedded in the array of $K$ total plots. 
@@ -144,21 +145,26 @@ In visual inference studies, asking users why a specific panel was chosen has be
 
 Think-aloud methods ask the viewer to narrate their internal thought process, either during or after completing a task [@thinkaloud]. 
 These recordings (or transcripts) can provide valuable insights into conscious cognition, and are often used when conducting usability studies. 
-While we have not (to date) recorded users talking out loud about what they are seeing, think aloud methods could easily be implemented within a Shiny application, with audio recordings saved to the server for transcription and analysis
-[@dunbar1995scientists; @traftonTurningPicturesNumbers2000; @kirschenbaum2003comparative]; it is even possible that these recordings could be automatically transcribed using the speech-to-text functions of large language models.
+While we have not to date recorded users talking out loud about what they are seeing during a study, think aloud methods could easily be implemented within a Shiny application, with audio recordings saved to the server for transcription and analysis
+[@dunbar1995scientists; @traftonTurningPicturesNumbers2000; @kirschenbaum2003comparative].
+It is even possible that these recordings could be automatically transcribed using speech-to-text models.
+We have used think-aloud methods informally during pilot studies to "harden" graphical experiments and verify the selection of parameters used in an experiment. 
+The success of this approach, combined with the few studies which used think-aloud to assess charts [@kulhavyCartographicExperienceThinking1992;@leeHowPeopleMake2016;@haiderStrategiesDetectingDifference2021], suggests that think-aloud methods are an often-overlooked but useful tool for assessing data visualizations. 
 
 ![This question asks users to write out a description of how the population of Ewoks changes over time, without any further cues, to determine whether participants default to multiplicative or additive language descriptions.](Estimation_describe_plot_crop.png){#fig-estimation-describe}
 
 Of course, in an online, asynchronous experiment, every user interaction with the testing materials (typically hosted on a web page) can also be recorded along with time stamps, mouse positions, browser size and screen resolution, and other information. 
-While we have not used this type of information heavily in our experimental analyses thus far, in most experiments, we collect time stamp data in order to assess how long participants spend on each question. 
+While we have not used this type of information heavily in our experimental analyses thus far, in most experiments we collect time stamp data in order to assess how long participants spend on each question. 
 Typically, the first round of test questions takes the longest for participants to complete. 
 Additional replicates do not usually affect accuracy (i.e. there is no immediate learning effect) until after `too many' tests cognitive fatigue proves to be detrimental to accuracy [@chowdhury2018]. 
 This sweet spot between replicates and fatigue depends on the cognitive burden in each test and should factor into designing the experiment.
 <!--While we have not used this type of information heavily in our experimental analyses thus far, we do collect some time stamp data in order to assess how long participants spend on each question; it could almost certainly be more informative in the right setting.-->
 In some experiments, we have provided participants with supportive tools, such as "scratch pads" and calculators built into the Shiny application to support the complex calculations required to answer higher-level numerical estimation questions (@fig-estimation-calc). 
-In order to be supportive, the tools must be easy to use, but assuming this bar is met, the tools can reduce participant cognitive load while  recording a wealth of information.
+In order to be supportive, the tools must be easy to use, but assuming this bar is met, the tools can reduce participant cognitive load while recording a wealth of information.
 This information provides real insight into how participants were looking at the data, what strategies they tried and discarded for reading the chart, and what visual estimation methods were used. 
-While systematic analysis and modeling of this messy data may be difficult, the insights provided can be extremely useful. 
+While systematic analysis and modeling of this data may be difficult, as it is usually messy and often must be manually coded, the insights provided can be extremely useful. 
+However, unless participants are required to use these tools, it is difficult to gather comprehensive information - those participants that don't use supportive tools likely differ in meaningful ways from those who do.
+As a result, the information gathered from supportive tools likely does not generalize to the entire sample.
 
 ![This question asks participants for a numerical estimate, but provides a basic calculator and scratchpad. All user interactions with the calculator and scratchpad are logged, providing insight into the user's thought process and estimation strategy.](Estimation_numerical_screenshot_crop.png){#fig-estimation-calc}
 
@@ -203,15 +209,13 @@ The tools we discuss in the remainder of this section can be applied both to pre
 
 ## Screening Parameters with Simulation
 
-The choice of the tested space is crucial to gain insight from a study without putting too much burden on participants with overlong studies. Choosing an appropriate space for testing parameters is a well-known problem in psychometric testing [@shah]: the space considered should cover the area between 'only some activation' to 'almost full activation' of an appropriate psychometric function. 
-When testing charts, visual assessment is obviously key, but researchers can make use of statistical indices related to the testing condition to narrow the parameter space.  
-These indices then serve as quantitative proxies of visual difficulty. 
+The choice of the parameter space used in testing is crucial to gain insight from a study without putting too much burden on participants with overlong studies. 
+Choosing an appropriate space for testing parameters is a well-known problem in psychometric testing: the space considered should cover the area between 'only some activation' to 'almost full activation' of an appropriate psychometric function [@schuttPainfreeAccurateBayesian2016;@valentinDesigningOptimalBehavioral2024]. 
+When testing charts, visual assessment is obviously key, but researchers can make use of statistical indices related to the testing condition to narrow the parameter space to a reasonable and efficient subset from which maximal information can be acquired.  
+These statistical indices may also serve as quantitative proxies for the difficulty of the visual task. 
 
-If using model based sampling methods, it is important to iteratively assess the sampling procedure through simulation.
-Start with a sampling method and define a parameter space that is appropriate for the model, and then simulate many data sets from each possible parameter combinations using a grid search.
-When sampling from a large data set, it is still important to assess the sample size and any potential stratification methods employed in order to ensure that the visual effect is represented.
-
-In both cases, it can help to employ some general feature engineering - what numerical statistic provides an estimation of the basic concept which is being visually evaluated? For instance, we have used
+To identify a statistical proxy for visual difficulty that may help with narrowing the parameter space, it can be useful to consider numerical measures used to estimate the same types of visual information that will be assessed in the experiment. 
+For instance, we have used
 
 - $R^2$ as a measure of the strength of a linear relationship
 - Gini inequality as a measure of the strength of clustering
@@ -250,6 +254,11 @@ lofPlot_curvature <- lofData %>%
 lofPlot_curvature
 ```
 
+While this method is certainly more critical for model-based sampling methods, it is also important when data are generated by sampling from a larger data set. 
+When sampling from a larger dataset, parameters are more often sample size and stratification methods, but it is still important to iteratively assess the data generating procedure through simulation. 
+Using numerical proxies for visual characteristics of data displays such as curvature, linearity, scatter, dispersion can assist with identifying optimal parameter settings to use across different experimental conditions. 
+Even with this strategy, it is still critical to fine-tune the parameter choices with visual calibration and pilot testing. 
+
 ## Fine-Tuning Parameter Choices
 
 Once an appropriate set of parameters are identified using the numerical screening method,  it is important to calibrate these parameter selections visually. 
@@ -264,7 +273,7 @@ These informal surveys provide extremely useful feedback and can help to counter
 
 We cannot overstate the importance of visual assessment of your model stimuli, preferably with fresh eyes. 
 We highly recommend performing several rounds of think-aloud pilot testing before deploying an experiment. 
-In support of this assessment, we offer up a cautionary tale of our own experience: that of [@clusters], where we designed an experiment to test which plot aesthetics promoted discovery of linear trends and/or clusters. 
+In support of this assessment, we offer up a cautionary tale of our own experience: that of @clusters, where we designed an experiment to test which plot aesthetics promoted discovery of linear trends and/or clusters. 
 
 The experiment was a full 2x3x3 factorial exploration of three data generating parameters, with 3 replicates at each parameter combination (54 data sets) and 10 aesthetic combinations (for a total of 540 lineups). 
 Each lineup had 20 different sub-panels, so we should have carefully visually inspected some 10,800 different panels. 
@@ -273,7 +282,7 @@ This became particularly noticeable when bounding ellipses were added to the plo
 The missing boundary ellipse in the corresponding sub-panels escaped our notice during the stimuli proof-reading phase of the experiment, but did not escape the notice of our participants, who only needed to examine about 10 lineups each (around 200 panels). 
 An example of one of the problematic lineups is shown in @fig-lineup-problems: many participants selected panel 16 because of the missing ellipse; not a wrong choice, but certainly not the effect we intended to test. 
 
-![A lineup from Vanderplas & Hofmann [@clusters]. Panel 10 shows the clustered target data and panel 17 shows the target data with a strong linear relationship; either of these target panels was the expected choice. Unfortunately, panel 16 has only two bounding ellipses shown, which is an unintentional difference that resulted from a faulty method for assigning clusters to null plots; many participants selected this panel instead of one of the target panels.](lineup-missing-ellipse.png){#fig-lineup-problems}
+![A lineup from Vanderplas & Hofmann [-@clusters]. Panel 10 shows the clustered target data and panel 17 shows the target data with a strong linear relationship; either of these target panels was the expected choice. Unfortunately, panel 16 has only two bounding ellipses shown, which is an unintentional difference that resulted from a faulty method for assigning clusters to null plots; many participants selected this panel instead of one of the target panels.](lineup-missing-ellipse.png){#fig-lineup-problems}
 
 One reason why it is so difficult to generate sampling models for visual explorations is that our visual system is optimized for identifying differences between groups.
 This ability can interfere with the natural  to use the null sampling models that might be used in equivalent numerical tests when running experiments that use visualizations. 
@@ -290,39 +299,67 @@ It would be difficult to develop a full data generating model without some idea 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
 When conducting graphical tests, however, there are additional considerations beyond those taught in a standard experimental design course.
 
+## Cognitive Load 
+
 The primary human design factor to be aware of is that visual tasks and assessing statistical graphics can be extremely cognitively taxing. 
 In our experience, it is difficult to expect participants to evaluate more than about 15 charts in one sitting. 
 If users are asked to deeply engage and answer multiple questions about each chart, this limit may be lower (8-10), but even with a relatively simple task, as in lineup methods, it is hard for participants to accurately evaluate more than about 15 charts. 
 Tasks which are more interactive, such as `You Draw It', may be somewhat easier for participants, but it is unlikely that participants would be willing to complete more than about 20 tasks in one sitting even with tasks that require fewer decisions and more engagement. 
 At some point, participants' interest in accuracy will decline, and the researcher is better off using a larger number of participants completing fewer tasks within the window where participants are attentive and engaged.
 
+## Participant Instructions
+
 It can be extremely helpful to include "practice" demonstrations of the task to show the basic process, logic, and reasoning. 
 While it is tempting to make these tasks fully representative of the type of judgement which will be required of participants, practice tasks which are too close to the experimental task may bias participants; we have found that it works well to have a relatively easy practice task which utilizes a slightly different type of plot and/or type of data than what will be tested in the experiment. 
 In cases which require interactivity, gif animations of the task being carried out are useful, as are additional visual cues, such as the yellow box used in the `You Draw It' task[^1] to indicate that there were points which were not completed. 
+
+## Accounting for Participant Variability
 
 While studies have found some relationship between lineup performance and demographic factors [@vanderplasSpatialReasoningData2016a], these differences are relatively small when participants are recruited from online testing platforms like Amazon Mechanical Turk or Prolific, or when participants are recruited from a university student population. 
 Studies have also not found a strong relationship between visual task performance and participant recruitment method [@vanderplasFramedReproducingRevisiting2019], perhaps in part because demographics which use social media sites and demographics completing online research tasks for pay overlap heavily. 
 However, when participants are recruited using a statistically representative sample of the wider population, education becomes an extremely useful predictor of ability to effectively read and draw conclusions about a chart [@riceTestingPerceptualAccuracy2024].  
 In almost every situation, though, we find that some participants are very good at evaluating graphics and some participants are not; as a result, it can be extremely helpful to use random effects models with an effect for individual participants. 
 
+## Demographic Data
+
 It may be useful to ask a few more demographic questions about STEM education level for studies which ask more of participants from a mathematical standpoint; while lineup studies have not found strong associations with those variables, lineup studies also do not require participants to engage with the data presented in a chart in a way that requires higher-order mathematical reasoning.
-This has allowed us to make the argument to IRB that our research is exempt, as we do not collect enough demographic information to identify participants, however, this has occasionally come at some cost. 
-Our recent study examining the use of log scales and exponential data was conducted using Prolific, which recruits participants from around the world; we required only that participants were fluent in English to participate. 
+This has allowed us to make the argument to the ethics committee (institutional review board, or IRB) that our research is exempt, as we do not collect enough demographic information to identify participants, however, collecting reduced demographic information occasionally comes at a cost. 
+One recent study examining the use of log scales and exponential data was conducted using Prolific, which recruits participants from around the world; we required only that participants were fluent in English to participate. 
 It was only after the experiment was completed that we realized that different countries introduce logarithms as a concept at different points during primary and secondary education; it might be that individuals in some countries have much more experience with log scales than those educated in the United States. 
 We mention this only to point out that while every experiment contains a few missed opportunities, it is worth giving careful thought to the demographic questions asked of participants and what information may be helpful during the analysis stage.
+
+## Trial Allocation to Participants
 
 In statistical design terms, most of our studies involve some type of balanced incomplete block design, where participants are assigned to a subset of experimental conditions which allow for estimation of the full range of effects specified in the model. 
 The particular structure of these designs depends heavily on the factorial structure of the study, but we typically arrange participants' trials to ensure that participants see the same data set only once (where possible) and see as many different experimental conditions as possible. 
 It is also important to reduce the impact of order effects using either e.g. Latin square designs or randomization where possible, but we recognize that this is not always feasible due to the need to maintain participant naivete during some portions of the experiment. 
 
-We have conducted visualization experiments using a wide variety of tools: custom web servers running experiments using PHP black magic, Qualtrics surveys for static graphics, and writing full Shiny applications that control every part of the experimental process from instructions to providing completion codes for payment. 
+## Data Collection Platforms and Infrastructure
+
+We have conducted visualization experiments using a wide variety of tools: custom web PHP servers running interactive forms for data collection, generic web survey platforms (Qualtrics, Google Forms) for static graphics, and Shiny applications that control every part of the experimental process from instructions to providing completion codes for payment while rendering interactive graphics and generating fully randomized data for each participant. 
 In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server management, however, this balance is likely different for every group and potentially for every experiment. 
-Likewise, we have recruited participants using Amazon Mechanical Turk, Prolific, Reddit and other social media sites, and email; each recruitment method has trade-offs between cost, convenience, and control over demographic variables. 
-@riceTestingPerceptualAccuracy2024 recruited participants using NORC panel samples and found that demographics in a fully representative sample are extremely important.
-While using representative panel-based sampling methods is considerably more expensive, there are generalizability concerns with online recruitment methods such as Prolific and Mechanical Turk. 
+Likewise, we have recruited participants using services such as [Amazon Mechanical Turk](https://www.mturk.com/) and [Prolific](https://www.prolific.com/), on social media sites ([Reddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/), Twitter(X), Mastodon, and BlueSky), and by email; each recruitment method has trade-offs between cost, convenience, number of people in the sampling frame, and control over participant demographics. 
+@riceTestingPerceptualAccuracy2024 recruited participants using nationally representative panel samples and found that conclusions from fully representative samples of the population can be very different from volunteer samples recruited using other services, as many people are unmotivated to engage with charts, don't know how to read charts, or impose pre-formed conclusions onto visual displays. These individuals are unlikely to participate in most ad-hoc volunteer-based sampling methods.
+While using representative panel sampling products offered by organizations such as NORC or Gallup is considerably more expensive than samples from Amazon MTurk or Prolific, these results suggest that results from sampling methods used online may not generalize to the broader population.
 People who participate in studies via online platforms are more technologically sophisticated and educated than the general population, and this bias may significantly impact the conclusions. 
 
+If conducting an online experiment, we recommend consideration of panel-based sampling methods as well as online testing platforms. 
+While Amazon MTurk was once the platform of choice for this type of research [@heerCrowdsourcingGraphicalPerception2010], in 2025 Prolific, which is aimed at academic experiments, seems to provide better options that ensure that experiments are completed by people rather than AI than MTurk. 
+It seems likely that the preferred platform for participant recruitment will continue to evolve over time, thus, we will recommend that experimenters consider available options, compare pricing structures (as these vary widely), and consider whether add-on fees for e.g. demographically representative samples are worth the additional cost. 
+An additional consideration when choosing between panel samples and online recruitment platforms is the constraints placed on the types of questions and graphics which can be used. 
+In our experience, it is much easier to run an experiment using the online recruitment platforms, which place many fewer constraints on both the number and types of questions which can be asked and the types of stimuli which can be used in the experiment. 
+
 [^1]: See a gif of testing with `You Draw It' [here](https://i.imgur.com/GM5YSen.gif)
+
+## Ethical Review of Human Subjects Experiments
+
+In almost any research environment, there are requirements that experiments involving human participants undergo review by an ethics board to ensure that participants are not harmed by participating in the study.
+We are most familiar with regulations in the United States and can only speak to that environment.
+Most graphics experiments conducted in the US fall under the "exempt" category of experiments which require only basic review and approval. 
+These experiments record only basic demographic information, ask participants to complete tasks that involve no risk, and experimenters record information which would not be embarrassing to participants if exposed. 
+In order to ensure that our experiments fall into this category, we will often ensure that demographic information is collected and stored separately from any identifiable information, such as e.g. user IDs from the participant recruitment platform that allow us to monitor task completion and pay participants for their time.
+Researchers should also ensure that they comply with privacy laws such as the European [General Data Protection Regulation (GDPR)](https://gdpr-info.eu/chapter-3/); complying with this law while collecting data which is not identifiable can be complicated. 
+We recommend consulting with your ethics board and institutional recommendations in order to maintain legal compliance and safeguard participant privacy. 
 
 # Pilot Testing and Quality Assurance {#sec-pilot-test}
 
@@ -349,15 +386,21 @@ This is the dual curse and blessing of studying human perception: the visual sys
 
 ## Generalized Linear Mixed Models
 The see-value approach [@niladriroychowdhurySeeValueApp2020;@vanderplasStatisticalSignificanceCalculations2021;@majumderValidationVisualStatistical2013] is extremely useful for single lineups, but when a series of lineups that are part of a designed experiment are used, generalized linear mixed models are a much simpler way to summarize the overall effect of various manipulated factors [@power;@clusters;@emily-diss]. 
-This approach also works extremely well for psychometric experiments [@sineillusion], as psychometric models can be easily fit into the framework of a generalized linear mixed model [@juOneModelThat2024] that has higher power than the Rasch models which were historically recommended for these experiments. 
-In addition, similar model structures can be used to model accuracy, response time, and confidence, if all three types of information are collected from participants during the experiment.
+This approach also works extremely well for psychometric experiments [@sineillusion], as psychometric models can be easily fit into the framework of a generalized linear mixed model [@juOneModelThat2024] that has higher power than the Rasch models [@andrichRaschModelsMeasurement1988;@luModelingJustNoticeable2022] which were historically recommended for these experiments. 
+In addition, similar model structures with different link functions can be used to model accuracy, response time, and confidence, if all three types of information are collected from participants during the experiment.
 
 ## Numerical Estimation
 There are additional considerations that should be expected when asking participants to estimate numerical quantities. 
 Anchoring and rounding cause participant responses to cluster in ways that can bias statistical estimators, requiring methods designed for these types of data [@ushakovStatisticalAnalysisRounded2017;@tourangeau_rips_rasinski_2000;@heitjanIgnorabilityCoarseData1991]. 
-An alternative approach is to analyze the data graphically, as shown in @fig-density-rug, which uses a density plot with rug annotations for point estimates.
-When individual response curves are generated, a spaghetti plot with annotations to show anchor points may be useful. 
-The advantage of this approach is that it can accommodate extremely messy data without requiring the extensive data cleaning and elimination of nonsensical responses that might be necessary to fit a statistical model. 
+An alternative approach is to analyze the data graphically, as shown in @fig-density-rug, which uses a density plot with rug annotations to show individual participant point estimates. 
+Rounding effects can clearly be seen in the rug plot, but a kernel density calculated using an appropriately selected bandwidth shows clear visual differences between linear and log scale charts. 
+In addition, a smaller second mode can be seen in both linear and log conditions that corresponds to the underlying model value; this suggests that a minority of participants fit a mental regression model to the data and use that model to estimate rather than estimating based off of the closest point. 
+When charts are carefully constructed to account for the experimental structure and participant estimation strategies, displaying both individual and aggregate responses, it is possible to demonstrate a measurable difference between conditions without the need for complicated statistical modeling which corrects for rounding and anchoring effects. 
+
+While @fig-density-rug shows point estimates, the same approach can be modified to account for experimental methods which generate participant response curves. 
+In these cases, rather than adding a rug plot to a density plot showing aggregate estimates, it may be more helpful to create spaghetti plots of individual estimates with a superimposed consensus estimate and relevant annotations showing e.g. anchor points.  
+The advantage of this approach is that it can accommodate extremely messy data without requiring the extensive data cleaning, modeling of heuristics like rounding and anchoring, and elimination of nonsensical responses that might be necessary to fit a statistical model. 
+While statistical models are undoubtedly beneficial in many situations, we have often found that graphical displays of experimental results are at least as useful for analyzing and presenting the results of graphical experiments. 
 
 
 ```{r estimation-data, message=FALSE, warning=FALSE, echo = F, cache = F}
@@ -455,8 +498,19 @@ In cases where participants are provided with additional utilities such as calcu
 
 
 # Conclusion
+
 Testing features of visualization graphically using online platforms provides an incredibly powerful and efficient way to establish empirical guidelines for statistical graphics and visualization. 
 There are nearly endless ways to combine web graphics, user interactions, and data collection to get insight into perception and use of graphics in practical settings. 
-We have been continually surprised at the richness of the data collected in these experiments and the ability to combine qualitative and quantitative assessment to support conclusions that are both nuanced and of practical use when deciding how to design and present data using visualizations. 
+We have been continually surprised at the richness of the data collected in these experiments and the ability to combine qualitative and quantitative assessment to support conclusions that are both nuanced and of practical use when deciding how to design and present data using visualizations.
+
+In this paper, we have attempted to contextualize and motivate the logic behind the process we use to design empirical graphics experiments. 
+We've discussed model development, experimental design considerations, pilot testing, and data analysis methods that have been honed over many successful and less-than-optimal experiments. 
+While no experiment involving humans ever goes exactly to plan, following this process helps to avoid some of the most likely mishaps, ensuring that each new experiment's "bonus" findings have only minimal impacts on the study's overall utility. 
+
+While it can be difficult to conduct empirical tests of different visualizations, the results of these experiments support guidelines for graphical design and communication of statistical findings in an accessible and explainable way. 
+Many chart design guidelines and recommendations are based on heuristics, but as scientists, we should prefer guidelines which are based on empirical, experimentally derived results over opinions. 
+Testing statistical graphics and developing empirically supported guidelines for chart creation promises to support better scientific communication, which is critical for educating the public about topics like climate change, public health, the risk of severe weather and more.
+
+
 
 # References
