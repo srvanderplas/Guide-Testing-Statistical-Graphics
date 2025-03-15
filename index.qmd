@@ -298,29 +298,27 @@ The time and effort invested in this step at the outset of the experiment pays d
 It would be difficult to develop a full data generating model without some idea of the experimental design: the basic structure of the parameters which are to be manipulated, how the users will be tested, and so on. 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
 When conducting graphical tests, however, there are additional considerations beyond those taught in a standard experimental design course.
+Experimenters must carefully consider how much information participants should have about the experiment, what platform to use to recruit participants, and the experimental infrastructure underlying data collection. 
+At the same time, more standard design considerations, like blocking, randomization, sample size, and analysis methodology are also important. 
+In this section, we broadly consider three different components of the experimental design process: infrastructure for data collection and participant recruitment, experimental design, and ethics panel review. 
 
-## Cognitive Load 
+## Data Collection
 
-The primary human design factor to be aware of is that visual tasks and assessing statistical graphics can be extremely cognitively taxing. 
-In our experience, it is difficult to expect participants to evaluate more than about 15 charts in one sitting. 
-If users are asked to deeply engage and answer multiple questions about each chart, this limit may be lower (8-10), but even with a relatively simple task, as in lineup methods, it is hard for participants to accurately evaluate more than about 15 charts. 
-Tasks which are more interactive, such as `You Draw It', may be somewhat easier for participants, but it is unlikely that participants would be willing to complete more than about 20 tasks in one sitting even with tasks that require fewer decisions and more engagement. 
-At some point, participants' interest in accuracy will decline, and the researcher is better off using a larger number of participants completing fewer tasks within the window where participants are attentive and engaged.
 
-## Participant Instructions
+### Participant Instructions
 
 It can be extremely helpful to include "practice" demonstrations of the task to show the basic process, logic, and reasoning. 
-While it is tempting to make these tasks fully representative of the type of judgement which will be required of participants, practice tasks which are too close to the experimental task may bias participants; we have found that it works well to have a relatively easy practice task which utilizes a slightly different type of plot and/or type of data than what will be tested in the experiment. 
+While it is tempting to make these tasks fully representative of the type of judgement which will be required of participants, practice tasks which are too close to the experimental task may bias participants.
+We have found that it works well to have a relatively easy practice task which utilizes a slightly different type of plot and/or type of data than what will be tested in the experiment. 
 In cases which require interactivity, gif animations of the task being carried out are useful, as are additional visual cues, such as the yellow box used in the `You Draw It' task[^1] to indicate that there were points which were not completed. 
+Demonstrations can reduce cognitive load, but it is often critical not to prime participants to focus on the specific effect manipulated during the experiment. 
+Finding the right examples and instructions to use in an experiment is a delicate process: priming participants can reduce the generalizability or relevance of the experiment, but if participants are confused about what question to answer or how to complete the task, response variability and participant cognitive load may be too high to detect an effect.
+Pilot testing with a small group of volunteers who think aloud while completing the experiment can be extremely helpful in identifying problems with participant instructions. 
+However, it is important that some pilot participants have lower levels of mathematical and statistical training that are similar to the participant population.
+One technique that we have used is to wrap pilot testing into a presentation about the experiment to a general audience, perhaps as part of an undergraduate course or undergraduate research experience recruitment activity. 
+The experiential component increases participant understanding of the research before the presenter explains the scientific goals behind the project, and it is often easy to get feedback on the experiment at the same time.
 
-## Accounting for Participant Variability
-
-While studies have found some relationship between lineup performance and demographic factors [@vanderplasSpatialReasoningData2016a], these differences are relatively small when participants are recruited from online testing platforms like Amazon Mechanical Turk or Prolific, or when participants are recruited from a university student population. 
-Studies have also not found a strong relationship between visual task performance and participant recruitment method [@vanderplasFramedReproducingRevisiting2019], perhaps in part because demographics which use social media sites and demographics completing online research tasks for pay overlap heavily. 
-However, when participants are recruited using a statistically representative sample of the wider population, education becomes an extremely useful predictor of ability to effectively read and draw conclusions about a chart [@riceTestingPerceptualAccuracy2024].  
-In almost every situation, though, we find that some participants are very good at evaluating graphics and some participants are not; as a result, it can be extremely helpful to use random effects models with an effect for individual participants. 
-
-## Demographic Data
+### Demographic Data
 
 It may be useful to ask a few more demographic questions about STEM education level for studies which ask more of participants from a mathematical standpoint; while lineup studies have not found strong associations with those variables, lineup studies also do not require participants to engage with the data presented in a chart in a way that requires higher-order mathematical reasoning.
 This has allowed us to make the argument to the ethics committee (institutional review board, or IRB) that our research is exempt, as we do not collect enough demographic information to identify participants, however, collecting reduced demographic information occasionally comes at a cost. 
@@ -328,28 +326,94 @@ One recent study examining the use of log scales and exponential data was conduc
 It was only after the experiment was completed that we realized that different countries introduce logarithms as a concept at different points during primary and secondary education; it might be that individuals in some countries have much more experience with log scales than those educated in the United States. 
 We mention this only to point out that while every experiment contains a few missed opportunities, it is worth giving careful thought to the demographic questions asked of participants and what information may be helpful during the analysis stage.
 
+
+### Infrastructure
+
+We have conducted visualization experiments using a wide variety of tools: custom web servers running interactive, PHP-based forms, generic web survey platforms (Qualtrics, Google Forms) for static graphics, and Shiny applications that control every part of the experiment interface (instructions, generating completion codes for participant payment, rendering interactive graphics, and generating fully randomized data for each participant). 
+In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server administration and management, however, this balance is likely different for every lab and potentially for every experiment. 
+
+### Participant Recruitment
+
+Visualization experiments tend to opt for one of the following sampling strategies, ordered by generalizability to the wider population:
+
+- Validated, representative panels of participants offered by specialized polling groups. In the US, this includes [NORC's AmeriSpeak](https://amerispeak.norc.org/us/en/amerispeak/about-amerispeak/panel-design.html) and [Gallup Panels](https://www.gallup.com/analytics/318911/us-social-research.aspx)
+
+- Recruitment platforms designed for crowdsourcing research tasks, including  [Amazon Mechanical Turk](https://www.mturk.com/) and [Prolific](https://www.prolific.com/). Researchers may be able to obtain representative samples measured against census data along variables such as race, age, and sex, but participants are often more technologically sophisticated and educated than the general population on these platforms.
+
+- In-person studies often recruit from undergraduate psychology or statistics students because researchers often have access to these populations and participation in studies may be part of a course's experiential learning activities, as in @vanderplasEscapingFlatlandGraphics2024. While the data generated from required classroom experiments may have higher variability, and it may be hard to generalize findings beyond undergraduate students, these studies can be conducted much more cheaply than studies conducted through online platforms or panels. 
+
+- Social media and email-based recruitment. Researchers may post directly to social media sites such as Twitter/X, Mastodon, and BlueSky, forums and discussion sites such as Reddit, or general email lists that may be purchased from universities and other marketing organizations. If the goal is to recruit a specific population, such as meterologists or forensic examiners, forums may be an extremely effective way to recruit participants; we have used the [SampleSize subreddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/) successfully and obtained participants that, while younger and more highly educated than those recruited from a platform, had similar results on visual estimation tasks [@vanderplasFramedReproducingRevisiting2019]. 
+
+
+@riceTestingPerceptualAccuracy2024 recruited participants using nationally representative panel samples and found that conclusions from fully representative samples of the population can be very different from volunteer samples recruited using other services, as many people are unmotivated to engage with charts, don't know how to read charts, or impose pre-formed conclusions onto visual displays. 
+While using representative panel sampling products offered by organizations such as NORC or Gallup is considerably more expensive than samples from Amazon MTurk or Prolific, these results suggest that results from sampling methods used online may not generalize to the broader population.
+People who participate in studies via online platforms are more technologically sophisticated and educated than the general population, and this bias may significantly impact the conclusions. 
+However, it is also reasonable to argue that this group of people may be less likely to use graphics at all in daily life. 
+Researchers designing a study should carefully consider whether the goal of the study is to generalize results to the adult population or to a subset of that population who make decisions based on data. 
+
+If conducting an online experiment, we recommend consideration of panel-based sampling methods as well as online testing platforms. 
+While Amazon MTurk was once the only large platform for this type of research [@heerCrowdsourcingGraphicalPerception2010], many researchers now prefer Prolific because it has stronger limitations on use of automation tools to complete tasks. 
+We recommend that experimenters consider available options, compare pricing structures (as these vary widely), and consider whether add-on fees for e.g. demographically representative samples are worth the additional cost. 
+It is also important to ensure that the platform supports the type of user engagement required for the study. 
+In our experience, online recruitment platforms are more flexible and allow experimenters to use a much wider range of stimuli and experimental designs, but this sacrifices some ability to generalize results to a wider population. 
+
+[^1]: See a gif of testing with `You Draw It' [here](https://i.imgur.com/GM5YSen.gif)
+
+## Experimental Design
+
+Data collection process and infrastructure considerations can be complex in graphics experiments, but they are critically important for ensuring that data is successfully collected and that results can be generalized to the wider population. 
+However, there are also several considerations that are related to more standard experimental design concerns, but with twists unique to cognitive science experiments. 
+Experimenters must consider factors like cognitive load when determining how to block and randomize factors and allocate trials to participants. 
+These factors are also extremely important when deciding on the number of participants necessary for an experiment.
+
+## Cognitive Load 
+
+In our experience, it is difficult to expect participants to evaluate more than about 15 charts in one sitting. 
+If users are asked to deeply engage and answer multiple questions about each chart, this limit may be lower (8-10), but even with a relatively simple task, as in lineup methods, it is hard for participants to accurately evaluate more than about 15 charts. 
+Tasks which are more interactive, such as `You Draw It', may be somewhat easier for participants, but it is unlikely that participants would be willing to complete more than about 20 tasks in one sitting even with tasks that require fewer decisions because these tasks often require more engagement. 
+At some point, participants' interest in accuracy or attention to detail will decline, and the researcher is better off using a larger number of participants completing fewer tasks within the window where participants are attentive and engaged.
+As a result, constraints on cognitive load are perhaps the most important factor in determining the sample size necessary for a study.
+
+## Sample Size
+
+It is difficult to offer specific advice on the number of participants to include in the study, because the experimental design, participant engagement level, and the specific factors under investigation have such a large effect on the number of trials one participant can reasonably complete before fatigue effects increase response variance. 
+Because there are so many factors which have an effect on the required sample size, explicit power calculations for these experiments can be extremely difficult - experimenters would have to run each experiment once to get the necessary information for a power calculation and then run the **exact same** experiment a second time with the calculated $n$ participants.
+Often, after the pilot experiment is completed, more significant changes are necessary that invalidate the estimates which might contribute to the power calculation.
+Some experts have begun to recommend that instead of pilot-study informed power calculations, experimenters use a more general approach based on the intended analysis method [@brysbaertHowManyParticipants2019]. 
+
+When designing graphics experiments, we typically optimize sample size according to constraints identified during the iterative development of the experiment's structure.
+First, we optimize the model and data generation method.
+Next, we revise the graphics used in the experiment, removing any extraneous information and ensuring that sufficient cues (ticks, grid lines, labels, colors, aesthetics) are provided across experimental conditions to complete the required graphical task.  
+Then, we develop the data collection application and determine what types of questions the user will answer during the experiment.
+This includes both the primary questions of interest and any secondary measures, such as completion time, participant reasoning, confidence level, and so on. 
+As the number of tasks required of the participant increases, the number of trials we can ask participants to complete during a session decreases. 
+We pilot test the application, often using a pool of graduate students, colleagues, social media acquaintances, and conscripted family members. 
+During the pilot test stage, we pick an optimistic number of trials per participant -- for instance, we might ask pilot participants to evaluate 20 graphical lineups (400 total plots), even though we expect to reduce the number to 10 or 15 during the main experiment. 
+After pilot participants complete the study, we ask questions about fatigue to determine what range of trials per participant is reasonable; in order to find this point, pilot testing needs to include more trials than we expect people to complete without fatigue effects. 
+
+At the end of our pilot study, the power calculation becomes an optimization of constraints imposed by the experimental design (e.g. how many blocks in an incomplete block design can we have with the factors under investigation), anticipated analysis method, and budget for the experiment. 
+The number of trials a single participant can complete without fatigue affects the block size and strategy by which we allocate trials to each participant.
+In addition, we must consider how long participants take to complete the required number of trials.
+Completion time is used to determine participant compensation (if using a participant recruiting platform). 
+Ethics boards and some recruitment platforms require that participants are paid a reasonable wage for their time (currently, around \$15 US per hour), and platforms may ask for median completion time and automatically reject submissions from participants who are too far under or over the specified time limits; they may also require additional participant payments if the median time estimate is too far below the actual average completion time during the experiment.
+Platforms may also calculate fees based on both the participant payment and number of participants recruited, with additional fees to recruit e.g. demographically representative samples; as a result, it can be advantageous to balance cognitive load concerns with the fee structure used by the selected recruitment platform.
+This complex calculus is often not considered in sample size calculations taught in statistics courses, but experimenters do not often have budgets of infinite size to complete experiments, so some financial optimization is necessary in practice. 
+This pragmatic sample size calculation may boil down to designing the experiment in a way that allows for collection of data using as many participants as the budget will support. 
+
+
+In psychophysical graphics experiments, such as @luModelingJustNoticeable2022, there are often fewer participants with many more trials per participant (28 participants, 250 trials each); the stimuli in these experiments are often much simpler (e.g. one or two plots instead of 20 in a lineup) and engagement is limited to detection rather than estimation or prediction.
+Psychophysics experiments, particularly those designed for analysis using Rasch models, require that each participant assesses a full factorial set of stimuli, whereas analysis with generalized linear mixed models allows for use of incomplete blocks and other strategies that spread the cognitive burden across several participants. 
+Online experiments which require more complex engagement with statistical graphics often have between 300 and 600 participants [@robinsonPerceptionCognitiveImplications,], but this varies widely with the experimental design, type of stimuli used, and level of participant engagement required; @loyVariationsQQPlots2016 and @clusters had more than 1300 participants,  while @sineillusion and @vanderplasFramedReproducingRevisiting2019 had fewer than 150 participants. 
+In-person experiments [e.g. @vanderplasSpatialReasoningData2016] often use fewer participants than online equivalents, but these experiments may require more tasks of each participant, which reflects the increased logistical costs of scheduling participants, supervising the experiment, and entering the data, if tasks are completed on paper. 
+In some cases, in-person experiments may combat cognitive fatigue by scheduling multiple visits per participant; this leaves experiments vulnerable to participant drop-out effects, but can effectively balance cognitive load and participant recruitment costs in some situations.
+
 ## Trial Allocation to Participants
 
 In statistical design terms, most of our studies involve some type of balanced incomplete block design, where participants are assigned to a subset of experimental conditions which allow for estimation of the full range of effects specified in the model. 
 The particular structure of these designs depends heavily on the factorial structure of the study, but we typically arrange participants' trials to ensure that participants see the same data set only once (where possible) and see as many different experimental conditions as possible. 
 It is also important to reduce the impact of order effects using either e.g. Latin square designs or randomization where possible, but we recognize that this is not always feasible due to the need to maintain participant naivete during some portions of the experiment. 
 
-## Data Collection Platforms and Infrastructure
 
-We have conducted visualization experiments using a wide variety of tools: custom web PHP servers running interactive forms for data collection, generic web survey platforms (Qualtrics, Google Forms) for static graphics, and Shiny applications that control every part of the experimental process from instructions to providing completion codes for payment while rendering interactive graphics and generating fully randomized data for each participant. 
-In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server management, however, this balance is likely different for every group and potentially for every experiment. 
-Likewise, we have recruited participants using services such as [Amazon Mechanical Turk](https://www.mturk.com/) and [Prolific](https://www.prolific.com/), on social media sites ([Reddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/), Twitter(X), Mastodon, and BlueSky), and by email; each recruitment method has trade-offs between cost, convenience, number of people in the sampling frame, and control over participant demographics. 
-@riceTestingPerceptualAccuracy2024 recruited participants using nationally representative panel samples and found that conclusions from fully representative samples of the population can be very different from volunteer samples recruited using other services, as many people are unmotivated to engage with charts, don't know how to read charts, or impose pre-formed conclusions onto visual displays. These individuals are unlikely to participate in most ad-hoc volunteer-based sampling methods.
-While using representative panel sampling products offered by organizations such as NORC or Gallup is considerably more expensive than samples from Amazon MTurk or Prolific, these results suggest that results from sampling methods used online may not generalize to the broader population.
-People who participate in studies via online platforms are more technologically sophisticated and educated than the general population, and this bias may significantly impact the conclusions. 
-
-If conducting an online experiment, we recommend consideration of panel-based sampling methods as well as online testing platforms. 
-While Amazon MTurk was once the platform of choice for this type of research [@heerCrowdsourcingGraphicalPerception2010], in 2025 Prolific, which is aimed at academic experiments, seems to provide better options that ensure that experiments are completed by people rather than AI than MTurk. 
-It seems likely that the preferred platform for participant recruitment will continue to evolve over time, thus, we will recommend that experimenters consider available options, compare pricing structures (as these vary widely), and consider whether add-on fees for e.g. demographically representative samples are worth the additional cost. 
-An additional consideration when choosing between panel samples and online recruitment platforms is the constraints placed on the types of questions and graphics which can be used. 
-In our experience, it is much easier to run an experiment using the online recruitment platforms, which place many fewer constraints on both the number and types of questions which can be asked and the types of stimuli which can be used in the experiment. 
-
-[^1]: See a gif of testing with `You Draw It' [here](https://i.imgur.com/GM5YSen.gif)
 
 ## Ethical Review of Human Subjects Experiments
 
