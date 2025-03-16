@@ -80,13 +80,16 @@ Empirical assessments of visualizations, when carefully designed, allow statisti
 
 It is extremely challenging to design studies which strike the right balance between experimental control (i.e. internal validity) and generalizability to a wider context (i.e. external validity). 
 Simply asking people to read quantities off of a graph may not generalize beyond the questions asked or the data used in the chart [@eellsRelativeMeritsCircles1926;@croxtonBarChartsCircle1927;@vonhuhnFurtherStudiesGraphic1927;@croxtonGraphicComparisonsBars1932], but designing a study that is sufficiently robust to those issues requires manipulation or control of so many factors that the amount of participants and trials quickly becomes daunting or unaffordable.
+In addition, when conducting graphics experiments, researchers are in the unusual position of being both the subject matter expert and the statistician, providing an unusual amount of control over not just the experimental design but also the specific treatments, levels, and experimental protocols. 
+The amount of choices required to develop, pilot, and run an experiment can be overwhelming. 
 In this paper, we attempt to distill the experience gained from conducting several different types of graphics experiments [@clusters;@sineillusion;@emily-diss;@power;@vanderplasFramedReproducingRevisiting2019;@vanderplasEscapingFlatlandGraphics2024], discussing the use of different testing methods [@vanderplasTestingStatisticalCharts2020], the process of designing a graphical experiment, and analysis of the resulting empirical data. 
 It is our hope that this paper will lower the barriers that exist for conducting empirical graphics research and reduce the probability of costly mistakes. 
 
 @sec-testing-methods discusses different methods for testing graphics, and which methods best address different levels of user engagement. 
-In @sec-model-dev, we discuss the process of developing a data-generating model used to control the statistical features of data in the tested visualizations. 
+In @sec-model-dev, we discuss the process of developing the data-generating model used to control the statistical features of data in the tested visualizations. 
 Model development is a nuanced and iterative process that ultimately determines the success and generalizability of the experimental results. 
-We explore different experimental design considerations in @sec-exp-design and then move to the importance of pilot testing in @sec-pilot-test. 
+In @sec-exp-dev, we discuss the design of the experimental protocol - the choice of platform, number and type of trials, and flow of the experiment. 
+We briefly consider different experimental design considerations in @sec-exp-design, but focus primarily on factors specific to graphics experiments, and then move to the importance of pilot testing in @sec-pilot-test. 
 Finally, we  provide some common analysis strategies in @sec-analysis, including strategies for handling the unexpected data features which are so common in graphical testing experiments. 
 
 
@@ -213,7 +216,6 @@ The choice of the parameter space used in testing is crucial to gain insight fro
 Choosing an appropriate space for testing parameters is a well-known problem in psychometric testing: the space considered should cover the area between 'only some activation' to 'almost full activation' of an appropriate psychometric function [@schuttPainfreeAccurateBayesian2016;@valentinDesigningOptimalBehavioral2024]. 
 When testing charts, visual assessment is obviously key, but researchers can make use of statistical indices related to the testing condition to narrow the parameter space to a reasonable and efficient subset from which maximal information can be acquired.  
 These statistical indices may also serve as quantitative proxies for the difficulty of the visual task. 
-
 To identify a statistical proxy for visual difficulty that may help with narrowing the parameter space, it can be useful to consider numerical measures used to estimate the same types of visual information that will be assessed in the experiment. 
 For instance, we have used
 
@@ -221,8 +223,9 @@ For instance, we have used
 - Gini inequality as a measure of the strength of clustering
 - lack-of-fit statistics to assess the amount of curvature in an exponential relationship (shown in @fig-lof-density-curves)
 
-Then, a wide range of potential combinations of parameter values or sampling strategies can be explored and summarized graphically; if the numerical statistic cannot differentiate between the null and target under a condition, it is reasonable to expect that a visual inspection of the data may also not show significant results.
+Then, a wide range of potential combinations of parameter values or sampling strategies can be explored and summarized graphically; if the numerical statistic cannot differentiate between the null and target under a condition, it is reasonable to think that a visual inspection of the data may also not show significant results.
 As with any measure, it is important that difficulty levels span a range from easy to hard; we do not learn anything from finding out that everyone can distinguish all of the combinations.
+This portion of the design is somewhat analogous to selecting a range of doses of a chemical in a dose-response experiment. 
 
 ```{r lof-density-curves, echo = F, include = T, message = F, warning = F}
 #| label: fig-lof-density-curves
@@ -266,16 +269,16 @@ No numerical statistic is a perfect measure of what we actually see: at best, th
 We have found it to be useful to have one experimenter calibrate the model parameters at a gross level, and then have another experimenter narrow in on the parameters which are visually reasonable within the selected range. 
 Then, both examiners visually inspect a large number of plots generated using those parameters to get a sense for how difficult the task at hand is (this strategy is also described by @luModelingJustNoticeable2022). 
 At some point, all experimenters become so visually saturated with the nuances of the data generating mechanism that it may become necessary to "sanity check" the protocol with family members, friends, and colleagues. 
-These informal surveys provide extremely useful feedback and can help to counteract the visual saturation of being immersed in the design of a visualization experiment for months at a time. 
+These informal focus groups  provide extremely useful feedback and can help to counteract the visual saturation of being immersed in the design of a visualization experiment for months at a time. 
 
 
 ## Visual Assessment is Critical
 
 We cannot overstate the importance of visual assessment of your model stimuli, preferably with fresh eyes. 
-We highly recommend performing several rounds of think-aloud pilot testing before deploying an experiment. 
+We highly recommend performing several rounds of think-aloud pilot testing (focus) before deploying an experiment. 
 In support of this assessment, we offer up a cautionary tale of our own experience: that of @clusters, where we designed an experiment to test which plot aesthetics promoted discovery of linear trends and/or clusters. 
 
-The experiment was a full 2x3x3 factorial exploration of three data generating parameters, with 3 replicates at each parameter combination (54 data sets) and 10 aesthetic combinations (for a total of 540 lineups). 
+The experiment was a 2x3x3 factorial exploration of three data generating parameters, with 3 replicates at each parameter combination (54 data sets) and 10 aesthetic combinations (for a total of 540 lineups). 
 Each lineup had 20 different sub-panels, so we should have carefully visually inspected some 10,800 different panels. 
 As is evident from the fact that we're telling this story as a cautionary tale, we missed a critical problem with our data-generating mechanism: when clusters were assigned to randomly generated data after the fact, we didn't control the cluster size, leading to clusters of one or two points in relatively few sub-panels. 
 This became particularly noticeable when bounding ellipses were added to the plot, as the method used to generate those ellipses required at least 3 points in the cluster. 
@@ -292,17 +295,51 @@ That is, participants could still detect the artificial nature of the induced cl
 While it can be difficult to get the data generating method right, it is essential to conducting visual experiments that generalize well beyond the effects shown in a single data set or phenomenon. 
 The time and effort invested in this step at the outset of the experiment pays dividends when it allows for clear generalization of the experimental results to an entire statistical concept rather than a single data set.  
  
+# Experiment Development {#sec-exp-dev}
 
-# Experimental Design Considerations {#sec-exp-design}
-
-It would be difficult to develop a full data generating model without some idea of the experimental design: the basic structure of the parameters which are to be manipulated, how the users will be tested, and so on. 
+It would be difficult to develop a full data generating model without some idea of the experimental protocol: the basic equipment required for the experiment, some idea of what questions users will answer, where and how data will be collecteed, and so on. 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
 When conducting graphical tests, however, there are additional considerations beyond those taught in a standard experimental design course.
 Experimenters must carefully consider how much information participants should have about the experiment, what platform to use to recruit participants, and the experimental infrastructure underlying data collection. 
-At the same time, more standard design considerations, like blocking, randomization, sample size, and analysis methodology are also important. 
-In this section, we broadly consider three different components of the experimental design process: infrastructure for data collection and participant recruitment, experimental design, and ethics panel review. 
+In addition to our brief overview of considerations in our research, @kochariConductingWebBasedExperiments2019 has many helpful suggestions for conducting web-based cognitive and perceptual experiments that also apply to studies of statistical graphics. 
 
-## Data Collection
+
+Of course, more standard statistical design considerations, like blocking, randomization, sample size, and analysis methodology are also important; we will discuss these briefly in @sec-exp-design. 
+Here, we focus primarily on the experiment development process, with critical decisions in a roughly temporal order. 
+
+### Infrastructure
+
+We have conducted visualization experiments using a wide variety of tools: custom web servers running interactive, PHP-based forms, generic web survey platforms (Qualtrics, Google Forms) for static graphics, and Shiny applications that control every part of the experiment interface (instructions, generating completion codes for participant payment, rendering interactive graphics, and generating fully randomized data for each participant). 
+In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server administration and management, however, this balance is likely different for every lab and potentially for every experiment. 
+
+
+### Participant Recruitment
+
+There are several different, commonly used methods for recruiting participants for visualization experiments and cognitive experiments more broadly. The selection of participant recruitment method depends on the infrastructure which will be used in the experiment, but the choice of participant pool may be more critical to the experiment results than the infrastructure and modality [@uittenhoveLabTestingWebTestingCognitive2023]. 
+
+We have used each of the following strategies in experiments: 
+
+- Validated, representative panels of participants offered by specialized polling groups. In the US, this includes [NORC's AmeriSpeak](https://amerispeak.norc.org/us/en/amerispeak/about-amerispeak/panel-design.html) and [Gallup Panels](https://www.gallup.com/analytics/318911/us-social-research.aspx)
+
+- Recruitment platforms designed for crowdsourcing research tasks, including  [Amazon Mechanical Turk](https://www.mturk.com/) and [Prolific](https://www.prolific.com/). Researchers may be able to obtain representative samples measured against census data along variables such as race, age, and sex, but participants are often more technologically sophisticated and educated than the general population on these platforms.
+
+- In-person studies. In person participants are commonly recruited from undergraduate students, but in some experiments it may be preferable to recruit participants from the local community. Students are often convenient for academic studies, as participation in experiments is often a component of introductory course experiential learning activities, as in @vanderplasEscapingFlatlandGraphics2024. While the data generated from required classroom experiments may have higher variability, and it may be hard to generalize findings beyond undergraduate students, these studies can be conducted much more cheaply than studies conducted through online platforms or panels. Recruiting participants from the community for in-person research is also viable, but can be much more complicated, however, some topics, including research involving persons with specific disabilities, the elderly, or subject-matter experts may require recruiting participants outside the university. 
+
+- Social media and email-based recruitment. Researchers may post directly to social media sites such as Twitter/X, Mastodon, and BlueSky, forums and discussion sites such as Reddit, or general email lists that may be purchased from universities and other marketing organizations. If the goal is to recruit a specific population, such as meterologists or forensic examiners, forums and email lists may be an extremely effective way to recruit participants. We have used the [SampleSize subreddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/) successfully and obtained participants that, while younger and more highly educated than those recruited from a platform, had similar results on visual estimation tasks [@vanderplasFramedReproducingRevisiting2019]. When using samples obtained from acquaintances, researchers should try to obtain more diversity than was present in historical papers, such as  @clevelandGraphicalPerceptionTheory1984, where the authors sampled their colleagues (and their wives). 
+
+
+@riceTestingPerceptualAccuracy2024 recruited participants using nationally representative panel samples and found that conclusions from fully representative samples of the population can be very different from volunteer samples recruited using other services, as many people are unmotivated to engage with charts, don't know how to read charts, or impose pre-formed conclusions onto visual displays. 
+While using representative panel sampling products offered by organizations such as NORC or Gallup is more expensive than samples from Amazon MTurk or Prolific, these results may imply that results from less representative participant recruitment methods may not generalize to the broader population.
+People who participate in studies via online platforms are more technologically sophisticated and educated than the general population, and this bias may significantly impact the conclusions. 
+However, it is also reasonable to argue that higher education might make someone more likely to use charts and data for decision-making.  
+Researchers designing a study should carefully consider whether the goal of the study is to generalize results to the adult population or to a subset of that population who make decisions based on data. 
+
+If data will be collected online, then we recommend considering the pros and cons of panel-based sampling methods and  online recruitment platforms. 
+While Amazon MTurk was once the only large platform for this type of research [@heerCrowdsourcingGraphicalPerception2010], many researchers now prefer Prolific because its participants appear to be more attentive to tasks [@albertComparingAttentionalDisengagement2023;@peerDataQualityPlatforms2022]. 
+Prolific's focus on academic research rather than developing training data for machine learning and AI means that its policies are tailored for these types of projects and its users may be more interested in science than those on other platforms. 
+Experimenters should consider available options, compare pricing structures (as these vary widely), and consider whether add-on fees for e.g. demographically representative samples are worth the additional cost. 
+It is also important to ensure that the platform supports the type of user engagement required for the study. 
+Online recruitment platforms are more flexible than many panel survey platforms and allow experimenters to use a much wider range of stimuli and experimental designs, but this sacrifices some ability to generalize results to a wider population. 
 
 
 ### Participant Instructions
@@ -318,6 +355,24 @@ However, it is important that some pilot participants have lower levels of mathe
 One technique that we have used is to wrap pilot testing into a presentation about the experiment to a general audience, perhaps as part of an undergraduate course or undergraduate research experience recruitment activity. 
 The experiential component increases participant understanding of the research before the presenter explains the scientific goals behind the project, and it is often easy to get feedback on the experiment at the same time.
 
+[^1]: See a gif of testing with `You Draw It' [here](https://i.imgur.com/GM5YSen.gif)
+
+
+### Attention Checks and Answer Validation
+
+In a perfect world, all participants would be fully engaged in the experiment, focusing only on that task from start to finish without interruption or distraction. 
+In this world, participants would attentively read the unambiguous instructions for completing the experiment and executing these instructions flawlessly. 
+Unfortunately, we do not live in this perfect world. 
+Here, we focus primarily on mechanisms which can be used to exclude data based on participant noncompliance, rather than mechanisms which are used to automatically withhold participant compensation.  
+There are several mechanisms that can be used to guard against or at least identify participants who are not fully engaged in the experiment or have severely misunderstood the instructions: 
+
+- Attention checks - questions inserted into the experiment which appear similarly to actual trials but which instruct participants to select a specific response or complete a trivial task (e.g. select the result of 2+2). More guidance on attention checks can be found in @muszynskiAttentionChecksHow2023. 
+
+- User input validation - mechanisms which reduce the potential parameter space of user inputs to a valid or reasonable set of parameters. Examples include not allowing participants to select negative variance values, requiring continuous user-drawn lines on an interactive chart, and even checking to ensure that the user's input is of the correct type. 
+
+- 
+
+
 ### Demographic Data
 
 It may be useful to ask a few more demographic questions about STEM education level for studies which ask more of participants from a mathematical standpoint; while lineup studies have not found strong associations with those variables, lineup studies also do not require participants to engage with the data presented in a chart in a way that requires higher-order mathematical reasoning.
@@ -326,38 +381,15 @@ One recent study examining the use of log scales and exponential data was conduc
 It was only after the experiment was completed that we realized that different countries introduce logarithms as a concept at different points during primary and secondary education; it might be that individuals in some countries have much more experience with log scales than those educated in the United States. 
 We mention this only to point out that while every experiment contains a few missed opportunities, it is worth giving careful thought to the demographic questions asked of participants and what information may be helpful during the analysis stage.
 
-
-### Infrastructure
-
-We have conducted visualization experiments using a wide variety of tools: custom web servers running interactive, PHP-based forms, generic web survey platforms (Qualtrics, Google Forms) for static graphics, and Shiny applications that control every part of the experiment interface (instructions, generating completion codes for participant payment, rendering interactive graphics, and generating fully randomized data for each participant). 
-In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server administration and management, however, this balance is likely different for every lab and potentially for every experiment. 
-
-### Participant Recruitment
-
-Visualization experiments tend to opt for one of the following sampling strategies, ordered by generalizability to the wider population:
-
-- Validated, representative panels of participants offered by specialized polling groups. In the US, this includes [NORC's AmeriSpeak](https://amerispeak.norc.org/us/en/amerispeak/about-amerispeak/panel-design.html) and [Gallup Panels](https://www.gallup.com/analytics/318911/us-social-research.aspx)
-
-- Recruitment platforms designed for crowdsourcing research tasks, including  [Amazon Mechanical Turk](https://www.mturk.com/) and [Prolific](https://www.prolific.com/). Researchers may be able to obtain representative samples measured against census data along variables such as race, age, and sex, but participants are often more technologically sophisticated and educated than the general population on these platforms.
-
-- In-person studies often recruit from undergraduate psychology or statistics students because researchers often have access to these populations and participation in studies may be part of a course's experiential learning activities, as in @vanderplasEscapingFlatlandGraphics2024. While the data generated from required classroom experiments may have higher variability, and it may be hard to generalize findings beyond undergraduate students, these studies can be conducted much more cheaply than studies conducted through online platforms or panels. 
-
-- Social media and email-based recruitment. Researchers may post directly to social media sites such as Twitter/X, Mastodon, and BlueSky, forums and discussion sites such as Reddit, or general email lists that may be purchased from universities and other marketing organizations. If the goal is to recruit a specific population, such as meterologists or forensic examiners, forums may be an extremely effective way to recruit participants; we have used the [SampleSize subreddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/) successfully and obtained participants that, while younger and more highly educated than those recruited from a platform, had similar results on visual estimation tasks [@vanderplasFramedReproducingRevisiting2019]. 
+# Experimental Design Considerations {#sec-exp-design}
 
 
-@riceTestingPerceptualAccuracy2024 recruited participants using nationally representative panel samples and found that conclusions from fully representative samples of the population can be very different from volunteer samples recruited using other services, as many people are unmotivated to engage with charts, don't know how to read charts, or impose pre-formed conclusions onto visual displays. 
-While using representative panel sampling products offered by organizations such as NORC or Gallup is considerably more expensive than samples from Amazon MTurk or Prolific, these results suggest that results from sampling methods used online may not generalize to the broader population.
-People who participate in studies via online platforms are more technologically sophisticated and educated than the general population, and this bias may significantly impact the conclusions. 
-However, it is also reasonable to argue that this group of people may be less likely to use graphics at all in daily life. 
-Researchers designing a study should carefully consider whether the goal of the study is to generalize results to the adult population or to a subset of that population who make decisions based on data. 
 
-If conducting an online experiment, we recommend consideration of panel-based sampling methods as well as online testing platforms. 
-While Amazon MTurk was once the only large platform for this type of research [@heerCrowdsourcingGraphicalPerception2010], many researchers now prefer Prolific because it has stronger limitations on use of automation tools to complete tasks. 
-We recommend that experimenters consider available options, compare pricing structures (as these vary widely), and consider whether add-on fees for e.g. demographically representative samples are worth the additional cost. 
-It is also important to ensure that the platform supports the type of user engagement required for the study. 
-In our experience, online recruitment platforms are more flexible and allow experimenters to use a much wider range of stimuli and experimental designs, but this sacrifices some ability to generalize results to a wider population. 
+In this section, we broadly consider three different components of the experimental design process: infrastructure for data collection and participant recruitment, experimental design, and ethics panel review. 
 
-[^1]: See a gif of testing with `You Draw It' [here](https://i.imgur.com/GM5YSen.gif)
+## Data Collection
+
+
 
 ## Experimental Design
 
