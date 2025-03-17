@@ -197,6 +197,44 @@ The data generating model is particularly critical when using lineups, as the nu
 Each testing method has specific requirements, but it is important to carefully calibrate the model parameters to allow for some variability, but not too much, and to ensure that participants can succeed at the task and do not feel like they are being made to analyze random noise. 
 This Goldilocks-style problem is the focus of the next section. 
 
+
+# Experiment Development Life Cycle
+
+Developing a graphics experiment is often a highly iterative process, but it can help to approach the design process by first optimizing the model and data generation method before spending time on optimizing the specific stimuli or customizing the data collection platform.
+This is important because the model parameters and data generation process inform the experiment structure and thus impact decisions made downstream. 
+
+Once the model and data generating mechanism are set, it is useful to revisit the primary questions of interest and determine how to measure the responses effectively. 
+Secondary measures, such as response time, free responses, and confidence level should also be determined. 
+These choices will inform the choice of a data collection platform and may also inform the participant recruitment method. 
+
+Next, we recommend developing a preliminary data analysis plan, specifying the general category of model which will be used (e.g. generalized linear mixed-effects model, t-test) and the contrasts which are most interesting. 
+This sets up the experimental design decisions, but also ensures that as the data collection platform and process is developed, any design constraints are considered. 
+Development of the data collection application is the next step, using draft graphics and the set of participant response measures of interest. 
+
+There are at least 3 stages of testing in a graphics experiment: informal tests, a pilot study, and the main experiment. 
+The informal tests are critical for identifying issues with the data collection application, but can also be used to calibrate the number of tasks required of each participant. 
+As the number and complexity of tasks increases, the number of trials we can ask participants to complete during a session decreases. 
+The informal testing stage allows researchers to consider the tradeoffs inherent in the decision to reduce the amount of information collected for each task, reduce the number of tasks, or mitigate participant fatigue in other ways. 
+
+During preliminary testing, we use an optimistic number of trials per participant, so that we can determine when participants become overly fatigued. 
+For instance, we might ask test participants to evaluate 20 graphical lineups (400 total plots), even though we expect to reduce the number to 10 or 15 during the main experiment. 
+We test the application in individual or focus group sessions, often using graduate students, colleagues, social media acquaintances, and conscripted family members. 
+After these participants complete the study, we ask questions about fatigue to determine what range of trials per participant is reasonable. 
+At the end of our initial experiment tests, we have enough information to determine the basic parameters of the experimental design (e.g. how many blocks in an incomplete block design can we have with the factors under investigation). 
+The number of trials a single participant can complete without excessive fatigue impacts the number of blocks and the strategy by which we allocate trials to each participant.
+
+In addition, we must consider how long participants take to complete the required number of trials.
+Completion time is used to determine participant compensation (if using a participant recruiting platform). 
+Ethics boards and some recruitment platforms require that participants are paid a reasonable wage for their time (currently, around \$15 US per hour), and platforms may ask for median completion time and automatically reject submissions from participants who are too far under or over the specified time limits; they may also require additional participant payments if the median time estimate is too far below the actual average completion time during the experiment.
+Platforms may also calculate fees based on both the participant payment and number of participants recruited, with additional fees to recruit e.g. demographically representative samples; as a result, it can be advantageous to balance cognitive load concerns with the fee structure used by the selected recruitment platform.
+
+The findings from the initial test of the experimental procedure are then used to revise the data collection procedure in preparation for one or more pilot studies.
+It is important to ensure that the software platform, trial allocation, and other components of the experiment are functioning as desired before a formal pilot study is conducted. 
+In some cases, the pilot study is as simple as a "soft launch" of the main experiment, where the total number of trials is pre-specified and only a few trials are released initially to ensure that data collection works as expected. 
+In others, the pilot study is conducted first, and results from that study are used to determine the sample size for the main experiment. 
+At this point, data collection, analysis, and reporting proceed much as in any other experiment. 
+
+
 # Developing a Model {#sec-model-dev}
 
 Once the graphical task has been identified, it is necessary to develop a model which can be used to explore the graphical features of interest in a precise manner. 
@@ -295,25 +333,32 @@ That is, participants could still detect the artificial nature of the induced cl
 While it can be difficult to get the data generating method right, it is essential to conducting visual experiments that generalize well beyond the effects shown in a single data set or phenomenon. 
 The time and effort invested in this step at the outset of the experiment pays dividends when it allows for clear generalization of the experimental results to an entire statistical concept rather than a single data set.  
  
-# Experiment Development {#sec-exp-dev}
+# Protocol Development {#sec-exp-dev}
 
 It would be difficult to develop a full data generating model without some idea of the experimental protocol: the basic equipment required for the experiment, some idea of what questions users will answer, where and how data will be collecteed, and so on. 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
 When conducting graphical tests, however, there are additional considerations beyond those taught in a standard experimental design course.
 Experimenters must carefully consider how much information participants should have about the experiment, what platform to use to recruit participants, and the experimental infrastructure underlying data collection. 
-In addition to our brief overview of considerations in our research, @kochariConductingWebBasedExperiments2019 has many helpful suggestions for conducting web-based cognitive and perceptual experiments that also apply to studies of statistical graphics. 
+In addition to our brief overview of considerations in our research, @kochariConductingWebBasedExperiments2019 has many helpful suggestions for conducting web-based cognitive and perceptual studies that also apply to statistical graphics experiments. 
 
 
 Of course, more standard statistical design considerations, like blocking, randomization, sample size, and analysis methodology are also important; we will discuss these briefly in @sec-exp-design. 
 Here, we focus primarily on the experiment development process, with critical decisions in a roughly temporal order. 
 
-### Infrastructure
+
+## Infrastructure
 
 We have conducted visualization experiments using a wide variety of tools: custom web servers running interactive, PHP-based forms, generic web survey platforms (Qualtrics, Google Forms) for static graphics, and Shiny applications that control every part of the experiment interface (instructions, generating completion codes for participant payment, rendering interactive graphics, and generating fully randomized data for each participant). 
 In our research, Shiny has provided the right balance between control over the experimental setting, procedure, etc. and the intricate details of web server administration and management, however, this balance is likely different for every lab and potentially for every experiment. 
 
+When using Shiny to collect data, we store participant response data and experiment parameters using SQLite tables, which are automatically synchronized with cloud storage and tracked with version control. 
+This ensures that we have incremental records of the tables during data collection, and that all data is stored across multiple locations, guarding against hardware failures. 
+In some studies, data is unique to each participant; in these cases, we highly recommend saving all generated data to a database as well, so that it is possible to go back and examine responses alongside the data used to generate the graphical stimuli.
+Hard drive space is extremely cheap relative to almost any other cost in an experiment; saving all of the data is a sensible measure. 
 
-### Participant Recruitment
+
+
+## Participant Recruitment
 
 There are several different, commonly used methods for recruiting participants for visualization experiments and cognitive experiments more broadly. The selection of participant recruitment method depends on the infrastructure which will be used in the experiment, but the choice of participant pool may be more critical to the experiment results than the infrastructure and modality [@uittenhoveLabTestingWebTestingCognitive2023]. 
 
@@ -342,7 +387,7 @@ It is also important to ensure that the platform supports the type of user engag
 Online recruitment platforms are more flexible than many panel survey platforms and allow experimenters to use a much wider range of stimuli and experimental designs, but this sacrifices some ability to generalize results to a wider population. 
 
 
-### Participant Instructions
+## Participant Instructions
 
 It can be extremely helpful to include "practice" demonstrations of the task to show the basic process, logic, and reasoning. 
 While it is tempting to make these tasks fully representative of the type of judgement which will be required of participants, practice tasks which are too close to the experimental task may bias participants.
@@ -358,7 +403,7 @@ The experiential component increases participant understanding of the research b
 [^1]: See a gif of testing with `You Draw It' [here](https://i.imgur.com/GM5YSen.gif)
 
 
-### Attention Checks and Answer Validation
+## Attention Checks and Answer Validation
 
 In a perfect world, all participants would be fully engaged in the experiment, focusing only on that task from start to finish without interruption or distraction. 
 In this world, participants would attentively read the unambiguous instructions for completing the experiment and executing these instructions flawlessly. 
@@ -366,14 +411,19 @@ Unfortunately, we do not live in this perfect world.
 Here, we focus primarily on mechanisms which can be used to exclude data based on participant noncompliance, rather than mechanisms which are used to automatically withhold participant compensation.  
 There are several mechanisms that can be used to guard against or at least identify participants who are not fully engaged in the experiment or have severely misunderstood the instructions: 
 
-- Attention checks - questions inserted into the experiment which appear similarly to actual trials but which instruct participants to select a specific response or complete a trivial task (e.g. select the result of 2+2). More guidance on attention checks can be found in @muszynskiAttentionChecksHow2023. 
+- Attention checks - questions inserted into the experiment which appear similarly to actual trials but which instruct participants to select a specific response or complete a trivial task (e.g. select the result of 2+2). Participants who do not successfully complete a certain percentage of attention check tasks may be excluded from the experiment. More guidance on attention checks can be found in @muszynskiAttentionChecksHow2023. 
 
-- User input validation - mechanisms which reduce the potential parameter space of user inputs to a valid or reasonable set of parameters. Examples include not allowing participants to select negative variance values, requiring continuous user-drawn lines on an interactive chart, and even checking to ensure that the user's input is of the correct type. 
+- User input validation - mechanisms which reduce the potential parameter space of user inputs to a valid or reasonable set of parameters. Examples include not allowing participants to select negative variance values, requiring continuous user-drawn lines on an interactive chart, and even checking to ensure that the user's input is of the correct type. Validation mechanisms may also ensure that participants answer all questions before proceeding to the next page. 
 
-- 
+- Time-based checks - @kochariConductingWebBasedExperiments2019 suggests that in tasks with longer instructions, it may be useful to remove participants who did not spend a certain amount of time on the instructions page. Similarly, it may be justifiable to remove participants who completed the experiment in an unreasonably short or long amount of time. On the other end of the spectrum, participants who take several hours to complete an experiment with a median completion time of 15 minutes may have experienced technical issues or been distracted. 
+
+Pre-specifying conditions where participant data will be removed from the study before analysis is critical for predictable issues, in order to streamline the analysis and defend against p-hacking concerns. 
+When participants provide anomalous responses that are identified after the experiment, it is much harder, but not impossible, to justify removing the data. 
+Justifications might include that no reasonable viewer would have produced a certain response, as in @sineillusion, or that the response most likely occurred due to a data entry error or a fundamental misunderstanding of the question, but this is only viable if the data is an egregious outlier.
+In less severe cases, it is often preferable to leave the data in, increasing estimate variability but avoiding the need to justify and defend data cleaning decisions.
 
 
-### Demographic Data
+## Demographic Data
 
 It may be useful to ask a few more demographic questions about STEM education level for studies which ask more of participants from a mathematical standpoint; while lineup studies have not found strong associations with those variables, lineup studies also do not require participants to engage with the data presented in a chart in a way that requires higher-order mathematical reasoning.
 This has allowed us to make the argument to the ethics committee (institutional review board, or IRB) that our research is exempt, as we do not collect enough demographic information to identify participants, however, collecting reduced demographic information occasionally comes at a cost. 
@@ -381,99 +431,58 @@ One recent study examining the use of log scales and exponential data was conduc
 It was only after the experiment was completed that we realized that different countries introduce logarithms as a concept at different points during primary and secondary education; it might be that individuals in some countries have much more experience with log scales than those educated in the United States. 
 We mention this only to point out that while every experiment contains a few missed opportunities, it is worth giving careful thought to the demographic questions asked of participants and what information may be helpful during the analysis stage.
 
-# Experimental Design Considerations {#sec-exp-design}
 
-
-
-In this section, we broadly consider three different components of the experimental design process: infrastructure for data collection and participant recruitment, experimental design, and ethics panel review. 
-
-## Data Collection
-
-
-
-## Experimental Design
-
-Data collection process and infrastructure considerations can be complex in graphics experiments, but they are critically important for ensuring that data is successfully collected and that results can be generalized to the wider population. 
-However, there are also several considerations that are related to more standard experimental design concerns, but with twists unique to cognitive science experiments. 
-Experimenters must consider factors like cognitive load when determining how to block and randomize factors and allocate trials to participants. 
-These factors are also extremely important when deciding on the number of participants necessary for an experiment.
-
-## Cognitive Load 
-
-In our experience, it is difficult to expect participants to evaluate more than about 15 charts in one sitting. 
-If users are asked to deeply engage and answer multiple questions about each chart, this limit may be lower (8-10), but even with a relatively simple task, as in lineup methods, it is hard for participants to accurately evaluate more than about 15 charts. 
-Tasks which are more interactive, such as `You Draw It', may be somewhat easier for participants, but it is unlikely that participants would be willing to complete more than about 20 tasks in one sitting even with tasks that require fewer decisions because these tasks often require more engagement. 
-At some point, participants' interest in accuracy or attention to detail will decline, and the researcher is better off using a larger number of participants completing fewer tasks within the window where participants are attentive and engaged.
-As a result, constraints on cognitive load are perhaps the most important factor in determining the sample size necessary for a study.
-
-## Sample Size
-
-It is difficult to offer specific advice on the number of participants to include in the study, because the experimental design, participant engagement level, and the specific factors under investigation have such a large effect on the number of trials one participant can reasonably complete before fatigue effects increase response variance. 
-Because there are so many factors which have an effect on the required sample size, explicit power calculations for these experiments can be extremely difficult - experimenters would have to run each experiment once to get the necessary information for a power calculation and then run the **exact same** experiment a second time with the calculated $n$ participants.
-Often, after the pilot experiment is completed, more significant changes are necessary that invalidate the estimates which might contribute to the power calculation.
-Some experts have begun to recommend that instead of pilot-study informed power calculations, experimenters use a more general approach based on the intended analysis method [@brysbaertHowManyParticipants2019]. 
-
-When designing graphics experiments, we typically optimize sample size according to constraints identified during the iterative development of the experiment's structure.
-First, we optimize the model and data generation method.
-Next, we revise the graphics used in the experiment, removing any extraneous information and ensuring that sufficient cues (ticks, grid lines, labels, colors, aesthetics) are provided across experimental conditions to complete the required graphical task.  
-Then, we develop the data collection application and determine what types of questions the user will answer during the experiment.
-This includes both the primary questions of interest and any secondary measures, such as completion time, participant reasoning, confidence level, and so on. 
-As the number of tasks required of the participant increases, the number of trials we can ask participants to complete during a session decreases. 
-We pilot test the application, often using a pool of graduate students, colleagues, social media acquaintances, and conscripted family members. 
-During the pilot test stage, we pick an optimistic number of trials per participant -- for instance, we might ask pilot participants to evaluate 20 graphical lineups (400 total plots), even though we expect to reduce the number to 10 or 15 during the main experiment. 
-After pilot participants complete the study, we ask questions about fatigue to determine what range of trials per participant is reasonable; in order to find this point, pilot testing needs to include more trials than we expect people to complete without fatigue effects. 
-
-At the end of our pilot study, the power calculation becomes an optimization of constraints imposed by the experimental design (e.g. how many blocks in an incomplete block design can we have with the factors under investigation), anticipated analysis method, and budget for the experiment. 
-The number of trials a single participant can complete without fatigue affects the block size and strategy by which we allocate trials to each participant.
-In addition, we must consider how long participants take to complete the required number of trials.
-Completion time is used to determine participant compensation (if using a participant recruiting platform). 
-Ethics boards and some recruitment platforms require that participants are paid a reasonable wage for their time (currently, around \$15 US per hour), and platforms may ask for median completion time and automatically reject submissions from participants who are too far under or over the specified time limits; they may also require additional participant payments if the median time estimate is too far below the actual average completion time during the experiment.
-Platforms may also calculate fees based on both the participant payment and number of participants recruited, with additional fees to recruit e.g. demographically representative samples; as a result, it can be advantageous to balance cognitive load concerns with the fee structure used by the selected recruitment platform.
-This complex calculus is often not considered in sample size calculations taught in statistics courses, but experimenters do not often have budgets of infinite size to complete experiments, so some financial optimization is necessary in practice. 
-This pragmatic sample size calculation may boil down to designing the experiment in a way that allows for collection of data using as many participants as the budget will support. 
-
-
-In psychophysical graphics experiments, such as @luModelingJustNoticeable2022, there are often fewer participants with many more trials per participant (28 participants, 250 trials each); the stimuli in these experiments are often much simpler (e.g. one or two plots instead of 20 in a lineup) and engagement is limited to detection rather than estimation or prediction.
-Psychophysics experiments, particularly those designed for analysis using Rasch models, require that each participant assesses a full factorial set of stimuli, whereas analysis with generalized linear mixed models allows for use of incomplete blocks and other strategies that spread the cognitive burden across several participants. 
-Online experiments which require more complex engagement with statistical graphics often have between 300 and 600 participants [@robinsonPerceptionCognitiveImplications,], but this varies widely with the experimental design, type of stimuli used, and level of participant engagement required; @loyVariationsQQPlots2016 and @clusters had more than 1300 participants,  while @sineillusion and @vanderplasFramedReproducingRevisiting2019 had fewer than 150 participants. 
-In-person experiments [e.g. @vanderplasSpatialReasoningData2016] often use fewer participants than online equivalents, but these experiments may require more tasks of each participant, which reflects the increased logistical costs of scheduling participants, supervising the experiment, and entering the data, if tasks are completed on paper. 
-In some cases, in-person experiments may combat cognitive fatigue by scheduling multiple visits per participant; this leaves experiments vulnerable to participant drop-out effects, but can effectively balance cognitive load and participant recruitment costs in some situations.
-
-## Trial Allocation to Participants
-
-In statistical design terms, most of our studies involve some type of balanced incomplete block design, where participants are assigned to a subset of experimental conditions which allow for estimation of the full range of effects specified in the model. 
-The particular structure of these designs depends heavily on the factorial structure of the study, but we typically arrange participants' trials to ensure that participants see the same data set only once (where possible) and see as many different experimental conditions as possible. 
-It is also important to reduce the impact of order effects using either e.g. Latin square designs or randomization where possible, but we recognize that this is not always feasible due to the need to maintain participant naivete during some portions of the experiment. 
-
-
-
-## Ethical Review of Human Subjects Experiments
-
-In almost any research environment, there are requirements that experiments involving human participants undergo review by an ethics board to ensure that participants are not harmed by participating in the study.
-We are most familiar with regulations in the United States and can only speak to that environment.
+## Ethics Review
+Once the protocol is developed, researchers generally have enough information to get approval from the ethics board to conduct an experiment on human participants. 
+We are most familiar with regulations in the United States and can speak to that general process. 
 Most graphics experiments conducted in the US fall under the "exempt" category of experiments which require only basic review and approval. 
-These experiments record only basic demographic information, ask participants to complete tasks that involve no risk, and experimenters record information which would not be embarrassing to participants if exposed. 
-In order to ensure that our experiments fall into this category, we will often ensure that demographic information is collected and stored separately from any identifiable information, such as e.g. user IDs from the participant recruitment platform that allow us to monitor task completion and pay participants for their time.
+These experiments record demographic information at a level that is not individually identifiable, ask participants to complete tasks that involve no risk, and experimenters record information which would not be embarrassing to participants if exposed. 
+In order to ensure that our experiments fall into this category, we will often ensure that demographic information and participant responses are collected and stored separately from any identifiable information, such as e.g. user IDs from the participant recruitment platform that allow us to monitor task completion and pay participants for their time.
 Researchers should also ensure that they comply with privacy laws such as the European [General Data Protection Regulation (GDPR)](https://gdpr-info.eu/chapter-3/); complying with this law while collecting data which is not identifiable can be complicated. 
 We recommend consulting with your ethics board and institutional recommendations in order to maintain legal compliance and safeguard participant privacy. 
 
+
+# Experimental Design {#sec-exp-design}
+
+In statistical design terms, most of our studies involve some type of balanced incomplete block design, where participants are assigned to a subset of experimental conditions which allow for estimation of the full range of effects specified in the model. 
+The particular structure of these designs depends heavily on the factorial structure of the study and the contrasts of interest. 
+In some experiments, it is important that participants see each set of data only once, while in others, it is critical that participants see the same set of data represented graphically under multiple conditions, at which point it becomes necessary to manipulate the order of trials to ensure that participants do not have back-to-back trials using the same data, because that might influence the responses. 
+When randomization and blocking are used in the experiment, it is often beneficial to simulate the experiment before it is conducted to ensure that the data collection platform is correctly balancing and randomizing trials. 
+Of particular concern is that in online experiments with demographic controls, some categories fill faster than others. 
+In extreme circumstances, this can result in imbalances in block allocation within subgroups, which may complicate analysis of demographic data. 
+It is preferable to iron out these issues before the main study begins, rather than trying to patch the data collection software in the middle of the study. 
+
+
+It is difficult to offer specific advice on the number of participants to include in the study, because the experimental design, participant engagement level, and the specific factors under investigation have such a large effect on the number of trials one participant can reasonably complete before fatigue effects increase response variance. 
+The cognitive fatigue constraints on the experimental design are important, but otherwise, power calculations for graphics experiments are similar to comparable experiments in other disciplines, in that a pilot study provides the necessary inputs to the sample size calculation for the main experiment.
+Some experts have begun to recommend that instead of pilot-study informed power calculations, experimenters use a more general approach based on the intended analysis method [@brysbaertHowManyParticipants2019]. 
+As power calculations for various statistical methods can be easily found in any experimental design textbook (such as @easterlingFundamentalsStatisticalExperimental2015), here we provide some basic guidelines based on past experiments.  
+
+In psychophysical graphics experiments, such as @luModelingJustNoticeable2022, there are often fewer participants with many more trials per participant (28 participants, 250 trials each); the stimuli in these experiments are often much simpler (e.g. one or two plots instead of 20 in a lineup) and engagement is limited to detection rather than estimation or prediction.
+Psychophysics experiments, particularly those designed for analysis using Rasch models, require that each participant assesses a full factorial set of stimuli, whereas analysis with generalized linear mixed models allows for use of incomplete blocks and other strategies that spread the cognitive burden across several participants. 
+These experiments have also been traditionally completed in person, which may also explain the large number of trials each participant is asked to complete. 
+
+Online graphics experiments often have between 300 and 600 participants [@robinsonPerceptionCognitiveImplications,], but this varies widely with the experimental design, type of stimuli used, and level of participant engagement required; @loyVariationsQQPlots2016 and @clusters had more than 1300 participants,  while @sineillusion and @vanderplasFramedReproducingRevisiting2019 had fewer than 150 participants. 
+In-person experiments [e.g. @vanderplasSpatialReasoningData2016] often use fewer participants than online equivalents, but these experiments may require more tasks of each participant, reflecting the increased logistical costs of scheduling participants, supervising the experiment, and entering the data, if tasks are completed on paper. 
+In some cases, in-person experiments may combat cognitive fatigue by scheduling the experiment across multiple visits; this leaves experiments vulnerable to participant drop-out effects, but can effectively balance cognitive load and participant recruitment costs in some situations.
+
+
 # Pilot Testing and Quality Assurance {#sec-pilot-test}
 
-Once the data generating model is set, the experiment is designed, and the charts have been developed, the next step is an extensive round of pilot testing. 
-The goal of pilot testing is to ensure that the experiment is set up properly and that no issues have been overlooked. Pilot testing also provides an opportunity to ensure that directions are clear, participants know what they are supposed to be doing, and to estimate task completion time (which determines how much participant will be paid on many online testing platforms). 
-Our studies usually go through 2-3 rounds of pilot testing, with at least one of those rounds involving any relatives and friends who are less technologically savvy. 
-We also purposely include talented individuals who can accidentally crash any testing applications. 
-A final round of testing usually includes any and all coworkers and friends who may be available for 10-15 minutes during the work day. 
-Pilot study samples do not need to be representative of any particular population, though we would caution against using exclusively visualization researchers or statisticians in your pilot sample because some issues are less likely to show up with knowledgeable participants. 
-In some studies, each participant may see a new set of data, depending on how the study is designed. 
-In these cases, we highly recommend saving all generated data to a database as well, so that it is possible to go back and examine exactly what happened and/or how things went wrong. 
-Hard drive space is extremely cheap relative to almost any other cost in an experiment; saving all of the data is a sensible measure. 
+Once the data generating model is set, the protocol is developed, the experiment is designed, and ethics paperwork has been submitted, the next step is another round of testing.
+The goal of the initial sequence of testing is to ensure that the experiment is set up properly and that no issues have been overlooked. 
+Pilot testing also provides an opportunity to ensure that directions are clear, participants know what they are supposed to be doing, and that the designed study has sufficient power to detect an effect. 
+Our studies usually go through 2-3 rounds of preliminary testing, with at least one of those rounds involving any relatives and friends who are less technologically savvy. 
+We also purposely include talented individuals who can accidentally crash any testing applications, as a way to harden our data collection software before deployment. 
+
+<!-- Pilot study samples do not need to be representative of any particular population, though we would caution against using exclusively visualization researchers or statisticians in your pilot sample because some issues are less likely to show up with knowledgeable participants.  -->
 
 One highly useful (but not strictly essential) component of an experiment that can be set up during the pilot testing stage is a basic analysis script which summarizes all data collected to date visually. 
 We have used such scripts in the past to produce automatically updating dashboards or web pages, allowing for real time or near-real time monitoring of data collection efforts. 
-This provides an easy way to summarize completion of the experiment so that individuals can receive credit (if using services like MTurk or Prolific), but also allows interested participants to see the data if recruiting participants who are more likely to be interested in the results, as sometimes happens on social media sites. 
-As data collection online can also happen extremely quickly (300 participants in <2h in our most recent Prolific experiment), this can provide an illusion of control over the deluge of data, allowing any issues to be spotted and resolved relatively quickly. 
+This provides an easy way to summarize completion of the experiment so that individuals can receive credit (if using services like MTurk or Prolific), but also allows interested participants to see individual results, which can be a factor when recruiting on social media. 
+As data collection online can also happen extremely quickly (300 participants in <2h in our most recent Prolific experiment), this can improve data monitoring, allowing any issues to be spotted and resolved quickly. 
 If server load is a potential issue, it may also help to release batches of trials over a longer period of time in order to minimize the chance of having to make participants wait for others to complete the task before the server can handle additional connections^[This is the one major drawback to our preferred solution of self-hosting a Shiny server to handle data collection: the free version of Shiny server is limited to about 15 connections at any given time. Prolific has recently added rate-limiting functions to the experimental control  platform, which makes controlling the number of active jobs much easier.]. 
+Batch trial releases can also be used to ensure that participants are recruited across different time zones; in some studies this is beneficial, while in others it may be more important to control the release time to target individuals in e.g. North America rather than Europe. 
 
 # Analyzing the Data {#sec-analysis}
 
@@ -589,8 +598,10 @@ In other direct interactions, it may be useful to compare participant selections
 ## Qualitative Responses
 In many cases, it is helpful to combine participants' qualitative reasoning with their quantitative responses to designed graphical experiments. 
 This approach provides useful context as to what participants use to make their decisions, and can be useful when assessing why unexpected responses occurred. 
-We have used word clouds to show overall themes in participant responses successfully in [@clusters]; when paired with an appropriate linear model it became clear that participants were fixating on unequal cluster size as a visual cue. 
-In cases where participants are provided with additional utilities such as calculators and scratchpads, it can be useful to select responses from individual participants which illustrate the different types of calculations performed (but analyzing this data quantitatively can be difficult). 
+Qualitative questions can be as simple as asking for a free response explanation of the quantitative response(s), but it can also be effective to use qualitative questions to prompt participants about problem solving strategies, interesting features in the data, and more.
+
+We have used word clouds to show overall themes in participant explanations of why specific lineup panels were selected [@clusters]; when paired with an appropriate linear model it became clear that participants were fixating on unequal cluster size as a visual cue. 
+In cases where participants are provided with additional utilities such as calculators and scratchpads, it can be useful to select responses from individual participants which illustrate the different types of calculations performed, but analyzing this data quantitatively can be difficult, as it may be incomplete or difficult to code systematically. 
 
 
 # Conclusion
