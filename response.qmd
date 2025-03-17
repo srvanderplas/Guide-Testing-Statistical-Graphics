@@ -27,7 +27,7 @@ distinction?
 - Citation style issues. E.g., page 8, Line 3 “Lu et al (Lu e al, 2022)” should be just “Lu
 et al (2022)”.
 
-> We've fixed these (whoops) and also the citation issue noted further below ([@shah]). 
+> We've fixed these (whoops) and also the citation issue noted further below (shah?). 
 
 - Being specific, e.g. Page 1 line 43: be explicit that “test charts _with human
 evaluation_”.
@@ -119,3 +119,6 @@ evaluation_”.
 - Page 6, line 40: what is "(shah?)” supposed to be?
 
 > That's a failed markdown reference that we have fixed. Thanks for catching it!
+
+
+# References
