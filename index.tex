@@ -194,7 +194,7 @@
 
 \title{A Guide to Designing Experiments to Test Statistical Graphics}
 \author{Emily Robinson \and Heike Hofmann \and Susan Vanderplas}
-\date{2025-03-14}
+\date{2025-03-16}
 
 \begin{document}
 \maketitle
@@ -254,29 +254,38 @@ beyond the questions asked or the data used in the chart (Croxton, 1932;
 Croxton \& Stryker, 1927; Eells, 1926; Huhn, 1927), but designing a
 study that is sufficiently robust to those issues requires manipulation
 or control of so many factors that the amount of participants and trials
-quickly becomes daunting or unaffordable. In this paper, we attempt to
-distill the experience gained from conducting several different types of
-graphics experiments (Hofmann et al., 2012; Robinson, 2022; VanderPlas
-et al., 2019; Vanderplas et al., 2024; VanderPlas \& Hofmann, 2015,
-2017), discussing the use of different testing methods (Vanderplas et
-al., 2020), the process of designing a graphical experiment, and
-analysis of the resulting empirical data. It is our hope that this paper
-will lower the barriers that exist for conducting empirical graphics
-research and reduce the probability of costly mistakes.
+quickly becomes daunting or unaffordable. In addition, when conducting
+graphics experiments, researchers are in the unusual position of being
+both the subject matter expert and the statistician, providing an
+unusual amount of control over not just the experimental design but also
+the specific treatments, levels, and experimental protocols. The amount
+of choices required to develop, pilot, and run an experiment can be
+overwhelming. In this paper, we attempt to distill the experience gained
+from conducting several different types of graphics experiments (Hofmann
+et al., 2012; Robinson, 2022; Vanderplas et al., 2019, 2024; Vanderplas
+\& Hofmann, 2015, 2017), discussing the use of different testing methods
+(Vanderplas et al., 2020), the process of designing a graphical
+experiment, and analysis of the resulting empirical data. It is our hope
+that this paper will lower the barriers that exist for conducting
+empirical graphics research and reduce the probability of costly
+mistakes.
 
 Section~\ref{sec-testing-methods} discusses different methods for
 testing graphics, and which methods best address different levels of
 user engagement. In Section~\ref{sec-model-dev}, we discuss the process
-of developing a data-generating model used to control the statistical
+of developing the data-generating model used to control the statistical
 features of data in the tested visualizations. Model development is a
 nuanced and iterative process that ultimately determines the success and
-generalizability of the experimental results. We explore different
-experimental design considerations in Section~\ref{sec-exp-design} and
-then move to the importance of pilot testing in
-Section~\ref{sec-pilot-test}. Finally, we provide some common analysis
-strategies in Section~\ref{sec-analysis}, including strategies for
-handling the unexpected data features which are so common in graphical
-testing experiments.
+generalizability of the experimental results. In
+Section~\ref{sec-exp-dev}, we discuss the design of the experimental
+protocol - the choice of platform, number and type of trials, and flow
+of the experiment. We briefly consider different experimental design
+considerations in Section~\ref{sec-exp-design}, but focus primarily on
+factors specific to graphics experiments, and then move to the
+importance of pilot testing in Section~\ref{sec-pilot-test}. Finally, we
+provide some common analysis strategies in Section~\ref{sec-analysis},
+including strategies for handling the unexpected data features which are
+so common in graphical testing experiments.
 
 \section{Testing Methods and User Engagement}\label{sec-testing-methods}
 
@@ -310,7 +319,7 @@ the application through a numerical input, slider, or other form
 element. Sometimes, it is possible to set up a scenario where the user
 adjusts the plot using a set of controls designed to provide a fixed set
 of interactive operations. This type of user engagement was used to
-assess the strength of the sine illusion (VanderPlas \& Hofmann, 2015):
+assess the strength of the sine illusion (Vanderplas \& Hofmann, 2015):
 users adjusted the strength of a transformation designed to correct the
 illusion until the lines appeared to be the same length, as shown in
 Figure~\ref{fig-sine-illusion}, providing a direct measure of the
@@ -371,7 +380,7 @@ at a higher rate than any of the null plots, the target plot is said to
 be visually significant (Loy \& Hofmann, 2013; Majumder et al., 2013)
 and a ``see'' value, the visual analogue of a \(p\)-value (Chowdhury et
 al., 2020), can be calculated using the \texttt{vinference} R package or
-the process described in VanderPlas et al. (2021). The details of this
+the process described in Vanderplas et al. (2021). The details of this
 calculation are beyond the scope of this broader discussion of how to
 test charts, but more detail on visual inference is provided in
 \textless insert citation to visual inference WIRE article under
@@ -381,14 +390,14 @@ In another variation of the statistical lineup procedure, data generated
 from two models are compared, with target plots from each model embedded
 in the array of \(K\) total plots. The \(K-2\) null plots are
 constructed from a mixture model that blends the two competing models
-(VanderPlas \& Hofmann, 2017). Viewers are asked to select the panel(s)
+(Vanderplas \& Hofmann, 2017). Viewers are asked to select the panel(s)
 which are most different, and the primary source of information are
 trials in which viewers selected the target from one model but not the
 other, indicating that the display method used allowed viewers to
 differentiate one model's data (but not the other) from the nulls
 created through a mixture model. This variation allows the experimenter
 to assess graphical design choices to determine whether they effectively
-emphasize structural differences in the data (VanderPlas \& Hofmann,
+emphasize structural differences in the data (Vanderplas \& Hofmann,
 2017).
 
 One advantage of the visual inference technique is that the experimenter
@@ -420,7 +429,7 @@ interpret a chart within a larger scenario can be effective, as in
 Figure~\ref{fig-estimation-describe}, while in others it is more helpful
 to ask users to explain answers. In visual inference studies, asking
 users why a specific panel was chosen has been demonstrated to provide
-rich insight into otherwise confusing numerical results (VanderPlas \&
+rich insight into otherwise confusing numerical results (Vanderplas \&
 Hofmann, 2017).
 
 Think-aloud methods ask the viewer to narrate their internal thought
@@ -526,7 +535,7 @@ methods are convenient - they do not depend on participants to
 understand the nuances of language or scenarios built around the chart
 under investigation. However, in some situations it may be sufficient to
 ask participants to estimate direct numerical quantities that have
-little contextual information, as done in (VanderPlas et al., 2019) when
+little contextual information, as done in (Vanderplas et al., 2019) when
 assessing the accuracy of framed plots re-created from the Statistical
 Atlas.
 
@@ -572,6 +581,89 @@ succeed at the task and do not feel like they are being made to analyze
 random noise. This Goldilocks-style problem is the focus of the next
 section.
 
+\section{Experiment Development Life
+Cycle}\label{experiment-development-life-cycle}
+
+Developing a graphics experiment is often a highly iterative process,
+but it can help to approach the design process by first optimizing the
+model and data generation method before spending time on optimizing the
+specific stimuli or customizing the data collection platform. This is
+important because the model parameters and data generation process
+inform the experiment structure and thus impact decisions made
+downstream.
+
+Once the model and data generating mechanism are set, it is useful to
+revisit the primary questions of interest and determine how to measure
+the responses effectively. Secondary measures, such as response time,
+free responses, and confidence level should also be determined. These
+choices will inform the choice of a data collection platform and may
+also inform the participant recruitment method.
+
+Next, we recommend developing a preliminary data analysis plan,
+specifying the general category of model which will be used
+(e.g.~generalized linear mixed-effects model, t-test) and the contrasts
+which are most interesting. This sets up the experimental design
+decisions, but also ensures that as the data collection platform and
+process is developed, any design constraints are considered. Development
+of the data collection application is the next step, using draft
+graphics and the set of participant response measures of interest.
+
+There are at least 3 stages of testing in a graphics experiment:
+informal tests, a pilot study, and the main experiment. The informal
+tests are critical for identifying issues with the data collection
+application, but can also be used to calibrate the number of tasks
+required of each participant. As the number and complexity of tasks
+increases, the number of trials we can ask participants to complete
+during a session decreases. The informal testing stage allows
+researchers to consider the tradeoffs inherent in the decision to reduce
+the amount of information collected for each task, reduce the number of
+tasks, or mitigate participant fatigue in other ways.
+
+During preliminary testing, we use an optimistic number of trials per
+participant, so that we can determine when participants become overly
+fatigued. For instance, we might ask test participants to evaluate 20
+graphical lineups (400 total plots), even though we expect to reduce the
+number to 10 or 15 during the main experiment. We test the application
+in individual or focus group sessions, often using graduate students,
+colleagues, social media acquaintances, and conscripted family members.
+After these participants complete the study, we ask questions about
+fatigue to determine what range of trials per participant is reasonable.
+At the end of our initial experiment tests, we have enough information
+to determine the basic parameters of the experimental design (e.g.~how
+many blocks in an incomplete block design can we have with the factors
+under investigation). The number of trials a single participant can
+complete without excessive fatigue impacts the number of blocks and the
+strategy by which we allocate trials to each participant.
+
+In addition, we must consider how long participants take to complete the
+required number of trials. Completion time is used to determine
+participant compensation (if using a participant recruiting platform).
+Ethics boards and some recruitment platforms require that participants
+are paid a reasonable wage for their time (currently, around \$15 US per
+hour), and platforms may ask for median completion time and
+automatically reject submissions from participants who are too far under
+or over the specified time limits; they may also require additional
+participant payments if the median time estimate is too far below the
+actual average completion time during the experiment. Platforms may also
+calculate fees based on both the participant payment and number of
+participants recruited, with additional fees to recruit
+e.g.~demographically representative samples; as a result, it can be
+advantageous to balance cognitive load concerns with the fee structure
+used by the selected recruitment platform.
+
+The findings from the initial test of the experimental procedure are
+then used to revise the data collection procedure in preparation for one
+or more pilot studies. It is important to ensure that the software
+platform, trial allocation, and other components of the experiment are
+functioning as desired before a formal pilot study is conducted. In some
+cases, the pilot study is as simple as a ``soft launch'' of the main
+experiment, where the total number of trials is pre-specified and only a
+few trials are released initially to ensure that data collection works
+as expected. In others, the pilot study is conducted first, and results
+from that study are used to determine the sample size for the main
+experiment. At this point, data collection, analysis, and reporting
+proceed much as in any other experiment.
+
 \section{Developing a Model}\label{sec-model-dev}
 
 Once the graphical task has been identified, it is necessary to develop
@@ -579,12 +671,12 @@ a model which can be used to explore the graphical features of interest
 in a precise manner. This is the single longest part of the entire
 experimental design and execution process, in part because choosing a
 model that replicates important visual features of the data is extremely
-complex (Cook et al., 2021; Hullman \& Gelman, 2021; VanderPlas, 2021).
+complex (Cook et al., 2021; Hullman \& Gelman, 2021; Vanderplas, 2021).
 
 There are two main options when developing a statistical model for
 graphical testing: start with a large data set and sample from that data
 set (Hofmann et al., 2012), or start from a model and sample data from
-that model generating process (Robinson, 2022; VanderPlas \& Hofmann,
+that model generating process (Robinson, 2022; Vanderplas \& Hofmann,
 2015, 2017). This decision is largely determined by the availability of
 a large data set containing the requisite features of interest and the
 qualities being manipulated in the experiment. For instance, Hofmann et
@@ -614,12 +706,11 @@ indices related to the testing condition to narrow the parameter space
 to a reasonable and efficient subset from which maximal information can
 be acquired.\\
 These statistical indices may also serve as quantitative proxies for the
-difficulty of the visual task.
-
-To identify a statistical proxy for visual difficulty that may help with
-narrowing the parameter space, it can be useful to consider numerical
-measures used to estimate the same types of visual information that will
-be assessed in the experiment. For instance, we have used
+difficulty of the visual task. To identify a statistical proxy for
+visual difficulty that may help with narrowing the parameter space, it
+can be useful to consider numerical measures used to estimate the same
+types of visual information that will be assessed in the experiment. For
+instance, we have used
 
 \begin{itemize}
 \tightlist
@@ -636,11 +727,12 @@ be assessed in the experiment. For instance, we have used
 Then, a wide range of potential combinations of parameter values or
 sampling strategies can be explored and summarized graphically; if the
 numerical statistic cannot differentiate between the null and target
-under a condition, it is reasonable to expect that a visual inspection
-of the data may also not show significant results. As with any measure,
-it is important that difficulty levels span a range from easy to hard;
-we do not learn anything from finding out that everyone can distinguish
-all of the combinations.
+under a condition, it is reasonable to think that a visual inspection of
+the data may also not show significant results. As with any measure, it
+is important that difficulty levels span a range from easy to hard; we
+do not learn anything from finding out that everyone can distinguish all
+of the combinations. This portion of the design is somewhat analogous to
+selecting a range of doses of a chemical in a dose-response experiment.
 
 \begin{figure}
 
@@ -690,23 +782,23 @@ difficult the task at hand is (this strategy is also described by Lu et
 al. (2022)). At some point, all experimenters become so visually
 saturated with the nuances of the data generating mechanism that it may
 become necessary to ``sanity check'' the protocol with family members,
-friends, and colleagues. These informal surveys provide extremely useful
-feedback and can help to counteract the visual saturation of being
-immersed in the design of a visualization experiment for months at a
-time.
+friends, and colleagues. These informal focus groups provide extremely
+useful feedback and can help to counteract the visual saturation of
+being immersed in the design of a visualization experiment for months at
+a time.
 
 \subsection{Visual Assessment is
 Critical}\label{visual-assessment-is-critical}
 
 We cannot overstate the importance of visual assessment of your model
 stimuli, preferably with fresh eyes. We highly recommend performing
-several rounds of think-aloud pilot testing before deploying an
+several rounds of think-aloud pilot testing (focus) before deploying an
 experiment. In support of this assessment, we offer up a cautionary tale
-of our own experience: that of VanderPlas \& Hofmann (2017), where we
+of our own experience: that of Vanderplas \& Hofmann (2017), where we
 designed an experiment to test which plot aesthetics promoted discovery
 of linear trends and/or clusters.
 
-The experiment was a full 2x3x3 factorial exploration of three data
+The experiment was a 2x3x3 factorial exploration of three data
 generating parameters, with 3 replicates at each parameter combination
 (54 data sets) and 10 aesthetic combinations (for a total of 540
 lineups). Each lineup had 20 different sub-panels, so we should have
@@ -762,34 +854,155 @@ effort invested in this step at the outset of the experiment pays
 dividends when it allows for clear generalization of the experimental
 results to an entire statistical concept rather than a single data set.
 
-\section{Experimental Design Considerations}\label{sec-exp-design}
+\section{Protocol Development}\label{sec-exp-dev}
 
 It would be difficult to develop a full data generating model without
-some idea of the experimental design: the basic structure of the
-parameters which are to be manipulated, how the users will be tested,
-and so on. These experimental design factors are fairly natural for
-scientists to accumulate over the course of imagining and planning an
-experiment. When conducting graphical tests, however, there are
-additional considerations beyond those taught in a standard experimental
-design course.
+some idea of the experimental protocol: the basic equipment required for
+the experiment, some idea of what questions users will answer, where and
+how data will be collecteed, and so on. These experimental design
+factors are fairly natural for scientists to accumulate over the course
+of imagining and planning an experiment. When conducting graphical
+tests, however, there are additional considerations beyond those taught
+in a standard experimental design course. Experimenters must carefully
+consider how much information participants should have about the
+experiment, what platform to use to recruit participants, and the
+experimental infrastructure underlying data collection. In addition to
+our brief overview of considerations in our research, Kochari (2019) has
+many helpful suggestions for conducting web-based cognitive and
+perceptual studies that also apply to statistical graphics experiments.
 
-\subsection{Cognitive Load}\label{cognitive-load}
+Of course, more standard statistical design considerations, like
+blocking, randomization, sample size, and analysis methodology are also
+important; we will discuss these briefly in
+Section~\ref{sec-exp-design}. Here, we focus primarily on the experiment
+development process, with critical decisions in a roughly temporal
+order.
 
-The primary human design factor to be aware of is that visual tasks and
-assessing statistical graphics can be extremely cognitively taxing. In
-our experience, it is difficult to expect participants to evaluate more
-than about 15 charts in one sitting. If users are asked to deeply engage
-and answer multiple questions about each chart, this limit may be lower
-(8-10), but even with a relatively simple task, as in lineup methods, it
-is hard for participants to accurately evaluate more than about 15
-charts. Tasks which are more interactive, such as `You Draw It', may be
-somewhat easier for participants, but it is unlikely that participants
-would be willing to complete more than about 20 tasks in one sitting
-even with tasks that require fewer decisions and more engagement. At
-some point, participants' interest in accuracy will decline, and the
-researcher is better off using a larger number of participants
-completing fewer tasks within the window where participants are
-attentive and engaged.
+\subsection{Infrastructure}\label{infrastructure}
+
+We have conducted visualization experiments using a wide variety of
+tools: custom web servers running interactive, PHP-based forms, generic
+web survey platforms (Qualtrics, Google Forms) for static graphics, and
+Shiny applications that control every part of the experiment interface
+(instructions, generating completion codes for participant payment,
+rendering interactive graphics, and generating fully randomized data for
+each participant). In our research, Shiny has provided the right balance
+between control over the experimental setting, procedure, etc. and the
+intricate details of web server administration and management, however,
+this balance is likely different for every lab and potentially for every
+experiment.
+
+When using Shiny to collect data, we store participant response data and
+experiment parameters using SQLite tables, which are automatically
+synchronized with cloud storage and tracked with version control. This
+ensures that we have incremental records of the tables during data
+collection, and that all data is stored across multiple locations,
+guarding against hardware failures. In some studies, data is unique to
+each participant; in these cases, we highly recommend saving all
+generated data to a database as well, so that it is possible to go back
+and examine responses alongside the data used to generate the graphical
+stimuli. Hard drive space is extremely cheap relative to almost any
+other cost in an experiment; saving all of the data is a sensible
+measure.
+
+\subsection{Participant Recruitment}\label{participant-recruitment}
+
+There are several different, commonly used methods for recruiting
+participants for visualization experiments and cognitive experiments
+more broadly. The selection of participant recruitment method depends on
+the infrastructure which will be used in the experiment, but the choice
+of participant pool may be more critical to the experiment results than
+the infrastructure and modality (Uittenhove et al., 2023).
+
+We have used each of the following strategies in experiments:
+
+\begin{itemize}
+\item
+  Validated, representative panels of participants offered by
+  specialized polling groups. In the US, this includes
+  \href{https://amerispeak.norc.org/us/en/amerispeak/about-amerispeak/panel-design.html}{NORC's
+  AmeriSpeak} and
+  \href{https://www.gallup.com/analytics/318911/us-social-research.aspx}{Gallup
+  Panels}
+\item
+  Recruitment platforms designed for crowdsourcing research tasks,
+  including \href{https://www.mturk.com/}{Amazon Mechanical Turk} and
+  \href{https://www.prolific.com/}{Prolific}. Researchers may be able to
+  obtain representative samples measured against census data along
+  variables such as race, age, and sex, but participants are often more
+  technologically sophisticated and educated than the general population
+  on these platforms.
+\item
+  In-person studies. In person participants are commonly recruited from
+  undergraduate students, but in some experiments it may be preferable
+  to recruit participants from the local community. Students are often
+  convenient for academic studies, as participation in experiments is
+  often a component of introductory course experiential learning
+  activities, as in Vanderplas et al. (2024). While the data generated
+  from required classroom experiments may have higher variability, and
+  it may be hard to generalize findings beyond undergraduate students,
+  these studies can be conducted much more cheaply than studies
+  conducted through online platforms or panels. Recruiting participants
+  from the community for in-person research is also viable, but can be
+  much more complicated, however, some topics, including research
+  involving persons with specific disabilities, the elderly, or
+  subject-matter experts may require recruiting participants outside the
+  university.
+\item
+  Social media and email-based recruitment. Researchers may post
+  directly to social media sites such as Twitter/X, Mastodon, and
+  BlueSky, forums and discussion sites such as Reddit, or general email
+  lists that may be purchased from universities and other marketing
+  organizations. If the goal is to recruit a specific population, such
+  as meterologists or forensic examiners, forums and email lists may be
+  an extremely effective way to recruit participants. We have used the
+  \href{https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/}{SampleSize
+  subreddit} successfully and obtained participants that, while younger
+  and more highly educated than those recruited from a platform, had
+  similar results on visual estimation tasks (Vanderplas et al., 2019).
+  When using samples obtained from acquaintances, researchers should try
+  to obtain more diversity than was present in historical papers, such
+  as Cleveland \& McGill (1984), where the authors sampled their
+  colleagues (and their wives).
+\end{itemize}
+
+Rice et al. (2024) recruited participants using nationally
+representative panel samples and found that conclusions from fully
+representative samples of the population can be very different from
+volunteer samples recruited using other services, as many people are
+unmotivated to engage with charts, don't know how to read charts, or
+impose pre-formed conclusions onto visual displays. While using
+representative panel sampling products offered by organizations such as
+NORC or Gallup is more expensive than samples from Amazon MTurk or
+Prolific, these results may imply that results from less representative
+participant recruitment methods may not generalize to the broader
+population. People who participate in studies via online platforms are
+more technologically sophisticated and educated than the general
+population, and this bias may significantly impact the conclusions.
+However, it is also reasonable to argue that higher education might make
+someone more likely to use charts and data for decision-making.\\
+Researchers designing a study should carefully consider whether the goal
+of the study is to generalize results to the adult population or to a
+subset of that population who make decisions based on data.
+
+If data will be collected online, then we recommend considering the pros
+and cons of panel-based sampling methods and online recruitment
+platforms. While Amazon MTurk was once the only large platform for this
+type of research (Heer \& Bostock, 2010), many researchers now prefer
+Prolific because its participants appear to be more attentive to tasks
+(Albert \& Smilek, 2023; Peer et al., 2022). Prolific's focus on
+academic research rather than developing training data for machine
+learning and AI means that its policies are tailored for these types of
+projects and its users may be more interested in science than those on
+other platforms. Experimenters should consider available options,
+compare pricing structures (as these vary widely), and consider whether
+add-on fees for e.g.~demographically representative samples are worth
+the additional cost. It is also important to ensure that the platform
+supports the type of user engagement required for the study. Online
+recruitment platforms are more flexible than many panel survey platforms
+and allow experimenters to use a much wider range of stimuli and
+experimental designs, but this sacrifices some ability to generalize
+results to a wider population.
 
 \subsection{Participant Instructions}\label{participant-instructions}
 
@@ -797,7 +1010,7 @@ It can be extremely helpful to include ``practice'' demonstrations of
 the task to show the basic process, logic, and reasoning. While it is
 tempting to make these tasks fully representative of the type of
 judgement which will be required of participants, practice tasks which
-are too close to the experimental task may bias participants; we have
+are too close to the experimental task may bias participants. We have
 found that it works well to have a relatively easy practice task which
 utilizes a slightly different type of plot and/or type of data than what
 will be tested in the experiment. In cases which require interactivity,
@@ -805,28 +1018,83 @@ gif animations of the task being carried out are useful, as are
 additional visual cues, such as the yellow box used in the `You Draw It'
 task\footnote{See a gif of testing with `You Draw It'
   \href{https://i.imgur.com/GM5YSen.gif}{here}} to indicate that there
-were points which were not completed.
+were points which were not completed. Demonstrations can reduce
+cognitive load, but it is often critical not to prime participants to
+focus on the specific effect manipulated during the experiment. Finding
+the right examples and instructions to use in an experiment is a
+delicate process: priming participants can reduce the generalizability
+or relevance of the experiment, but if participants are confused about
+what question to answer or how to complete the task, response
+variability and participant cognitive load may be too high to detect an
+effect. Pilot testing with a small group of volunteers who think aloud
+while completing the experiment can be extremely helpful in identifying
+problems with participant instructions. However, it is important that
+some pilot participants have lower levels of mathematical and
+statistical training that are similar to the participant population. One
+technique that we have used is to wrap pilot testing into a presentation
+about the experiment to a general audience, perhaps as part of an
+undergraduate course or undergraduate research experience recruitment
+activity. The experiential component increases participant understanding
+of the research before the presenter explains the scientific goals
+behind the project, and it is often easy to get feedback on the
+experiment at the same time.
 
-\subsection{Accounting for Participant
-Variability}\label{accounting-for-participant-variability}
+\subsection{Attention Checks and Answer
+Validation}\label{attention-checks-and-answer-validation}
 
-While studies have found some relationship between lineup performance
-and demographic factors (VanderPlas \& Hofmann, 2016), these differences
-are relatively small when participants are recruited from online testing
-platforms like Amazon Mechanical Turk or Prolific, or when participants
-are recruited from a university student population. Studies have also
-not found a strong relationship between visual task performance and
-participant recruitment method (VanderPlas et al., 2019), perhaps in
-part because demographics which use social media sites and demographics
-completing online research tasks for pay overlap heavily. However, when
-participants are recruited using a statistically representative sample
-of the wider population, education becomes an extremely useful predictor
-of ability to effectively read and draw conclusions about a chart (Rice
-et al., 2024).\\
-In almost every situation, though, we find that some participants are
-very good at evaluating graphics and some participants are not; as a
-result, it can be extremely helpful to use random effects models with an
-effect for individual participants.
+In a perfect world, all participants would be fully engaged in the
+experiment, focusing only on that task from start to finish without
+interruption or distraction. In this world, participants would
+attentively read the unambiguous instructions for completing the
+experiment and executing these instructions flawlessly. Unfortunately,
+we do not live in this perfect world. Here, we focus primarily on
+mechanisms which can be used to exclude data based on participant
+noncompliance, rather than mechanisms which are used to automatically
+withhold participant compensation.\\
+There are several mechanisms that can be used to guard against or at
+least identify participants who are not fully engaged in the experiment
+or have severely misunderstood the instructions:
+
+\begin{itemize}
+\item
+  Attention checks - questions inserted into the experiment which appear
+  similarly to actual trials but which instruct participants to select a
+  specific response or complete a trivial task (e.g.~select the result
+  of 2+2). Participants who do not successfully complete a certain
+  percentage of attention check tasks may be excluded from the
+  experiment. More guidance on attention checks can be found in
+  Muszyński (2023).
+\item
+  User input validation - mechanisms which reduce the potential
+  parameter space of user inputs to a valid or reasonable set of
+  parameters. Examples include not allowing participants to select
+  negative variance values, requiring continuous user-drawn lines on an
+  interactive chart, and even checking to ensure that the user's input
+  is of the correct type. Validation mechanisms may also ensure that
+  participants answer all questions before proceeding to the next page.
+\item
+  Time-based checks - Kochari (2019) suggests that in tasks with longer
+  instructions, it may be useful to remove participants who did not
+  spend a certain amount of time on the instructions page. Similarly, it
+  may be justifiable to remove participants who completed the experiment
+  in an unreasonably short or long amount of time. On the other end of
+  the spectrum, participants who take several hours to complete an
+  experiment with a median completion time of 15 minutes may have
+  experienced technical issues or been distracted.
+\end{itemize}
+
+Pre-specifying conditions where participant data will be removed from
+the study before analysis is critical for predictable issues, in order
+to streamline the analysis and defend against p-hacking concerns. When
+participants provide anomalous responses that are identified after the
+experiment, it is much harder, but not impossible, to justify removing
+the data. Justifications might include that no reasonable viewer would
+have produced a certain response, as in Vanderplas \& Hofmann (2015), or
+that the response most likely occurred due to a data entry error or a
+fundamental misunderstanding of the question, but this is only viable if
+the data is an egregious outlier. In less severe cases, it is often
+preferable to leave the data in, increasing estimate variability but
+avoiding the need to justify and defend data cleaning decisions.
 
 \subsection{Demographic Data}\label{demographic-data}
 
@@ -853,127 +1121,116 @@ is worth giving careful thought to the demographic questions asked of
 participants and what information may be helpful during the analysis
 stage.
 
-\subsection{Trial Allocation to
-Participants}\label{trial-allocation-to-participants}
+\subsection{Ethics Review}\label{ethics-review}
 
-In statistical design terms, most of our studies involve some type of
-balanced incomplete block design, where participants are assigned to a
-subset of experimental conditions which allow for estimation of the full
-range of effects specified in the model. The particular structure of
-these designs depends heavily on the factorial structure of the study,
-but we typically arrange participants' trials to ensure that
-participants see the same data set only once (where possible) and see as
-many different experimental conditions as possible. It is also important
-to reduce the impact of order effects using either e.g.~Latin square
-designs or randomization where possible, but we recognize that this is
-not always feasible due to the need to maintain participant naivete
-during some portions of the experiment.
-
-\subsection{Data Collection Platforms and
-Infrastructure}\label{data-collection-platforms-and-infrastructure}
-
-We have conducted visualization experiments using a wide variety of
-tools: custom web PHP servers running interactive forms for data
-collection, generic web survey platforms (Qualtrics, Google Forms) for
-static graphics, and Shiny applications that control every part of the
-experimental process from instructions to providing completion codes for
-payment while rendering interactive graphics and generating fully
-randomized data for each participant. In our research, Shiny has
-provided the right balance between control over the experimental
-setting, procedure, etc. and the intricate details of web server
-management, however, this balance is likely different for every group
-and potentially for every experiment. Likewise, we have recruited
-participants using services such as \href{https://www.mturk.com/}{Amazon
-Mechanical Turk} and \href{https://www.prolific.com/}{Prolific}, on
-social media sites
-(\href{https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/}{Reddit},
-Twitter(X), Mastodon, and BlueSky), and by email; each recruitment
-method has trade-offs between cost, convenience, number of people in the
-sampling frame, and control over participant demographics. Rice et al.
-(2024) recruited participants using nationally representative panel
-samples and found that conclusions from fully representative samples of
-the population can be very different from volunteer samples recruited
-using other services, as many people are unmotivated to engage with
-charts, don't know how to read charts, or impose pre-formed conclusions
-onto visual displays. These individuals are unlikely to participate in
-most ad-hoc volunteer-based sampling methods. While using representative
-panel sampling products offered by organizations such as NORC or Gallup
-is considerably more expensive than samples from Amazon MTurk or
-Prolific, these results suggest that results from sampling methods used
-online may not generalize to the broader population. People who
-participate in studies via online platforms are more technologically
-sophisticated and educated than the general population, and this bias
-may significantly impact the conclusions.
-
-If conducting an online experiment, we recommend consideration of
-panel-based sampling methods as well as online testing platforms. While
-Amazon MTurk was once the platform of choice for this type of research
-(Heer \& Bostock, 2010), in 2025 Prolific, which is aimed at academic
-experiments, seems to provide better options that ensure that
-experiments are completed by people rather than AI than MTurk. It seems
-likely that the preferred platform for participant recruitment will
-continue to evolve over time, thus, we will recommend that experimenters
-consider available options, compare pricing structures (as these vary
-widely), and consider whether add-on fees for e.g.~demographically
-representative samples are worth the additional cost. An additional
-consideration when choosing between panel samples and online recruitment
-platforms is the constraints placed on the types of questions and
-graphics which can be used. In our experience, it is much easier to run
-an experiment using the online recruitment platforms, which place many
-fewer constraints on both the number and types of questions which can be
-asked and the types of stimuli which can be used in the experiment.
-
-\subsection{Ethical Review of Human Subjects
-Experiments}\label{ethical-review-of-human-subjects-experiments}
-
-In almost any research environment, there are requirements that
-experiments involving human participants undergo review by an ethics
-board to ensure that participants are not harmed by participating in the
-study. We are most familiar with regulations in the United States and
-can only speak to that environment. Most graphics experiments conducted
-in the US fall under the ``exempt'' category of experiments which
-require only basic review and approval. These experiments record only
-basic demographic information, ask participants to complete tasks that
+Once the protocol is developed, researchers generally have enough
+information to get approval from the ethics board to conduct an
+experiment on human participants. We are most familiar with regulations
+in the United States and can speak to that general process. Most
+graphics experiments conducted in the US fall under the ``exempt''
+category of experiments which require only basic review and approval.
+These experiments record demographic information at a level that is not
+individually identifiable, ask participants to complete tasks that
 involve no risk, and experimenters record information which would not be
 embarrassing to participants if exposed. In order to ensure that our
 experiments fall into this category, we will often ensure that
-demographic information is collected and stored separately from any
-identifiable information, such as e.g.~user IDs from the participant
-recruitment platform that allow us to monitor task completion and pay
-participants for their time. Researchers should also ensure that they
-comply with privacy laws such as the European
+demographic information and participant responses are collected and
+stored separately from any identifiable information, such as e.g.~user
+IDs from the participant recruitment platform that allow us to monitor
+task completion and pay participants for their time. Researchers should
+also ensure that they comply with privacy laws such as the European
 \href{https://gdpr-info.eu/chapter-3/}{General Data Protection
 Regulation (GDPR)}; complying with this law while collecting data which
 is not identifiable can be complicated. We recommend consulting with
 your ethics board and institutional recommendations in order to maintain
 legal compliance and safeguard participant privacy.
 
+\section{Experimental Design}\label{sec-exp-design}
+
+In statistical design terms, most of our studies involve some type of
+balanced incomplete block design, where participants are assigned to a
+subset of experimental conditions which allow for estimation of the full
+range of effects specified in the model. The particular structure of
+these designs depends heavily on the factorial structure of the study
+and the contrasts of interest. In some experiments, it is important that
+participants see each set of data only once, while in others, it is
+critical that participants see the same set of data represented
+graphically under multiple conditions, at which point it becomes
+necessary to manipulate the order of trials to ensure that participants
+do not have back-to-back trials using the same data, because that might
+influence the responses. When randomization and blocking are used in the
+experiment, it is often beneficial to simulate the experiment before it
+is conducted to ensure that the data collection platform is correctly
+balancing and randomizing trials. Of particular concern is that in
+online experiments with demographic controls, some categories fill
+faster than others. In extreme circumstances, this can result in
+imbalances in block allocation within subgroups, which may complicate
+analysis of demographic data. It is preferable to iron out these issues
+before the main study begins, rather than trying to patch the data
+collection software in the middle of the study.
+
+It is difficult to offer specific advice on the number of participants
+to include in the study, because the experimental design, participant
+engagement level, and the specific factors under investigation have such
+a large effect on the number of trials one participant can reasonably
+complete before fatigue effects increase response variance. The
+cognitive fatigue constraints on the experimental design are important,
+but otherwise, power calculations for graphics experiments are similar
+to comparable experiments in other disciplines, in that a pilot study
+provides the necessary inputs to the sample size calculation for the
+main experiment. Some experts have begun to recommend that instead of
+pilot-study informed power calculations, experimenters use a more
+general approach based on the intended analysis method (Brysbaert,
+2019). As power calculations for various statistical methods can be
+easily found in any experimental design textbook (such as Easterling
+(2015)), here we provide some basic guidelines based on past
+experiments.
+
+In psychophysical graphics experiments, such as Lu et al. (2022), there
+are often fewer participants with many more trials per participant (28
+participants, 250 trials each); the stimuli in these experiments are
+often much simpler (e.g.~one or two plots instead of 20 in a lineup) and
+engagement is limited to detection rather than estimation or prediction.
+Psychophysics experiments, particularly those designed for analysis
+using Rasch models, require that each participant assesses a full
+factorial set of stimuli, whereas analysis with generalized linear mixed
+models allows for use of incomplete blocks and other strategies that
+spread the cognitive burden across several participants. These
+experiments have also been traditionally completed in person, which may
+also explain the large number of trials each participant is asked to
+complete.
+
+Online graphics experiments often have between 300 and 600 participants
+(Robinson et al., 2025,), but this varies widely with the experimental
+design, type of stimuli used, and level of participant engagement
+required; Loy et al. (2016) and Vanderplas \& Hofmann (2017) had more
+than 1300 participants, while Vanderplas \& Hofmann (2015) and
+Vanderplas et al. (2019) had fewer than 150 participants. In-person
+experiments (e.g. Vanderplas \& Hofmann, 2016) often use fewer
+participants than online equivalents, but these experiments may require
+more tasks of each participant, reflecting the increased logistical
+costs of scheduling participants, supervising the experiment, and
+entering the data, if tasks are completed on paper. In some cases,
+in-person experiments may combat cognitive fatigue by scheduling the
+experiment across multiple visits; this leaves experiments vulnerable to
+participant drop-out effects, but can effectively balance cognitive load
+and participant recruitment costs in some situations.
+
 \section{Pilot Testing and Quality Assurance}\label{sec-pilot-test}
 
-Once the data generating model is set, the experiment is designed, and
-the charts have been developed, the next step is an extensive round of
-pilot testing. The goal of pilot testing is to ensure that the
-experiment is set up properly and that no issues have been overlooked.
-Pilot testing also provides an opportunity to ensure that directions are
-clear, participants know what they are supposed to be doing, and to
-estimate task completion time (which determines how much participant
-will be paid on many online testing platforms). Our studies usually go
-through 2-3 rounds of pilot testing, with at least one of those rounds
+Once the data generating model is set, the protocol is developed, the
+experiment is designed, and ethics paperwork has been submitted, the
+next step is another round of testing. The goal of the initial sequence
+of testing is to ensure that the experiment is set up properly and that
+no issues have been overlooked. Pilot testing also provides an
+opportunity to ensure that directions are clear, participants know what
+they are supposed to be doing, and that the designed study has
+sufficient power to detect an effect. Our studies usually go through 2-3
+rounds of preliminary testing, with at least one of those rounds
 involving any relatives and friends who are less technologically savvy.
 We also purposely include talented individuals who can accidentally
-crash any testing applications. A final round of testing usually
-includes any and all coworkers and friends who may be available for
-10-15 minutes during the work day. Pilot study samples do not need to be
-representative of any particular population, though we would caution
-against using exclusively visualization researchers or statisticians in
-your pilot sample because some issues are less likely to show up with
-knowledgeable participants. In some studies, each participant may see a
-new set of data, depending on how the study is designed. In these cases,
-we highly recommend saving all generated data to a database as well, so
-that it is possible to go back and examine exactly what happened and/or
-how things went wrong. Hard drive space is extremely cheap relative to
-almost any other cost in an experiment; saving all of the data is a
-sensible measure.
+crash any testing applications, as a way to harden our data collection
+software before deployment.
 
 One highly useful (but not strictly essential) component of an
 experiment that can be set up during the pilot testing stage is a basic
@@ -983,22 +1240,24 @@ dashboards or web pages, allowing for real time or near-real time
 monitoring of data collection efforts. This provides an easy way to
 summarize completion of the experiment so that individuals can receive
 credit (if using services like MTurk or Prolific), but also allows
-interested participants to see the data if recruiting participants who
-are more likely to be interested in the results, as sometimes happens on
-social media sites. As data collection online can also happen extremely
-quickly (300 participants in \textless2h in our most recent Prolific
-experiment), this can provide an illusion of control over the deluge of
-data, allowing any issues to be spotted and resolved relatively quickly.
-If server load is a potential issue, it may also help to release batches
-of trials over a longer period of time in order to minimize the chance
-of having to make participants wait for others to complete the task
-before the server can handle additional connections\footnote{This is the
-  one major drawback to our preferred solution of self-hosting a Shiny
-  server to handle data collection: the free version of Shiny server is
-  limited to about 15 connections at any given time. Prolific has
-  recently added rate-limiting functions to the experimental control
-  platform, which makes controlling the number of active jobs much
-  easier.}.
+interested participants to see individual results, which can be a factor
+when recruiting on social media. As data collection online can also
+happen extremely quickly (300 participants in \textless2h in our most
+recent Prolific experiment), this can improve data monitoring, allowing
+any issues to be spotted and resolved quickly. If server load is a
+potential issue, it may also help to release batches of trials over a
+longer period of time in order to minimize the chance of having to make
+participants wait for others to complete the task before the server can
+handle additional connections\footnote{This is the one major drawback to
+  our preferred solution of self-hosting a Shiny server to handle data
+  collection: the free version of Shiny server is limited to about 15
+  connections at any given time. Prolific has recently added
+  rate-limiting functions to the experimental control platform, which
+  makes controlling the number of active jobs much easier.}. Batch trial
+releases can also be used to ensure that participants are recruited
+across different time zones; in some studies this is beneficial, while
+in others it may be more important to control the release time to target
+individuals in e.g.~North America rather than Europe.
 
 \section{Analyzing the Data}\label{sec-analysis}
 
@@ -1013,12 +1272,12 @@ occasionally complicates the data analysis.
 Models}\label{generalized-linear-mixed-models}
 
 The see-value approach (Chowdhury et al., 2020; Majumder et al., 2013;
-VanderPlas et al., 2021) is extremely useful for single lineups, but
+Vanderplas et al., 2021) is extremely useful for single lineups, but
 when a series of lineups that are part of a designed experiment are
 used, generalized linear mixed models are a much simpler way to
 summarize the overall effect of various manipulated factors (Hofmann et
-al., 2012; Robinson, 2022; VanderPlas \& Hofmann, 2017). This approach
-also works extremely well for psychometric experiments (VanderPlas \&
+al., 2012; Robinson, 2022; Vanderplas \& Hofmann, 2017). This approach
+also works extremely well for psychometric experiments (Vanderplas \&
 Hofmann, 2015), as psychometric models can be easily fit into the
 framework of a generalized linear mixed model (Ju et al., 2024) that has
 higher power than the Rasch models (Andrich, 1988; Lu et al., 2022)
@@ -1109,15 +1368,22 @@ In many cases, it is helpful to combine participants' qualitative
 reasoning with their quantitative responses to designed graphical
 experiments. This approach provides useful context as to what
 participants use to make their decisions, and can be useful when
-assessing why unexpected responses occurred. We have used word clouds to
-show overall themes in participant responses successfully in (VanderPlas
-\& Hofmann, 2017); when paired with an appropriate linear model it
-became clear that participants were fixating on unequal cluster size as
-a visual cue. In cases where participants are provided with additional
+assessing why unexpected responses occurred. Qualitative questions can
+be as simple as asking for a free response explanation of the
+quantitative response(s), but it can also be effective to use
+qualitative questions to prompt participants about problem solving
+strategies, interesting features in the data, and more.
+
+We have used word clouds to show overall themes in participant
+explanations of why specific lineup panels were selected (Vanderplas \&
+Hofmann, 2017); when paired with an appropriate linear model it became
+clear that participants were fixating on unequal cluster size as a
+visual cue. In cases where participants are provided with additional
 utilities such as calculators and scratchpads, it can be useful to
 select responses from individual participants which illustrate the
-different types of calculations performed (but analyzing this data
-quantitatively can be difficult).
+different types of calculations performed, but analyzing this data
+quantitatively can be difficult, as it may be incomplete or difficult to
+code systematically.
 
 \section{Conclusion}\label{conclusion}
 
@@ -1158,6 +1424,11 @@ severe weather and more.
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-albertComparingAttentionalDisengagement2023}
+Albert, D. A., \& Smilek, D. (2023). Comparing attentional disengagement
+between {Prolific} and {MTurk} samples. \emph{Scientific Reports},
+\emph{13}(1), 20574. \url{https://doi.org/10.1038/s41598-023-46048-5}
+
 \bibitem[\citeproctext]{ref-allenVisualizingScientificData2016}
 Allen, E. A., \& Erhardt, E. B. (2016). Visualizing {Scientific} {Data}.
 In J. T. Cacioppo, L. G. Tassinary, \& G. G. Berntson (Eds.),
@@ -1179,6 +1450,12 @@ Bostock, M., Ogievetsky, V., \& Heer, J. (2011). D3 {Data}-{Driven}
 {Documents}. \emph{IEEE Transactions on Visualization and Computer
 Graphics}, \emph{17}(12), 2301--2309.
 https://doi.org/\url{https://doi.org/10/b7bhhf}
+
+\bibitem[\citeproctext]{ref-brysbaertHowManyParticipants2019}
+Brysbaert, M. (2019). How many participants do we have to include in
+properly powered experiments? {A} tutorial of power analysis with
+reference tables. \emph{Journal of Cognition}, \emph{2}(1).
+\url{https://doi.org/10.5334/joc.72}
 
 \bibitem[\citeproctext]{ref-bujaStatisticalInferenceExploratory2009}
 Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D.
@@ -1214,6 +1491,13 @@ Cleveland, W. S., McGill, M. E., \& McGill, R. (1988). The {Shape}
 {Parameter} of a {Two}-{Variable} {Graph}. \emph{Journal of the American
 Statistical Association}, \emph{83}(402), 289--300.
 https://doi.org/\url{https://doi.org/10.1080/01621459.1988.10478598}
+
+\bibitem[\citeproctext]{ref-clevelandGraphicalPerceptionTheory1984}
+Cleveland, W. S., \& McGill, R. (1984). Graphical perception: {Theory},
+experimentation, and application to the development of graphical
+methods. \emph{Journal of the American Statistical Association},
+\emph{79}(387), 531--554.
+\url{https://doi.org/10.1080/01621459.1984.10478080}
 
 \bibitem[\citeproctext]{ref-clevelandGraphicalPerceptionGraphical1985}
 Cleveland, W. S., \& McGill, R. (1985). Graphical {Perception} and
@@ -1251,6 +1535,10 @@ Desnoyers, L. (2011). \emph{Toward a {Taxonomy} of {Visuals} in
 Dunbar, K. (1995). How scientists really reason: {Scientific} reasoning
 in real-world laboratories. \emph{The Nature of Insight}, \emph{18},
 365--395.
+
+\bibitem[\citeproctext]{ref-easterlingFundamentalsStatisticalExperimental2015}
+Easterling, R. G. (2015). \emph{Fundamentals of {Statistical
+Experimental Design} and {Analysis}}. John Wiley \& Sons.
 
 \bibitem[\citeproctext]{ref-eellsRelativeMeritsCircles1926}
 Eells, W. C. (1926). The {Relative} {Merits} of {Circles} and {Bars} for
@@ -1344,6 +1632,11 @@ Kirschenbaum, S. S. (2003). Comparative {Cognitive} {Task} {Analysis}:
 \emph{47}, 473--477.
 https://doi.org/\url{https://doi.org/10.1177/154193120304700347}
 
+\bibitem[\citeproctext]{ref-kochariConductingWebBasedExperiments2019}
+Kochari, A. R. (2019). Conducting {Web-Based Experiments} for {Numerical
+Cognition Research}. \emph{Journal of Cognition}, \emph{2}(1), 39.
+\url{https://doi.org/10.5334/joc.85}
+
 \bibitem[\citeproctext]{ref-kosslynGraphDesignEye2006}
 Kosslyn, S. M. (2006). \emph{Graph {Design} for the {Eye} and {Mind}}.
 Oxford University Press.
@@ -1359,6 +1652,12 @@ Lee, S., Kim, S.-H., Hung, Y.-H., Lam, H., Kang, Y.-A., \& Yi, J. S.
 grounded model of novice's information visualization sensemaking.
 \emph{{IEEE} Transactions on Visualization and Computer Graphics},
 \emph{22}(1), 499--508. \url{https://doi.org/10.1109/TVCG.2015.2467195}
+
+\bibitem[\citeproctext]{ref-loyVariationsQQPlots2016}
+Loy, A., Follett, L., \& Hofmann, H. (2016). Variations of {Q-Q Plots}:
+{The Power} of {Our Eyes}! \emph{The American Statistician},
+\emph{70}(2), 202--214.
+\url{https://doi.org/10.1080/00031305.2015.1077728}
 
 \bibitem[\citeproctext]{ref-loyDiagnosticToolsHierarchical2013}
 Loy, A., \& Hofmann, H. (2013). Diagnostic tools for hierarchical linear
@@ -1378,6 +1677,17 @@ Majumder, M., Hofmann, H., \& Cook, D. (2013). Validation of visual
 statistical inference, applied to linear models. \emph{Journal of the
 American Statistical Association}, \emph{108}(503), 942--956.
 https://doi.org/\url{https://doi.org/10/f5gntt}
+
+\bibitem[\citeproctext]{ref-muszynskiAttentionChecksHow2023}
+Muszyński, M. (2023). Attention checks and how to use them: {Review} and
+practical recommendations. \emph{Ask: Research and Methods},
+\emph{32}(1), 3--38. \url{https://doi.org/10.18061/ask.v32i1.0001}
+
+\bibitem[\citeproctext]{ref-peerDataQualityPlatforms2022}
+Peer, E., Rothschild, D., Gordon, A., Evernden, Z., \& Damer, E. (2022).
+Data quality of platforms and panels for online behavioral research.
+\emph{Behavior Research Methods}, \emph{54}(4), 1643--1662.
+\url{https://doi.org/10.3758/s13428-021-01694-3}
 
 \bibitem[\citeproctext]{ref-R}
 R Core Team. (2022). \emph{R: A language and environment for statistical
@@ -1401,6 +1711,13 @@ Robinson, E. A. (2022). \emph{Human {Perception} of {Exponentially}
 Lincoln{]}.
 \url{https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/EmilyRobinson-final-dissertation.pdf}
 
+\bibitem[\citeproctext]{ref-robinsonPerceptionCognitiveImplications}
+Robinson, E. A., Howard, R., \& Vanderplas, S. (2025). Perception and
+{Cognitive Implications} of {Logarithmic Scales} for {Exponentially
+Increasing Data}: {Perceptual Sensitivity Tested} with {Statistical
+Lineups}. \emph{Journal of Computational and Graphical Statistics},
+\emph{0}(ja), 1--14. \url{https://doi.org/10.1080/10618600.2025.2476097}
+
 \bibitem[\citeproctext]{ref-schuttPainfreeAccurateBayesian2016}
 Schütt, H. H., Harmeling, S., Macke, J. H., \& Wichmann, F. A. (2016).
 Painfree and accurate bayesian estimation of psychometric functions for
@@ -1423,6 +1740,12 @@ Extracting and generating information from complex visualizations.
 Tufte, E. (1991). \emph{The {Visual} {Display} of {Quantitative}
 {Information}} (2nd ed.). Graphics Press.
 
+\bibitem[\citeproctext]{ref-uittenhoveLabTestingWebTestingCognitive2023}
+Uittenhove, D. K., Jeanneret, S., \& Vergauwe, E. (2023). From
+{Lab-Testing} to {Web-Testing} in {Cognitive Research}: {Who You Test}
+is {More Important} than how {You Test}. \emph{Journal of Cognition},
+\emph{6}(1), 13. \url{https://doi.org/10.5334/joc.259}
+
 \bibitem[\citeproctext]{ref-ushakovStatisticalAnalysisRounded2017}
 Ushakov, N. G., \& Ushakov, V. G. (2017). Statistical analysis of
 rounded data: {Recovering} of information lost due to rounding.
@@ -1437,7 +1760,7 @@ using machine learning. \emph{{eLife}}, \emph{13}.
 \url{https://doi.org/10.7554/eLife.86224}
 
 \bibitem[\citeproctext]{ref-vanderplasDesigningGraphicsRequires2021}
-VanderPlas, S. (2021). Designing {Graphics} {Requires} {Useful}
+Vanderplas, S. (2021). Designing {Graphics} {Requires} {Useful}
 {Experimental} {Testing} {Frameworks} and {Graphics} {Derived} {From}
 {Empirical} {Results}. \emph{Harvard Data Science Review}, \emph{3}(3).
 https://doi.org/\url{https://doi.org/10.1162/99608f92.7d099fd0}
@@ -1456,31 +1779,31 @@ Statistics and Its Application}, \emph{7}(1).
 https://doi.org/\url{https://doi.org/10.1146/annurev-statistics-031219-041252}
 
 \bibitem[\citeproctext]{ref-vanderplasFramedReproducingRevisiting2019}
-VanderPlas, S., Goluch, R., \& Hofmann, H. (2019). Framed! {Reproducing}
+Vanderplas, S., Goluch, R., \& Hofmann, H. (2019). Framed! {Reproducing}
 and {Revisiting} 150 year old charts. \emph{Journal of Computational and
 Graphical Statistics}.
 https://doi.org/\url{https://doi.org/10.1080/10618600.2018.1562937}
 
 \bibitem[\citeproctext]{ref-sineillusion}
-VanderPlas, S., \& Hofmann, H. (2015). Signs of the {Sine}
+Vanderplas, S., \& Hofmann, H. (2015). Signs of the {Sine}
 {Illusion}---{Why} {We} {Need} to {Care}. \emph{Journal of Computational
 and Graphical Statistics}, \emph{24}(4), 1170--1190.
 https://doi.org/\url{https://doi.org/10.1080/10618600.2014.951547}
 
-\bibitem[\citeproctext]{ref-vanderplasSpatialReasoningData2016a}
-VanderPlas, S., \& Hofmann, H. (2016). Spatial {Reasoning} and {Data}
-{Displays}. \emph{IEEE Transactions on Visualization and Computer
+\bibitem[\citeproctext]{ref-vanderplasSpatialReasoningData2016}
+Vanderplas, S., \& Hofmann, H. (2016). Spatial {Reasoning} and {Data
+Displays}. \emph{IEEE Transactions on Visualization \& Computer
 Graphics}, \emph{22}(1), 459--468.
-https://doi.org/\url{https://doi.org/10.1109/TVCG.2015.2469125}
+\url{https://doi.org/10.1109/TVCG.2015.2469125}
 
 \bibitem[\citeproctext]{ref-clusters}
-VanderPlas, S., \& Hofmann, H. (2017). Clusters {Beat} {Trend}!?
+Vanderplas, S., \& Hofmann, H. (2017). Clusters {Beat} {Trend}!?
 {Testing} {Feature} {Hierarchy} in {Statistical} {Graphics}.
 \emph{Journal of Computational and Graphical Statistics}, \emph{26}(2),
 231--242. \url{https://doi.org/10.1080/10618600.2016.1209116}
 
 \bibitem[\citeproctext]{ref-vanderplasStatisticalSignificanceCalculations2021}
-VanderPlas, S., Röttger, C., Cook, D., \& Hofmann, H. (2021).
+Vanderplas, S., Röttger, C., Cook, D., \& Hofmann, H. (2021).
 Statistical significance calculations for scenarios in visual inference.
 \emph{Stat}, \emph{10}(1).
 https://doi.org/\url{https://doi.org/10.1002/sta4.337}
