@@ -1,7 +1,7 @@
 % Options for packages loaded elsewhere
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL submitted-index.tex   Sat Mar 15 09:28:22 2025
-%DIF ADD index.tex             Sun Mar 16 20:19:00 2025
+%DIF ADD index.tex             Wed Mar 26 09:36:31 2025
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
@@ -215,7 +215,7 @@
 
 \title{A Guide to Designing Experiments to Test Statistical Graphics}
 \author{Emily Robinson \and Heike Hofmann \and Susan Vanderplas}
-\date{\DIFdelbegin \DIFdel{2024-11-01}\DIFdelend \DIFaddbegin \DIFadd{2025-03-16}\DIFaddend }
+\date{\DIFdelbegin \DIFdel{2024-11-01}\DIFdelend \DIFaddbegin \DIFadd{2025-03-26}\DIFaddend }
 %DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
 %DIF UNDERLINE PREAMBLE %DIF PREAMBLE
 \RequirePackage[normalem]{ulem} %DIF PREAMBLE
@@ -339,11 +339,12 @@ visualizations. }\DIFaddend With all of the different design choices available, 
 are chart creators to know what is the best approach for communicating
 data to the appropriate audience?
 
-While there are heuristics, rules-of-thumb, and \DIFdelbegin \DIFdel{various }\DIFdelend guidelines (Allen \&
-Erhardt, 2016; Few, 2006; Haemer, 1948; {``Joint Committee on Standards
-for Graphic Presentation,''} 1915; Kosslyn, 2006) for creating useful
-and visually attractive \DIFdelbegin \DIFdel{charts}\DIFdelend \DIFaddbegin \DIFadd{data displays}\DIFaddend , the best way to establish the
-efficacy of various design decisions is to test \DIFdelbegin \DIFdel{charts: evaluate them
+While there are heuristics, \DIFdelbegin \DIFdel{rules-of-thumb, and various guidelines
+}\DIFdelend \DIFaddbegin \DIFadd{general guidelines, and best practices
+}\DIFaddend (Allen \& Erhardt, 2016; Few, 2006; Haemer, 1948; {``Joint Committee on
+Standards for Graphic Presentation,''} 1915; Kosslyn, 2006) for creating
+useful and visually attractive \DIFdelbegin \DIFdel{charts}\DIFdelend \DIFaddbegin \DIFadd{data displays}\DIFaddend , the best way to establish
+the efficacy of various design decisions is to test \DIFdelbegin \DIFdel{charts: evaluate them
 }\DIFdelend \DIFaddbegin \DIFadd{the visualization on
 humans, evaluating different variants }\DIFaddend under controlled conditions
 \DIFdelbegin \DIFdel{, and gather appropriate data }\DIFdelend (Cleveland et al., 1988; Cleveland \& McGill, 1985)\DIFdelbegin \DIFdel{to compare different
@@ -411,8 +412,8 @@ interactive data displays. Online experiments have lower }\DIFaddend overhead, o
 relatively fast data collection, and provide useful results \DIFdelbegin \DIFdel{, }\DIFdelend for
 well-designed experiments. The toolkit used for these experiments is
 R-based (R Core Team, 2022), and includes ggplot2 (Wickham, 2016) and
-Shiny (Chang et al., 2021) as primary components\DIFdelbegin \DIFdel{, as well as JavaScript (including D3 (}\DIFdelend \DIFaddbegin \DIFadd{. In many experiments,
-we customized the Shiny interface with JavaScript and d3 (}\DIFaddend Bostock et
+Shiny (Chang et al., 2021) as primary components\DIFdelbegin \DIFdel{, as well as JavaScript (including }\DIFdelend \DIFaddbegin \DIFadd{. In many experiments,
+we customized the Shiny interface with JavaScript and }\DIFaddend D3 (Bostock et
 al., 2011)\DIFdelbegin \DIFdel{) to customize the Shiny interface for many of the experiments}\DIFdelend \DIFaddbegin \DIFadd{, enabling interactive graphics, use of svgs, and other useful
 extensions}\DIFaddend . While we prefer this set of tools, most of the observations
 described here apply to a wide variety of different workflows for
@@ -507,20 +508,20 @@ finding in \DIFdelbegin \DIFdel{the chart. As in }\DIFdelend \DIFaddbegin \DIFad
 in analogy to }\DIFaddend the criminal procedure \DIFdelbegin \DIFdel{, lineups embed }\DIFdelend \DIFaddbegin \DIFadd{where the suspect is placed in a
 line with several other individuals with similar characteristics. In a
 graphical lineup procedure, there is }\DIFaddend a target plot \DIFdelbegin \DIFdel{with signal into }\DIFdelend \DIFaddbegin \DIFadd{containing the real
-data, embedded in }\DIFaddend an array of \DIFdelbegin \DIFdel{19 other }\DIFdelend innocent ``null'' plots \DIFdelbegin \DIFdel{that show
-only noise}\DIFdelend \DIFaddbegin \DIFadd{generated through
-resampling or simulation}\DIFaddend . If viewers consistently pick the target plot
-at a higher rate than any of the \DIFdelbegin \DIFdel{19 }\DIFdelend null plots, the target plot is said to
-be visually significant (Loy \& Hofmann, 2013; Majumder et al., 2013)
-and a ``see'' value\DIFdelbegin \DIFdel{(}\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend the visual analogue of a \(p\)-value \DIFdelbegin \DIFdel{for a statistical
-test) can be calculated }\DIFdelend (Chowdhury et
-al., 2020\DIFdelbegin \DIFdel{; VanderPlas }\DIFdelend \DIFaddbegin \DIFadd{), can be calculated using the }\texttt{\DIFadd{vinference}} \DIFadd{R package or
-the process described in Vanderplas }\DIFaddend et al. \DIFdelbegin \DIFdel{,
-}\DIFdelend \DIFaddbegin \DIFadd{(}\DIFaddend 2021). \DIFaddbegin \DIFadd{The details of this
-calculation are beyond the scope of this broader discussion of how to
-test charts, but more detail on visual inference is provided in
-\textless insert citation to visual inference WIRE article under
-development\textgreater.
+data, embedded in }\DIFaddend an array of \DIFaddbegin \DIFadd{(typically) }\DIFaddend 19 \DIFdelbegin \DIFdel{other }\DIFdelend innocent ``null'' plots
+\DIFdelbegin \DIFdel{that show
+only noise}\DIFdelend \DIFaddbegin \DIFadd{generated through resampling or simulation, for a total of 20 panels}\DIFaddend . If
+viewers consistently pick the target plot at a higher rate than any of
+the \DIFdelbegin \DIFdel{19 }\DIFdelend null plots, the target plot is said to be visually significant (Loy
+\& Hofmann, 2013; Majumder et al., 2013) and a ``see'' value\DIFdelbegin \DIFdel{(}\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend the visual
+analogue of a \(p\)-value \DIFdelbegin \DIFdel{for a statistical
+test) can be calculated }\DIFdelend (Chowdhury et al., 2020\DIFdelbegin \DIFdel{; VanderPlas }\DIFdelend \DIFaddbegin \DIFadd{), can be calculated
+using the }\texttt{\DIFadd{vinference}} \DIFadd{R package or the process described in
+Vanderplas }\DIFaddend et al. \DIFdelbegin \DIFdel{,
+}\DIFdelend \DIFaddbegin \DIFadd{(}\DIFaddend 2021). \DIFaddbegin \DIFadd{The details of this calculation are beyond the
+scope of this broader discussion of how to test charts, but more detail
+on visual inference is provided in \textless insert citation to visual
+inference WIRE article under development\textgreater.
 }
 
 \DIFaddend In another variation of the statistical lineup procedure, \DIFaddbegin \DIFadd{data generated
@@ -715,13 +716,13 @@ or log scale. Using JavaScript code modified from New York Times
 interactive graphics ``You Draw It'' features (Katz, 2017), we had users
 draw trend lines with their computer mouse and make forecasts directly
 on interactive charts, with the data and user-drawn predictions recorded
-to our database. With interactive graphics rendered using JavaScript (or
-other web libraries), the only limit to the types of questions one can
-ask in testing graphics is one's ability to write code to interact with
-the visualization library. This type of testing method can be extremely
-natural for participants, but it also is hard to generalize when
-discussing testing methods because of the potential range of
-applications where it might be employed.
+to our database \DIFdelbegin \DIFdel{. }\DIFdelend \DIFaddbegin \DIFadd{(Robinson et al., 2023b). }\DIFaddend With interactive graphics
+rendered using JavaScript (or other web libraries), the only limit to
+the types of questions one can ask in testing graphics is one's ability
+to write code to interact with the visualization library. This type of
+testing method can be extremely natural for participants, but it also is
+hard to generalize when discussing testing methods because of the
+potential range of applications where it might be employed.
 
 Whichever testing method is chosen should be appropriate to the type of
 question under investigation and the level of visual and cognitive
@@ -736,14 +737,19 @@ develop a strategy for data generation appropriate for testing the
 underlying question. For instance, when testing the perception of
 exponential growth, we had to develop a model which would generate data
 with varying growth rates, but where the data had a pre-specified domain
-and range. The data generating model is particularly critical when using
+and range. \DIFdelbegin \DIFdel{The data generating model is particularly critical when using
 lineups, as the null sampling model must replicate the important visual
-features in the data. Each testing method has specific requirements, but
-it is important to carefully calibrate the model parameters to allow for
-some variability, but not too much, and to ensure that participants can
-succeed at the task and do not feel like they are being made to analyze
-random noise. This Goldilocks-style problem is the focus of the next
-section.
+features in the data. }\DIFdelend \DIFaddbegin \DIFadd{If the null plots fail to capture the key visual
+characteristics - such as trend, spread, or clustering - then any
+standout visual differences may be attributed to those unintended
+features, rather than the perceptual cue being tested. In other words,
+if the nulls are too obviously different, participants might detect the
+real plot for the wrong reason. }\DIFaddend Each testing method has specific
+requirements, but it is important to carefully calibrate the model
+parameters to allow for some variability, but not too much, and to
+ensure that participants can succeed at the task and do not feel like
+they are being made to analyze random noise. This Goldilocks-style
+problem is the focus of the next section.
 
 \DIFaddbegin \section{\DIFadd{Experiment Development Life
 Cycle}}\label{experiment-development-life-cycle}
@@ -898,19 +904,20 @@ difficulty of the visual task. To identify a statistical proxy for
 visual difficulty that may help with narrowing the parameter space, it
 can be useful to consider numerical measures used to estimate the same
 types of visual information that will be assessed in the experiment. }\DIFaddend For
-instance, we have used
+instance, we have used\DIFaddbegin \DIFadd{:
+}\DIFaddend 
 
 \begin{itemize}
 \tightlist
 \item
-  \(R^2\) as a measure of the strength of a linear relationship
-\item
-  Gini inequality as a measure of the strength of clustering
-\item
+  \(R^2\) as a measure of the strength of a linear relationship\DIFaddbegin \DIFadd{,
+}\DIFaddend \item
+  Gini inequality as a measure of the strength of clustering\DIFaddbegin \DIFadd{, and
+}\DIFaddend \item
   lack-of-fit statistics to assess the amount of curvature in an
   exponential relationship (shown in
-  Figure~\ref{fig-lof-density-curves})
-\end{itemize}
+  Figure~\ref{fig-lof-density-curves})\DIFaddbegin \DIFadd{.
+}\DIFaddend \end{itemize}
 
 Then, a wide range of potential combinations of parameter values or
 sampling strategies can be explored and summarized graphically; if the
@@ -991,11 +998,12 @@ Critical}\label{visual-assessment-is-critical}
 
 We cannot overstate the importance of visual assessment of your model
 stimuli, preferably with fresh eyes. We highly recommend performing
-several rounds of think-aloud pilot testing \DIFaddbegin \DIFadd{(focus) }\DIFaddend before deploying an
-experiment. In support of this assessment, we offer up a cautionary tale
-of our own experience: that of \DIFdelbegin \DIFdel{(VanderPlas \& Hofmann , }\DIFdelend \DIFaddbegin \DIFadd{Vanderplas \& Hofmann (}\DIFaddend 2017), where we
-designed an experiment to test which plot aesthetics promoted discovery
-of linear trends and/or clusters.
+several rounds of think-aloud pilot testing \DIFaddbegin \DIFadd{(e.g., focus groups) }\DIFaddend before
+deploying an experiment. In support of this assessment, we offer up a
+cautionary tale of our own experience: that of \DIFdelbegin \DIFdel{(VanderPlas \& Hofmann
+, }\DIFdelend \DIFaddbegin \DIFadd{Vanderplas \& Hofmann
+(}\DIFaddend 2017), where we designed an experiment to test which plot aesthetics
+promoted discovery of linear trends and/or clusters.
 
 The experiment was a \DIFdelbegin \DIFdel{full }\DIFdelend 2x3x3 factorial exploration of three data
 generating parameters, with 3 replicates at each parameter combination
@@ -1059,10 +1067,14 @@ generating procedure. That is, participants could still detect the
 artificial nature of the induced clusters using other features. While it
 can be difficult to get the data generating method right, it is
 essential to conducting visual experiments that generalize well beyond
-the effects shown in a single data set or phenomenon. The time and
-effort invested in this step at the outset of the experiment pays
-dividends when it allows for clear generalization of the experimental
-results to an entire statistical concept rather than a single data set.
+the effects shown in a single data set or phenomenon. \DIFaddbegin \DIFadd{This is also why
+it is critical to include independent replications of the simulated
+parameters, so that the results reflect variability due to the data
+generation process, not just the specifics of a single simulated
+dataset. }\DIFaddend The time and effort invested in this step at the outset of the
+experiment pays dividends when it allows for clear generalization of the
+experimental results to an entire statistical concept rather than a
+single data set.
 
 \section{\DIFdelbegin \DIFdel{Experimental Design Considerations}\DIFdelend \DIFaddbegin \DIFadd{Protocol Development}\DIFaddend }\DIFdelbegin %DIFDELCMD < \label{sec-exp-design}
 %DIFDELCMD < %%%
@@ -1120,13 +1132,13 @@ experiment parameters using SQLite tables, which are automatically
 synchronized with cloud storage and tracked with version control. This
 ensures that we have incremental records of the tables during data
 collection, and that all data is stored across multiple locations,
-guarding against hardware failures. In some studies, data is unique to
-each participant; in these cases, we highly recommend saving all
-generated data to a database as well, so that it is possible to go back
-and examine responses alongside the data used to generate the graphical
-stimuli. Hard drive space is extremely cheap relative to almost any
-other cost in an experiment; saving all of the data is a sensible
-measure.
+guarding against hardware failures. In some studies, generated data is
+unique to each participant; in these cases, we highly recommend saving
+all generated data to a database as well, so that it is possible to go
+back and examine responses alongside the data used to generate the
+graphical stimuli. Hard drive space is extremely cheap relative to
+almost any other cost in an experiment; saving all of the data is a
+sensible measure.
 }
 
 \subsection{\DIFadd{Participant Recruitment}}\label{participant-recruitment}
@@ -1170,7 +1182,8 @@ charts. Tasks which are more interactive, such as `You Draw It', may be
 somewhat easier for participants, but it is unlikely that participants
 would be
   willing to complete more than about 20 tasks in one sitting
-even with tasks that require fewer decisions and more engagement.At
+even with tasks that require fewer decisions and more engagement.
+At
 some point, participants' interest in accuracy will decline,
 and the
 researcher is better off using a larger number of participants
@@ -1216,8 +1229,8 @@ population. People who participate in studies via online platforms are
 more technologically sophisticated and educated than the general
 population, and this bias may significantly impact the conclusions.
 However, it is also reasonable to argue that higher education might make
-someone more likely to use charts and data for decision-making.}\\
-\DIFadd{Researchers designing a study should carefully consider whether the goal
+someone more likely to use charts and data for decision-making.
+Researchers designing a study should carefully consider whether the goal
 of the study is to generalize results to the adult population or to a
 subset of that population who make decisions based on data.
 }
@@ -1541,17 +1554,17 @@ credit (if using services like MTurk or Prolific), but also allows
 interested participants to see \DIFdelbegin \DIFdel{the data if recruiting participants who
 are more likely to be interested in the results, as sometimes happens }\DIFdelend \DIFaddbegin \DIFadd{individual results, which can be a factor
 when recruiting }\DIFaddend on social media\DIFdelbegin \DIFdel{sites}\DIFdelend . As data collection online can also
-happen extremely quickly (300 participants in \textless2h in our most
-recent Prolific experiment), this can \DIFdelbegin \DIFdel{provide an illusion of control over the deluge of
-data }\DIFdelend \DIFaddbegin \DIFadd{improve data monitoring}\DIFaddend , allowing
-any issues to be spotted and resolved \DIFdelbegin \DIFdel{relatively }\DIFdelend quickly. If server load is a
-potential issue, it may also help to release batches of trials over a
-longer period of time in order to minimize the chance of having to make
-participants wait for others to complete the task before the server can
-handle additional connections\footnote{This is the one major drawback to
-  our preferred solution of self-hosting a Shiny server to handle data
-  collection: the free version of Shiny server is limited to about 15
-  connections at any given time. Prolific has recently added
+happen extremely quickly (300 participants in \DIFdelbegin \DIFdel{\textless2h }\DIFdelend \DIFaddbegin \DIFadd{\textless2 hours }\DIFaddend in our
+most recent Prolific experiment), this can \DIFdelbegin \DIFdel{provide an illusion of control over the deluge of
+data }\DIFdelend \DIFaddbegin \DIFadd{improve data monitoring}\DIFaddend ,
+allowing any issues to be spotted and resolved \DIFdelbegin \DIFdel{relatively }\DIFdelend quickly. If server load
+is a potential issue, it may also help to release batches of trials over
+a longer period of time in order to minimize the chance of having to
+make participants wait for others to complete the task before the server
+can handle additional connections\footnote{This is the one major
+  drawback to our preferred solution of self-hosting a Shiny server to
+  handle data collection: the free version of Shiny server is limited to
+  about 15 connections at any given time. Prolific has recently added
   rate-limiting functions to the experimental control platform, which
   makes controlling the number of active jobs much easier.}. \DIFaddbegin \DIFadd{Batch trial
 releases can also be used to ensure that participants are recruited
@@ -1577,15 +1590,16 @@ The see-value approach (Chowdhury et al., 2020; Majumder et al., 2013;
 when a series of lineups that are part of a designed experiment are
 used, generalized linear mixed models are a much simpler way to
 summarize the overall effect of various manipulated factors (Hofmann et
-al., 2012; Robinson, 2022; \DIFdelbegin \DIFdel{VanderPlas }\DIFdelend \DIFaddbegin \DIFadd{Vanderplas }\DIFaddend \& Hofmann, 2017). This approach
-also works extremely well for psychometric experiments (\DIFdelbegin \DIFdel{VanderPlas }\DIFdelend \DIFaddbegin \DIFadd{Vanderplas }\DIFaddend \&
-Hofmann, 2015), as psychometric models can be easily fit into the
-framework of a generalized linear mixed model (Ju et al., 2024) that has
-higher power than the Rasch models \DIFaddbegin \DIFadd{(Andrich, 1988; Lu et al., 2022)
-}\DIFaddend which were historically recommended for these experiments. In addition,
-similar model structures \DIFaddbegin \DIFadd{with different link functions }\DIFaddend can be used to
-model accuracy, response time, and confidence, if all three types of
-information are collected from participants during the experiment.
+al., 2012; Robinson \DIFdelbegin \DIFdel{, 2022; VanderPlas }\DIFdelend \DIFaddbegin \DIFadd{et al., 2025; Vanderplas }\DIFaddend \& Hofmann, 2017). This
+approach also works extremely well for psychometric experiments
+(\DIFdelbegin \DIFdel{VanderPlas }\DIFdelend \DIFaddbegin \DIFadd{Vanderplas }\DIFaddend \& Hofmann, 2015), as psychometric models can be easily fit
+into the framework of a generalized linear mixed model (Ju et al., 2024)
+that has higher power than the Rasch models \DIFaddbegin \DIFadd{(Andrich, 1988; Lu et al.,
+2022) }\DIFaddend which were historically recommended for these experiments. In
+addition, similar model structures \DIFaddbegin \DIFadd{with different link functions }\DIFaddend can be
+used to model accuracy, response time, and confidence, if all three
+types of information are collected from participants during the
+experiment.
 
 \subsection{Numerical Estimation}\label{numerical-estimation}
 
@@ -1621,15 +1635,14 @@ generate participant response curves. In these cases, rather than adding
 a rug plot to a density plot showing aggregate estimates, it may be more
 helpful to create spaghetti plots of individual estimates with a
 superimposed consensus estimate and relevant annotations showing
-e.g.~}\DIFaddend anchor points.\DIFaddbegin \\
-\DIFaddend The advantage of this approach is that it can accommodate extremely
-messy data without requiring the extensive data cleaning\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{, modeling of
-heuristics like rounding and anchoring, and }\DIFaddend elimination of nonsensical
-responses that might be necessary to fit a statistical model. \DIFaddbegin \DIFadd{While
-statistical models are undoubtedly beneficial in many situations, we
-have often found that graphical displays of experimental results are at
-least as useful for analyzing and presenting the results of graphical
-experiments.
+e.g.~}\DIFaddend anchor points. The advantage of this approach is that it can
+accommodate extremely messy data without requiring the extensive data
+cleaning\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{, modeling of heuristics like rounding and anchoring, and
+}\DIFaddend elimination of nonsensical responses that might be necessary to fit a
+statistical model. \DIFaddbegin \DIFadd{While statistical models are undoubtedly beneficial
+in many situations, we have often found that graphical displays of
+experimental results are at least as useful for analyzing and presenting
+the results of graphical experiments.
 }\DIFaddend 
 
 \begin{figure}
@@ -1650,14 +1663,15 @@ experiments.
 \DIFaddendFL 
 
 \caption{\label{fig-density-rug}Density of participant estimates for the
-year in which the population reaches 4000. Colors are associated to
-scale - linear (blue) and log (orange) - and vertical lines indicate the
-true value based on the underlying model equation (black solid) and
-closest point value based on the simulated data set (black dashed). A
-jittered rug plot along the \(x\)-axis shows where participant estimates
-were made. The plot shows anchoring occurred to the closest point as
-shown by an increase in density around the dashed line. Density peaks
-occurred at whole values indicating rounding errors.}
+year \DIFaddbeginFL \DIFaddFL{(x-value) }\DIFaddendFL in which the population reaches \DIFdelbeginFL \DIFdelFL{4000. }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{4000 (y-value). }\DIFaddendFL Colors
+are associated to scale - linear (blue) and log (orange) - and vertical
+lines indicate the true value based on the underlying model equation
+(black solid) and closest point value based on the simulated data set
+(black dashed). A jittered rug plot along the \(x\)-axis shows where
+participant estimates were made. The plot shows anchoring occurred to
+the closest point as shown by an increase in density around the dashed
+line. Density peaks occurred at whole values indicating rounding
+errors.}
 
 \end{figure}%
 
@@ -1667,15 +1681,15 @@ If participants are making predictions and/or fitting visual statistics,
 we have had success analyzing these responses by comparing the responses
 to results from a statistical model to determine how visual statistics
 differ from the numerical quantities derived mathematically. For
-instance, we calculate the deviation between participant responses and
-the linear regression in `You Draw It' experiments, then fitted
-generalized additive mixed models to summarize the results across
-different experimental conditions to assess how user-drawn predictions
-deviated from the statistical estimates. In other direct interactions,
-it may be useful to compare participant selections or annotations to
-closest points on the chart to assess anchoring behavior; for discrete
-selections, methods discussed in numerical estimation may also be
-useful.
+instance, \DIFaddbegin \DIFadd{in Robinson et al. (2023a), }\DIFaddend we calculate the deviation between
+participant responses and the linear regression in `You Draw It'
+experiments, then fitted generalized additive mixed models to summarize
+the results across different experimental conditions to assess how
+user-drawn predictions deviated from the statistical estimates. In other
+direct interactions, it may be useful to compare participant selections
+or annotations to closest points on the chart to assess anchoring
+behavior; for discrete selections, methods discussed in numerical
+estimation may also be useful.
 
 \subsection{Qualitative Responses}\label{qualitative-responses}
 
@@ -2035,7 +2049,19 @@ Robinson, E. A. (2022). \emph{Human {Perception} of {Exponentially}
 Lincoln{]}.
 \url{https://github.com/earobinson95/EmilyARobinson-UNL-dissertation/raw/main/EmilyRobinson-final-dissertation.pdf}
 
-\DIFaddbegin \bibitem[\citeproctext]{ref-robinsonPerceptionCognitiveImplications}
+\DIFaddbegin \bibitem[\citeproctext]{ref-robinson2023eye}
+\DIFadd{Robinson, E. A., Howard, R., \& VanderPlas, S. (2023a). Eye fitting
+straight lines in the modern era. }\emph{\DIFadd{Journal of Computational and
+Graphical Statistics}}\DIFadd{, }\emph{32}(4)\DIFadd{, 1537--1544.
+}
+
+\bibitem[\citeproctext]{ref-robinson2023you}
+\DIFadd{Robinson, E. A., Howard, R., \& VanderPlas, S. (2023b). }{\DIFadd{``You draw
+it''}}\DIFadd{: Implementation of visually fitted trends with r2d3. }\emph{\DIFadd{Journal
+of Data Science}}\DIFadd{, }\emph{21}(2)\DIFadd{, 281--294.
+}
+
+\bibitem[\citeproctext]{ref-robinsonPerceptionCognitiveImplications}
 \DIFadd{Robinson, E. A., Howard, R., \& Vanderplas, S. (2025). Perception and
 }{\DIFadd{Cognitive Implications}} \DIFadd{of }{\DIFadd{Logarithmic Scales}} \DIFadd{for }{\DIFadd{Exponentially
 Increasing Data}}\DIFadd{: }{\DIFadd{Perceptual Sensitivity Tested}} \DIFadd{with }{\DIFadd{Statistical
