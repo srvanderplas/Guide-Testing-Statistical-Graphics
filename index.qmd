@@ -620,6 +620,7 @@ While it can be difficult to conduct empirical tests of different visualizations
 Many chart design guidelines and recommendations are based on heuristics, but as scientists, we should prefer guidelines which are based on empirical, experimentally derived results over opinions. 
 Testing statistical graphics and developing empirically supported guidelines for chart creation promises to support better scientific communication, which is critical for educating the public about topics like climate change, public health, the risk of severe weather and more.
 
-
+# Author Statement
+The authors have no conflicts of interest to declare in this manuscript. 
 
 # References
