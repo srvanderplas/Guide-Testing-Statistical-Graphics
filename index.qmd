@@ -1,63 +1,68 @@
 ---
 title: A Guide to Designing Experiments to Test Statistical Graphics
-author:
-  - name: Emily Robinson
+authors:
+  - id: ear
+    name: Emily Robinson
     dept: Statistics Department
-    affiliation: 
     email: erobin17@calpoly.edu
     orcid: 0000-0001-9800-7304
     affiliations: 
-      - name: Statistics Department, California Polytechnic State University
-        address: Faculty Offices East, Building 25, Room 107D
-        city: San Luis Obispo
-        state: CA
-        postal-code: 93407-0405
-  - name: Heike Hofmann
+    - name: California Polytechnic State University
+      department: Statistics Department
+      address: Faculty Offices East, Building 25, Room 107D
+      city: San Luis Obispo
+      state: CA
+      postal-code: 93407-0405
+        
+  - id: hh
+    name: Heike Hofmann
     orcid: 0000-0001-6216-5183
     email: hhofmann4@unl.edu    
     affiliations: 
-      - name: Statistics Department, University of Nebraska - Lincoln
-        address: 340 Hardin Hall North Wing
-        city: Lincoln
-        state: NE
-        postal-code: 68503
-  - name: Susan Vanderplas
+    - name: University of Nebraska - Lincoln
+      department: Statistics Department
+      address: 340 Hardin Hall North Wing
+      city: Lincoln
+      state: NE
+      postal-code: 68503
+        
+  - id: svp
+    name: Susan Vanderplas
     email: svanderplas2@unl.edu
     orcid: 0000-0002-3803-0972
+    corresponding: true
     affiliations: 
-      - name: Statistics Department, University of Nebraska - Lincoln
-        address: 340 Hardin Hall North Wing
-        city: Lincoln
-        state: NE
-        postal-code: 68503
+    - name: University of Nebraska - Lincoln
+      department: Statistics Department
+      address: 340 Hardin Hall North Wing
+      city: Lincoln
+      state: NE
+      postal-code: 68503
+        
+thanks: "The author(s) received no specific funding for this work."
 
 abstract: |
   In this paper, we discuss considerations and methods for experimentally testing visualizations. We discuss levels of user engagement with graphics, common issues when developing a sampling or data generation model, the importance of pilot testing, and data analysis methods. Along the way, we also provide recommendations of how to avoid some of the unique pitfalls of human testing in statistical and visualization research.
 
 bibliography: refs.bib
-csl: apa.csl
-
-mainfont: Helvetica
-monofont: Roboto
-number-depth: 2
-number-sections: true
 
 execute: 
   echo: false
 
 header-includes:
    - \usepackage[dvipsnames]{xcolor} % colors
+   - \renewcommand{\thefootnote}{\arabic{footnote}}
    - \newcommand{\ear}[1]{{\textcolor{blue}{#1}}}
    - \newcommand{\svp}[1]{{\textcolor{RedOrange}{#1}}}
    - \newcommand{\hh}[1]{{\textcolor{Green}{#1}}}
-
 date: last-modified
 
-
 format:  
-  wordcount-pdf:
+  wordcount-pdf:       
     keep-tex: true
-    fontsize: 10pt
+    template-partials:
+      - partials/title.tex
+      - partials/_print_author.tex
 ---
  
 <!-- Importance of testing statistical graphics -->
@@ -266,7 +271,7 @@ Then, a wide range of potential combinations of parameter values or sampling str
 As with any measure, it is important that difficulty levels span a range from easy to hard; we do not learn anything from finding out that everyone can distinguish all of the combinations.
 This portion of the design is somewhat analogous to selecting a range of doses of a chemical in a dose-response experiment. 
 
-```{r lof-density-curves, echo = F, include = T, message = F, warning = F}
+```{r, echo = F, include = T, message = F, warning = F}
 #| label: fig-lof-density-curves
 #| fig-cap: "Density plot of the lack of fit statistic showing separation of selected difficulty levels: High (obvious curvature), Medium (noticeable curvature), and Low (almost linear). Each density plot is the result of 1000 simulations from a model $y_i = \\alpha\\cdot e^{\\beta\\cdot x_i + \\epsilon_i} + \\theta$, where $\\epsilon \\sim N(0, \\sigma^2)$. $\\alpha$ and $\\theta$ were selected after manipulation of $\\beta$ and $\\sigma$ to ensure that all data generated had similar $y$ ranges so as not to provide visual cues about model differences outside of the plot curvature."
 #| out.width: "\\columnwidth"
@@ -573,7 +578,7 @@ densityPlot <- function(data, datasetID, estimate, xlabel = "Estimate", x_limits
 }
 ```
 
-```{r, qe2-density-plot, message=FALSE, warning=FALSE, echo = F}
+```{r, message=FALSE, warning=FALSE, echo = F}
 #| label: fig-density-rug
 #| fig-cap: "Density of participant estimates for the year (x-value) in which the population reaches 4000 (y-value). Colors are associated to scale - linear (blue) and log (orange) - and vertical lines indicate the true value based on the underlying model equation (black solid) and closest point value based on the simulated data set (black dashed). A jittered rug plot along the $x$-axis shows where participant estimates were made. The plot shows anchoring occurred to the closest point as shown by an increase in density around the dashed line. Density peaks occurred at whole values indicating rounding errors."
 #| fig-width: 6
@@ -621,6 +626,6 @@ Many chart design guidelines and recommendations are based on heuristics, but as
 Testing statistical graphics and developing empirically supported guidelines for chart creation promises to support better scientific communication, which is critical for educating the public about topics like climate change, public health, the risk of severe weather and more.
 
 # Author Statement
-The authors have no conflicts of interest to declare in this manuscript. 
+The authors have no conflicts of interest or additional funding to declare in this manuscript. 
 
 # References

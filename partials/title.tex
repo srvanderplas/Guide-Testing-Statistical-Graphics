@@ -1,41 +1,24 @@
+$-- Provides configuration of document metadata for writing the title block.
+$-- Note that in addition to these templates and partials, Quarto will also make normalized authors and affiliations data available to the template,
+$-- making is easy to write custom title blocks against a standard schema.
+$--
+$-- %%%% TODO %%%%%
+$-- Customize is needed, like below for printing the authors. Otherwise remove this partials to use Quarto default one.
+$-- %%%%%%%%%%%%%%%%
+
 $if(title)$
-  \title{$title$}
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
 $endif$
 $if(subtitle)$
-  \subtitle{$subtitle$}
-$endif$
-  
-\author{%
-$for(author-list)$%
-  $it.name$\thanks{email: $it.email$}\\\scriptsize $it.dept$\\\scriptsize $it.affiliation$%
-  $sep$\and%
-$endfor$%
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
-
-$if(date)$
-  \date{$date$}
+\makeatother
+\subtitle{$subtitle$}
 $endif$
+$-- This supports Quarto's authors normalization
 
-$if(teaserimg)$
-\teaser{
-  \centering
-  \includegraphics[width=\linewidth]{$teaser-img$}
-  \caption{$teaser-caption$}
-  \label{fig:teaser}
-}
-$endif$
-
-$if(abstract)$
-\abstract{$abstract$}
-$endif$
-
-\vgtccategory{$category$}
-
-$if(ieee-keywords)$
-\CCScatlist{
-$for(ieee-keywords)$
-$it$
-$sep$;
-$endfor$
-}
-$endif$
+%% Author information
+\author{$for(by-author)$$_print_author.tex()$\\$endfor$}

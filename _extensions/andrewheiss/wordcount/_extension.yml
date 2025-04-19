@@ -7,17 +7,34 @@ authors:
 version: 1.5.0
 quarto-required: ">=1.4.551"
 contributes:
-  shortcodes: 
-    - "words.lua"
-  format:
+  formats:
     common:
       filters:
+        # - authors-block.lua
+        - color-text.lua
         - at: pre-quarto
           path: citeproc.lua
         - at: pre-quarto
           path: wordcount.lua
+      shortcodes:
+        # You can include here Lua filters defining shortcodes from your extension
+        - shortcodes.lua
+        - words.lua
+      knitr:
+        opts_chunk:
+          echo: false
+      csl: apa.csl
       citeproc: false
-    html: default
-    pdf: default
-    docx: default
-    markdown: default
+      mainfont: Helvetica
+      monofont: Roboto
+      number-depth: 2
+      number-sections: true
+    pdf:
+      colorlinks: true
+      urlcolor: red
+      fontsize: 10pt
+      header-includes: |
+        \usepackage{orcidlink}
+        \definecolor{mypink}{RGB}{219, 48, 122}
+
+

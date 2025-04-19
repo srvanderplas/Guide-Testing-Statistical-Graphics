@@ -5,9 +5,7 @@
 %
 \documentclass[
   10pt,
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod]{scrartcl}
+]{article}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -130,8 +128,10 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\KOMAoption{captions}{tableheading}
+\usepackage{orcidlink}
+\definecolor{mypink}{RGB}{219, 48, 122}
 \usepackage[dvipsnames]{xcolor} % colors
+\renewcommand{\thefootnote}{\arabic{footnote}}
 \newcommand{\ear}[1]{{\textcolor{blue}{#1}}}
 \newcommand{\svp}[1]{{\textcolor{RedOrange}{#1}}}
 \newcommand{\hh}[1]{{\textcolor{Green}{#1}}}
@@ -183,19 +183,28 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={A Guide to Designing Experiments to Test Statistical Graphics},
-  pdfauthor={Emily Robinson; Heike Hofmann; Susan Vanderplas},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
   citecolor={Blue},
-  urlcolor={Blue},
+  urlcolor={red},
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{A Guide to Designing Experiments to Test Statistical Graphics}
-\author{Emily Robinson \and Heike Hofmann \and Susan Vanderplas}
-\date{2025-03-29}
 
+\title{A Guide to Designing Experiments to Test Statistical
+Graphics\thanks{The author(s) received no specific funding for this
+work.}}
+
+%% Author information
+\author{Emily
+Robinson\footnote{Email: erobin17@calpoly.edu}~\orcidlink{0000-0001-9800-7304}\\{\footnotesize Statistics
+Department}, {\footnotesize California Polytechnic State
+University}\\Heike
+Hofmann\footnote{Email: hhofmann4@unl.edu}~\orcidlink{0000-0001-6216-5183}\\{\footnotesize Statistics
+Department}, {\footnotesize University of Nebraska - Lincoln}\\Susan
+Vanderplas\footnote{Email: svanderplas2@unl.edu}~\orcidlink{0000-0002-3803-0972}\\{\footnotesize Statistics
+Department}, {\footnotesize University of Nebraska - Lincoln}\\}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -1430,7 +1439,8 @@ severe weather and more.
 
 \section{Author Statement}\label{author-statement}
 
-The authors have no conflicts of interest to declare in this manuscript.
+The authors have no conflicts of interest or additional funding to
+declare in this manuscript.
 
 \section{References}\label{references}
 
