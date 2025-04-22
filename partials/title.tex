@@ -21,4 +21,6 @@ $endif$
 $-- This supports Quarto's authors normalization
 
 %% Author information
-\author{$for(by-author)$$_print_author.tex()$\\$endfor$}
+\author{%
+$for(by-author)$$_print_author.tex()$\\$endfor$
+}
