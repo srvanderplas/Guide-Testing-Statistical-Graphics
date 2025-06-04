@@ -1,0 +1,42 @@
+---
+title: "Revision Review Responses"
+format: pdf
+---
+
+We thank both reviewers for their comments, and in particular, Reviewer 2, who caught a number of things that were minor but embarrassing typos!
+
+## Wanted fixes
+
+- It should be noted that the on page 3 (in diff.pdf), the authors make reference to a yet to be published article. Please remember to fix this before publication, or change it to “provided in a future article” if yet not available at the time of publication.
+
+> Yes, this is important -- but it will have to be added by the editorial staff, because we don't know the citation for the paper. 
+
+- Page 8 (in diff.pdf)-> “opimizing the model and generation method” -> more specificity needed — model and generation method for what? This looks like it’s the subject of Section 4, so just a mention that it’ll be covered in more detail in Section 4 would be helpful.
+
+> Parenthetical references have been added to section 4 and 5 to clarify
+
+- Authors don’t mention pre-registration. Author themselves don’t seem to have done pre-registration in the past. I think it warrants a small mention as part of the protocol.
+
+> We haven't found preregistration to be particularly helpful (or feasible) in the past, but much of our work has been more exploratory in nature. We've added a paragraph with the pros and cons of preregistration to the section on pilot testing, as visual experiments so easily go sideways that preregistration before pilot testing seems overly confident and likely to fail.
+
+- “our visual system is optimised for identifying differences between groups” -> any citation to back-up this claim?
+
+> We've added citations to both neuroscience papers identifying specific regions of the brain which process groups and differences between them, as well as to the more phenomenological Gestalt psychology view of heuristics for similarity and grouping -- grouping necessarily involves clustering based on characteristics that are similar (within the group) and different (between groups). 
+
+- “This ability can interfere with the natural to use the null sampling models” -> looks like a grammar issue — I don’t understand what the authors mean by “with the natural to use the null sampling models”.
+
+> Yes, thanks for catching that, we left out a word. 
+
+## Minor
+
+- Page 8 (in diff.pdf) -> “experiment structure” -> “experimental structure"
+
+> Fixed
+
+- Page 11 (in diff.pdf) -> “2x3x3” replace x with $\times$.
+
+> Fixed
+
+- Some of the citations need fixing for DOI as it contains prefix duplicates: "https://urldefense.com/v3/__https://doi.org/https:/*doi.org__;Lw!!PvXuogZ4sRB2p-tU!Cq6ylkfZW13S760wtA3vZIM5ImtHcC0SuhnWAXTDntbx8_ats4DGZjOjbbdP8BD98BtxElGHT_hAj_aLXbZhtDkY_SMUV-ARig$ "
+
+> I couldn't find any evidence of this one, but I've gone over the bibliography and made sure there aren't any transformed URLs in it. 
