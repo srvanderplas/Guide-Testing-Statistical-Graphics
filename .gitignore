@@ -3,3 +3,7 @@
 .RData
 .Ruserdata
 Guide-Testing-Statistical-Graphics.Rproj
+*.aux
+*.fdb_latexmk
+*.fls
+*.log

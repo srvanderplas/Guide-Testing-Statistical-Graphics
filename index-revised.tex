@@ -608,11 +608,11 @@ Cycle}\label{experiment-development-life-cycle}
 
 Developing a graphics experiment is often a highly iterative process,
 but it can help to approach the design process by first optimizing the
-model and data generation method (Section~\ref{sec-model-dev}) before
-spending time on optimizing the specific stimuli or customizing the data
-collection platform (Section~\ref{sec-exp-dev}). This is important
-because the model parameters and data generation process inform the
-experimental structure and thus impact decisions made downstream.
+model and data generation method before spending time on optimizing the
+specific stimuli or customizing the data collection platform. This is
+important because the model parameters and data generation process
+inform the experiment structure and thus impact decisions made
+downstream.
 
 Once the model and data generating mechanism are set, it is useful to
 revisit the primary questions of interest and determine how to measure
@@ -637,9 +637,9 @@ application, but can also be used to calibrate the number of tasks
 required of each participant. As the number and complexity of tasks
 increases, the number of trials we can ask participants to complete
 during a session decreases. The informal testing stage allows
-researchers to consider the trade offs inherent in the decision to
-reduce the amount of information collected for each task, reduce the
-number of tasks, or mitigate participant fatigue in other ways.
+researchers to consider the tradeoffs inherent in the decision to reduce
+the amount of information collected for each task, reduce the number of
+tasks, or mitigate participant fatigue in other ways.
 
 During preliminary testing, we use an optimistic number of trials per
 participant, so that we can determine when participants become overly
@@ -760,7 +760,7 @@ selecting a range of doses of a chemical in a dose-response experiment.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-lof-density-curves-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{index-revised_files/figure-pdf/fig-lof-density-curves-1.pdf}}
 
 }
 
@@ -820,10 +820,10 @@ cautionary tale of our own experience: that of Vanderplas \& Hofmann
 (2017), where we designed an experiment to test which plot aesthetics
 promoted discovery of linear trends and/or clusters.
 
-The experiment was a \(2\times 3\times 3\) factorial exploration of
-three data generating parameters, with 3 replicates at each parameter
-combination (54 data sets) and 10 aesthetic combinations (for a total of
-540 lineups). Each lineup had 20 different sub-panels, so we should have
+The experiment was a 2x3x3 factorial exploration of three data
+generating parameters, with 3 replicates at each parameter combination
+(54 data sets) and 10 aesthetic combinations (for a total of 540
+lineups). Each lineup had 20 different sub-panels, so we should have
 carefully visually inspected some 10,800 different panels. As is evident
 from the fact that we're telling this story as a cautionary tale, we
 missed a critical problem with our data-generating mechanism: when
@@ -859,20 +859,11 @@ participants selected this panel instead of one of the target panels.}
 \end{figure}%
 
 One reason why it is so difficult to generate sampling models for visual
-explorations is that our visual system is very good at creating groups
-and identifying differences between them (Lupyan, 2008; Peterson \&
-Berryhill, 2013; Pomerantz \& Portillo, 2011; Zeki \& Stutters, 2013).
-This ability can interfere with the natural inclination to use the null
-sampling models that might be used in equivalent numerical tests when
-running experiments that use visualizations. Numerical tests consider
-one facet of the data; the power of graphical testing is that it allows
-examination of a battery of hypotheses simultaneously. Unfortunately,
-that makes designing an effective null sampling model much more
-difficult than in the numerical test case, as the researcher must
-effectively control for several different hypotheses when generating
-null data.
-
-We re-ran the experiment using a different clustering method that
+explorations is that our visual system is optimized for identifying
+differences between groups. This ability can interfere with the natural
+to use the null sampling models that might be used in equivalent
+numerical tests when running experiments that use visualizations. We
+re-ran the experiment using a different clustering method that
 controlled the number of points in each group. Instead of noticing the
 number of ellipses, participants instead used the differences in size
 and shape of the ellipses formed when clustering after the data
@@ -894,11 +885,11 @@ single data set.
 It would be difficult to develop a full data generating model without
 some idea of the experimental protocol: the basic equipment required for
 the experiment, some idea of what questions users will answer, where and
-how data will be collected, and so on. These experimental design factors
-are fairly natural for scientists to accumulate over the course of
-imagining and planning an experiment. When conducting graphical tests,
-however, there are additional considerations beyond those taught in a
-standard experimental design course. Experimenters must carefully
+how data will be collecteed, and so on. These experimental design
+factors are fairly natural for scientists to accumulate over the course
+of imagining and planning an experiment. When conducting graphical
+tests, however, there are additional considerations beyond those taught
+in a standard experimental design course. Experimenters must carefully
 consider how much information participants should have about the
 experiment, what platform to use to recruit participants, and the
 experimental infrastructure underlying data collection. In addition to
@@ -989,7 +980,7 @@ We have used each of the following strategies in experiments:
   BlueSky, forums and discussion sites such as Reddit, or general email
   lists that may be purchased from universities and other marketing
   organizations. If the goal is to recruit a specific population, such
-  as meteorologists or forensic examiners, forums and email lists may be
+  as meterologists or forensic examiners, forums and email lists may be
   an extremely effective way to recruit participants. We have used the
   \href{https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/}{SampleSize
   subreddit} successfully and obtained participants that, while younger
@@ -1294,18 +1285,6 @@ across different time zones; in some studies this is beneficial, while
 in others it may be more important to control the release time to target
 individuals in e.g.~North America rather than Europe.
 
-Once the pilot data has been collected and the planned analysis method
-has been developed, it may be beneficial to pre-register the main study
-and proposed analysis. This can be an effective way to separate
-exploratory research from confirmatory research involving hypothesis
-testing. However, graphics studies (and other human subjects research)
-often produce unexpected results that would not be imagined during the
-pre-registration process (for an example, see Vanderplas \& Hofmann
-(2017)); using only the pre-registered analysis method may
-disincentivise analyzing (or collecting) the rich, messy open-ended
-response data which can be incredibly useful but is hard to model and
-quantify.
-
 \section{Analyzing the Data}\label{sec-analysis}
 
 One constant with data analysis of these types of experiments is that no
@@ -1377,7 +1356,7 @@ the results of graphical experiments.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-density-rug-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{index-revised_files/figure-pdf/fig-density-rug-1.pdf}}
 
 }
 
@@ -1722,11 +1701,6 @@ H. (2022). Modeling just noticeable differences in charts. \emph{{IEEE}
 Transactions on Visualization and Computer Graphics}, \emph{28}(1),
 718--726. \url{https://doi.org/10.1109/TVCG.2021.3114874}
 
-\bibitem[\citeproctext]{ref-lupyanConceptualGroupingEffect2008}
-Lupyan, G. (2008). The conceptual grouping effect: {Categories} matter
-(and named categories matter more). \emph{Cognition}, \emph{108}(2),
-566--577. \url{https://doi.org/10.1016/j.cognition.2008.03.009}
-
 \bibitem[\citeproctext]{ref-majumderValidationVisualStatistical2013}
 Majumder, M., Hofmann, H., \& Cook, D. (2013). Validation of visual
 statistical inference, applied to linear models. \emph{Journal of the
@@ -1743,18 +1717,6 @@ Peer, E., Rothschild, D., Gordon, A., Evernden, Z., \& Damer, E. (2022).
 Data quality of platforms and panels for online behavioral research.
 \emph{Behavior Research Methods}, \emph{54}(4), 1643--1662.
 \url{https://doi.org/10.3758/s13428-021-01694-3}
-
-\bibitem[\citeproctext]{ref-petersonGestaltPrincipleSimilarity2013}
-Peterson, D. J., \& Berryhill, M. E. (2013). The {Gestalt} principle of
-similarity benefits visual working memory. \emph{Psychonomic Bulletin \&
-Review}, \emph{20}(6), 1282--1289.
-\url{https://doi.org/10.3758/s13423-013-0460-x}
-
-\bibitem[\citeproctext]{ref-pomerantzGroupingEmergentFeatures2011}
-Pomerantz, J. R., \& Portillo, M. C. (2011). Grouping and emergent
-features in vision: {Toward} a theory of basic {Gestalts}. \emph{Journal
-of Experimental Psychology: Human Perception and Performance},
-\emph{37}(5), 1331--1349. \url{https://doi.org/10.1037/a0024330}
 
 \bibitem[\citeproctext]{ref-asme-standards-graphics}
 presentation, J. committee on standards for graphic. (1915). Preliminary
@@ -1907,12 +1869,6 @@ Wilkinson, L. (1999). \emph{The grammar of graphics}. Springer.
 \bibitem[\citeproctext]{ref-wood1968objectives}
 Wood, R. (1968). Objectives in the teaching of mathematics.
 \emph{Educational Research}, \emph{10}(2), 83--98.
-
-\bibitem[\citeproctext]{ref-zekiFunctionalSpecializationGeneralization2013}
-Zeki, S., \& Stutters, J. (2013). Functional specialization and
-generalization for grouping of stimuli based on colour and motion.
-\emph{NeuroImage}, \emph{73}, 156--166.
-\url{https://doi.org/10.1016/j.neuroimage.2013.02.001}
 
 \end{CSLReferences}
 

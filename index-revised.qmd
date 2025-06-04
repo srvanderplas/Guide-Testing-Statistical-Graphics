@@ -206,8 +206,8 @@ This Goldilocks-style problem is the focus of the next section.
 
 # Experiment Development Life Cycle
 
-Developing a graphics experiment is often a highly iterative process, but it can help to approach the design process by first optimizing the model and data generation method (@sec-model-dev) before spending time on optimizing the specific stimuli or customizing the data collection platform (@sec-exp-dev).
-This is important because the model parameters and data generation process inform the experimental structure and thus impact decisions made downstream. 
+Developing a graphics experiment is often a highly iterative process, but it can help to approach the design process by first optimizing the model and data generation method before spending time on optimizing the specific stimuli or customizing the data collection platform.
+This is important because the model parameters and data generation process inform the experiment structure and thus impact decisions made downstream. 
 
 Once the model and data generating mechanism are set, it is useful to revisit the primary questions of interest and determine how to measure the responses effectively. 
 Secondary measures, such as response time, free responses, and confidence level should also be determined. 
@@ -220,7 +220,7 @@ Development of the data collection application is the next step, using draft gra
 There are at least 3 stages of testing in a graphics experiment: informal tests, a pilot study, and the main experiment. 
 The informal tests are critical for identifying issues with the data collection application, but can also be used to calibrate the number of tasks required of each participant. 
 As the number and complexity of tasks increases, the number of trials we can ask participants to complete during a session decreases. 
-The informal testing stage allows researchers to consider the trade offs inherent in the decision to reduce the amount of information collected for each task, reduce the number of tasks, or mitigate participant fatigue in other ways. 
+The informal testing stage allows researchers to consider the tradeoffs inherent in the decision to reduce the amount of information collected for each task, reduce the number of tasks, or mitigate participant fatigue in other ways. 
 
 During preliminary testing, we use an optimistic number of trials per participant, so that we can determine when participants become overly fatigued. 
 For instance, we might ask test participants to evaluate 20 graphical lineups (400 total plots), even though we expect to reduce the number to 10 or 15 during the main experiment. 
@@ -271,7 +271,7 @@ Then, a wide range of potential combinations of parameter values or sampling str
 As with any measure, it is important that difficulty levels span a range from easy to hard; we do not learn anything from finding out that everyone can distinguish all of the combinations.
 This portion of the design is somewhat analogous to selecting a range of doses of a chemical in a dose-response experiment. 
 
-```{r, echo = F, include = T, message = F, warning = F}
+```{r lof-density-curves, echo = F, include = T, message = F, warning = F}
 #| label: fig-lof-density-curves
 #| fig-cap: "Density plot of the lack of fit statistic showing separation of selected difficulty levels: High (obvious curvature), Medium (noticeable curvature), and Low (almost linear). Each density plot is the result of 1000 simulations from a model $y_i = \\alpha\\cdot e^{\\beta\\cdot x_i + \\epsilon_i} + \\theta$, where $\\epsilon \\sim N(0, \\sigma^2)$. $\\alpha$ and $\\theta$ were selected after manipulation of $\\beta$ and $\\sigma$ to ensure that all data generated had similar $y$ ranges so as not to provide visual cues about model differences outside of the plot curvature."
 #| out.width: "\\columnwidth"
@@ -322,7 +322,7 @@ We cannot overstate the importance of visual assessment of your model stimuli, p
 We highly recommend performing several rounds of think-aloud pilot testing (e.g., focus groups) before deploying an experiment. 
 In support of this assessment, we offer up a cautionary tale of our own experience: that of @clusters, where we designed an experiment to test which plot aesthetics promoted discovery of linear trends and/or clusters. 
 
-The experiment was a $2\times 3\times 3$ factorial exploration of three data generating parameters, with 3 replicates at each parameter combination (54 data sets) and 10 aesthetic combinations (for a total of 540 lineups). 
+The experiment was a 2x3x3 factorial exploration of three data generating parameters, with 3 replicates at each parameter combination (54 data sets) and 10 aesthetic combinations (for a total of 540 lineups). 
 Each lineup had 20 different sub-panels, so we should have carefully visually inspected some 10,800 different panels. 
 As is evident from the fact that we're telling this story as a cautionary tale, we missed a critical problem with our data-generating mechanism: when clusters were assigned to randomly generated data after the fact, we didn't control the cluster size, leading to clusters of one or two points in relatively few sub-panels. 
 This became particularly noticeable when bounding ellipses were added to the plot, as the method used to generate those ellipses required at least 3 points in the cluster. 
@@ -331,11 +331,8 @@ An example of one of the problematic lineups is shown in @fig-lineup-problems: m
 
 ![A lineup from Vanderplas & Hofmann [-@clusters]. Panel 10 shows the clustered target data and panel 17 shows the target data with a strong linear relationship; either of these target panels was the expected choice. Unfortunately, panel 16 has only two bounding ellipses shown, which is an unintentional difference that resulted from a faulty method for assigning clusters to null plots; many participants selected this panel instead of one of the target panels.](images/lineup-missing-ellipse.png){#fig-lineup-problems}
 
-One reason why it is so difficult to generate sampling models for visual explorations is that our visual system is very good at creating groups and identifying differences between them [@zekiFunctionalSpecializationGeneralization2013;@lupyanConceptualGroupingEffect2008;@petersonGestaltPrincipleSimilarity2013;@pomerantzGroupingEmergentFeatures2011].
-This ability can interfere with the natural inclination to use the null sampling models that might be used in equivalent numerical tests when running experiments that use visualizations. 
-Numerical tests consider one facet of the data; the power of graphical testing is that it allows examination of a battery of hypotheses simultaneously. 
-Unfortunately, that makes designing an effective null sampling model much more difficult than in the numerical test case, as the researcher must effectively control for several different hypotheses when generating null data.
-
+One reason why it is so difficult to generate sampling models for visual explorations is that our visual system is optimized for identifying differences between groups.
+This ability can interfere with the natural  to use the null sampling models that might be used in equivalent numerical tests when running experiments that use visualizations. 
 We re-ran the experiment using a different clustering method that controlled the number of points in each group. 
 Instead of noticing the number of ellipses, participants instead used the differences in size and shape of the ellipses formed when clustering after the data generating procedure. 
 That is, participants could still detect the artificial nature of the induced clusters using other features. 
@@ -345,7 +342,7 @@ The time and effort invested in this step at the outset of the experiment pays d
  
 # Protocol Development {#sec-exp-dev}
 
-It would be difficult to develop a full data generating model without some idea of the experimental protocol: the basic equipment required for the experiment, some idea of what questions users will answer, where and how data will be collected, and so on. 
+It would be difficult to develop a full data generating model without some idea of the experimental protocol: the basic equipment required for the experiment, some idea of what questions users will answer, where and how data will be collecteed, and so on. 
 These experimental design factors are fairly natural for scientists to accumulate over the course of imagining and planning an experiment. 
 When conducting graphical tests, however, there are additional considerations beyond those taught in a standard experimental design course.
 Experimenters must carefully consider how much information participants should have about the experiment, what platform to use to recruit participants, and the experimental infrastructure underlying data collection. 
@@ -380,7 +377,7 @@ We have used each of the following strategies in experiments:
 
 - In-person studies. In person participants are commonly recruited from undergraduate students, but in some experiments it may be preferable to recruit participants from the local community. Students are often convenient for academic studies, as participation in experiments is often a component of introductory course experiential learning activities, as in @vanderplasEscapingFlatlandGraphics2024. While the data generated from required classroom experiments may have higher variability, and it may be hard to generalize findings beyond undergraduate students, these studies can be conducted much more cheaply than studies conducted through online platforms or panels. Recruiting participants from the community for in-person research is also viable, but can be much more complicated, however, some topics, including research involving persons with specific disabilities, the elderly, or subject-matter experts may require recruiting participants outside the university. 
 
-- Social media and email-based recruitment. Researchers may post directly to social media sites such as Twitter/X, Mastodon, and BlueSky, forums and discussion sites such as Reddit, or general email lists that may be purchased from universities and other marketing organizations. If the goal is to recruit a specific population, such as meteorologists or forensic examiners, forums and email lists may be an extremely effective way to recruit participants. We have used the [SampleSize subreddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/) successfully and obtained participants that, while younger and more highly educated than those recruited from a platform, had similar results on visual estimation tasks [@vanderplasFramedReproducingRevisiting2019]. When using samples obtained from acquaintances, researchers should try to obtain more diversity than was present in historical papers, such as  @clevelandGraphicalPerceptionTheory1984, where the authors sampled their colleagues (and their wives). 
+- Social media and email-based recruitment. Researchers may post directly to social media sites such as Twitter/X, Mastodon, and BlueSky, forums and discussion sites such as Reddit, or general email lists that may be purchased from universities and other marketing organizations. If the goal is to recruit a specific population, such as meterologists or forensic examiners, forums and email lists may be an extremely effective way to recruit participants. We have used the [SampleSize subreddit](https://web.archive.org/web/20250228110244/https://www.reddit.com/r/SampleSize/) successfully and obtained participants that, while younger and more highly educated than those recruited from a platform, had similar results on visual estimation tasks [@vanderplasFramedReproducingRevisiting2019]. When using samples obtained from acquaintances, researchers should try to obtain more diversity than was present in historical papers, such as  @clevelandGraphicalPerceptionTheory1984, where the authors sampled their colleagues (and their wives). 
 
 
 @riceTestingPerceptualAccuracy2024 recruited participants using nationally representative panel samples and found that conclusions from fully representative samples of the population can be very different from volunteer samples recruited using other services, as many people are unmotivated to engage with charts, don't know how to read charts, or impose pre-formed conclusions onto visual displays. 
@@ -494,11 +491,6 @@ As data collection online can also happen extremely quickly (300 participants in
 If server load is a potential issue, it may also help to release batches of trials over a longer period of time in order to minimize the chance of having to make participants wait for others to complete the task before the server can handle additional connections^[This is the one major drawback to our preferred solution of self-hosting a Shiny server to handle data collection: the free version of Shiny server is limited to about 15 connections at any given time. Prolific has recently added rate-limiting functions to the experimental control  platform, which makes controlling the number of active jobs much easier.]. 
 Batch trial releases can also be used to ensure that participants are recruited across different time zones; in some studies this is beneficial, while in others it may be more important to control the release time to target individuals in e.g. North America rather than Europe. 
 
-Once the pilot data has been collected and the planned analysis method has been developed, it may be beneficial to pre-register the main study and proposed analysis. 
-This can be an effective way to separate exploratory research from confirmatory research involving hypothesis testing. 
-However, graphics studies (and other human subjects research) often produce unexpected results that would not be imagined during the pre-registration process (for an example, see @clusters); using only the pre-registered analysis method may disincentivise analyzing (or collecting) the rich, messy open-ended response data which can be incredibly useful but is hard to model and quantify. 
-
-
 # Analyzing the Data {#sec-analysis}
 
 One constant with data analysis of these types of experiments is that no matter how carefully the experiment is planned, designed, and executed, there will be surprises. 
@@ -586,7 +578,7 @@ densityPlot <- function(data, datasetID, estimate, xlabel = "Estimate", x_limits
 }
 ```
 
-```{r, message=FALSE, warning=FALSE, echo = F}
+```{r, qe2-density-plot, message=FALSE, warning=FALSE, echo = F}
 #| label: fig-density-rug
 #| fig-cap: "Density of participant estimates for the year (x-value) in which the population reaches 4000 (y-value). Colors are associated to scale - linear (blue) and log (orange) - and vertical lines indicate the true value based on the underlying model equation (black solid) and closest point value based on the simulated data set (black dashed). A jittered rug plot along the $x$-axis shows where participant estimates were made. The plot shows anchoring occurred to the closest point as shown by an increase in density around the dashed line. Density peaks occurred at whole values indicating rounding errors."
 #| fig-width: 6
